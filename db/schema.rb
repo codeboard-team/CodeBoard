@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 2020_05_05_002429) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "email", default: ""
+    t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -43,12 +43,6 @@ ActiveRecord::Schema.define(version: 2020_05_05_002429) do
     t.boolean "admin", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "term"
-    t.string "location"
-    t.string "github_provider"
-    t.string "github_uid"
-    t.string "google_provider"
-    t.string "google_uid"
     t.string "provider", limit: 50, default: "", null: false
     t.string "uid", limit: 50, default: "", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
