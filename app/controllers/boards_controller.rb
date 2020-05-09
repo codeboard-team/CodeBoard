@@ -18,6 +18,10 @@ class BoardsController < ApplicationController
     end
   end
 
+  def show
+    @board = current_user.boards.find_by(id: params[:id])
+  end
+
   def edit
     @board = current_user.boards.find_by(id: params[:id])
   end
@@ -25,7 +29,7 @@ class BoardsController < ApplicationController
   def update
     @board = current_user.boards.find_by(id: params[:id])
     @board.update(board_params)
-    
+
     if @board.save
       redirect_to boards_path, notice: 'update successfully!'
     else
