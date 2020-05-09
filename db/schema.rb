@@ -10,7 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_05_002429) do
+ActiveRecord::Schema.define(version: 2020_05_09_042032) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "boards", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.string "language"
+    t.datetime "deleted_at"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["deleted_at"], name: "index_boards_on_deleted_at"
+    t.index ["user_id"], name: "index_boards_on_user_id"
+  end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string "slug", null: false
@@ -33,7 +48,7 @@ ActiveRecord::Schema.define(version: 2020_05_05_002429) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "email", default: ""
+    t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -43,16 +58,11 @@ ActiveRecord::Schema.define(version: 2020_05_05_002429) do
     t.boolean "admin", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "term"
-    t.string "location"
-    t.string "github_provider"
-    t.string "github_uid"
-    t.string "google_provider"
-    t.string "google_uid"
     t.string "provider", limit: 50, default: "", null: false
     t.string "uid", limit: 50, default: "", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "boards", "users"
 end
