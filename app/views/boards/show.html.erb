@@ -2,4 +2,5 @@
 <ul>
   <li><%= @board.description %></li>
   <li><%= @board.language %></li>
+  <%= link_to '出題', new_board_card_path(@board.id) %>
 </ul>
