@@ -4,6 +4,8 @@ class Board < ApplicationRecord
   validates :title, presence: true
   validates :language, presence: true
 
+  default_scope -> { where(deleted_at: nil)}
+
   def destroy
     update(deleted_at: Time.now)
   end

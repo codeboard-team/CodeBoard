@@ -5,7 +5,7 @@
   <li>
     <%= link_to board.title, board_path(board.id) %>
     | <%= link_to '編輯', edit_board_path(board.id) %>
-    | 
+    | <%= link_to '刪除', board_path(board.id), method: 'delete' %>
   </li>
 </ul>
 <% end %>
