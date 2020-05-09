@@ -14,11 +14,11 @@ class CardsController < ApplicationController
     end
   end
 
+  def 
+
 
 
   private
-  def set_
-  end
 
   def card_params
     params.require(:card).permit(:title,
