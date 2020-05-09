@@ -1,6 +1,9 @@
 <h1><%= @board.title %></h1>
 <ul>
-  <li><%= @board.description %></li>
-  <li><%= @board.language %></li>
+  <li>題目描述：<%= @board.description %></li>
+  <li>程式語言：<%= @board.language %></li>
+  <% @board.cards.each do |card| %>
+  <li>Q：<%= card.title %></li>
+  <% end %>
   <%= link_to '出題', new_board_card_path(@board.id) %>
 </ul>
