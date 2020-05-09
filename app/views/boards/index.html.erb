@@ -1,10 +1,9 @@
 <h1>Boards List</h1>
 
-<% current_user.boards.each do |board| %>
+<% @board.each do |board| %>
 <ul>
-  <li><%= board.title %></li>
+  <li><%= board.title %><%= link_to '編輯', edit_board_path(board.id) %></li>
 </ul>
 <% end %>
-
 
 <%= link_to '新增 Board', new_board_path %>
