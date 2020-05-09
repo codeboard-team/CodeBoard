@@ -1,5 +1,7 @@
 class BoardsController < ApplicationController
 
+  before_action :set_board
+
   def index
     @board = current_user.boards
   end
@@ -19,15 +21,12 @@ class BoardsController < ApplicationController
   end
 
   def show
-    @board = current_user.boards.find_by(id: params[:id])
   end
 
   def edit
-    @board = current_user.boards.find_by(id: params[:id])
   end
 
   def update
-    @board = current_user.boards.find_by(id: params[:id])
     @board.update(board_params)
 
     if @board.save
@@ -38,7 +37,6 @@ class BoardsController < ApplicationController
   end
 
   def destroy
-    @board = current_user.boards.find_by(id: params[:id])
     @board.destroy
     redirect_to boards_path, notice: 'deleted!'
   end
@@ -46,6 +44,10 @@ class BoardsController < ApplicationController
 
 
   private
+  def set_board
+    @board = current_user.boards.find_by(id: params[:id])
+  end
+
   def board_params
     params.require(:board).permit(:title, :description, :language)
   end
