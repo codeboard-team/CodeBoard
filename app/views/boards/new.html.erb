@@ -1,5 +1,4 @@
 <h1>新增題組</h1>
-
 <%= form_with model: @board, local: true do |f| %>
 
 <% if @board.errors.any? %>
@@ -10,7 +9,6 @@
   </ul>
 <% end %>
 
-  <%= f.text_field :user %>
 <div>
   <%= f.label :title, '名稱'%>
   <%= f.text_field :title %>
@@ -26,6 +24,7 @@
   <%= f.text_field :language %>
 </div>
 
+<!-- f.hidden_field :user_id, value: current_user.id -->
 <%= f.submit '送出' %>
 
 <% end %>

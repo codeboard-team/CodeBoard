@@ -1,3 +1,10 @@
 <h1>Boards List</h1>
 
-<%= link_to '新增Board', new_board_path %>
+<% current_user.boards.each do |board| %>
+<ul>
+  <li><%= board.title %></li>
+</ul>
+<% end %>
+
+
+<%= link_to '新增 Board', new_board_path %>

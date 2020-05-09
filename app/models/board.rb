@@ -4,4 +4,8 @@ class Board < ApplicationRecord
   validates :title, presence: true
   validates :language, presence: true
 
+  def destroy
+    update(deleted_at: Time.now)
+  end
+
 end
