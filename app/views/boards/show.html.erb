@@ -3,7 +3,10 @@
   <li>題目描述：<%= @board.description %></li>
   <li>程式語言：<%= @board.language %></li>
   <% @board.cards.each do |card| %>
-  <li>Q：<%= card.title %></li>
+  <li>
+    Q：<%= card.title %> |
+    <%= link_to '編輯卡片', edit_board_card_path(@board.id, card.id) %>
+  </li>
   <% end %>
   <%= link_to '出題', new_board_card_path(@board.id) %>
 </ul>
