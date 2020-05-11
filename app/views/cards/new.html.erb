@@ -29,6 +29,13 @@
     <%= f.label :answer, '出題者解答' %>
     <%= f.text_area :answer %>
   </div>
+<!-- 
+  <div>
+    <%= f.fields_for :answer do |asf| %>
+      <% asf.text_field :answer %>
+      <% asf.text_field :answer %>
+    <% end %>
+  </div> -->
   
   <div>
     <%= f.label :level, '難易度' %>

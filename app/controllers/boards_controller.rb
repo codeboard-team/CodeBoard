@@ -1,9 +1,10 @@
 class BoardsController < ApplicationController
 
-  before_action :set_board
+  before_action :set_board, only: [:show, :edit, :update, :destroy]
 
   def index
-    @board = current_user.boards
+    # @board = current_user.boards
+    @board = Board.where(user_id: current_user)
   end
 
   def new
