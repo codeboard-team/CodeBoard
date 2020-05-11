@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_09_042032) do
+ActiveRecord::Schema.define(version: 2020_05_09_125639) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,23 @@ ActiveRecord::Schema.define(version: 2020_05_09_042032) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["deleted_at"], name: "index_boards_on_deleted_at"
     t.index ["user_id"], name: "index_boards_on_user_id"
+  end
+
+  create_table "cards", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.text "default_code"
+    t.text "answer"
+    t.string "level"
+    t.string "tags", array: true
+    t.integer "order"
+    t.datetime "deleted_at"
+    t.bigint "board_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["board_id"], name: "index_cards_on_board_id"
+    t.index ["deleted_at"], name: "index_cards_on_deleted_at"
+    t.index ["tags"], name: "index_cards_on_tags"
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -65,4 +82,5 @@ ActiveRecord::Schema.define(version: 2020_05_09_042032) do
   end
 
   add_foreign_key "boards", "users"
+  add_foreign_key "cards", "boards"
 end

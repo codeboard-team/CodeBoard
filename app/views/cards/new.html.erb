@@ -1,0 +1,51 @@
+<h1>我要出題</h1>
+
+<%= form_with model: @card, url: board_cards_path , local: true do |f| %>
+
+  <% if @card.errors.any? %>
+    <ul>
+      <% @card.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  
+  <div>
+    <%= f.label :title, '名稱'%>
+    <%= f.text_field :title %>
+  </div>
+  
+  <div>
+    <%= f.label :description, '題目敘述' %>
+    <%= f.text_area :description %>
+  </div>
+
+  <div>
+    <%= f.label :default_code, '預設程式碼' %>
+    <%= f.text_area :default_code %>
+  </div>
+
+  <div>
+    <%= f.label :answer, '出題者解答' %>
+    <%= f.text_area :answer %>
+  </div>
+  
+  <div>
+    <%= f.label :level, '難易度' %>
+    <%= f.text_field :level %>
+  </div>
+
+  <div>
+    <%= f.label :tags, '標籤' %>
+    <%= f.text_field :tags %>
+  </div>
+
+  <div>
+    <%= f.label :order, '題序' %>
+    <%= f.text_field :order %>
+  </div>
+  
+  <%= f.submit '送出' %>
+  
+  <% end %>
+
