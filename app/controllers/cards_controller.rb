@@ -27,10 +27,6 @@ class CardsController < ApplicationController
         result: @result.split("\n")
       )
     )
-<<<<<<< HEAD
-    
-=======
->>>>>>> add Cards show page
     if @card.save
       render :new
       # redirect_to board_path(params[:board_id]), notice: 'create successfully!'
