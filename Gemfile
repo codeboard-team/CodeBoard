@@ -62,3 +62,6 @@ gem 'omniauth', '~> 1.9', '>= 1.9.1'
 gem 'omniauth-google-oauth2', '~> 0.8.0'
 gem 'omniauth-github', '~> 1.4'
 gem 'activerecord-session_store', '~> 1.1', '>= 1.1.3'
+
+# foreman
+gem 'foreman', '~> 0.87.1'
