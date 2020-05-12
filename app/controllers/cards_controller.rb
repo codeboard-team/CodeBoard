@@ -27,7 +27,7 @@ class CardsController < ApplicationController
         result: @result.split("\n")
       )
     )
-    debugger
+    
     if @card.save
       render :new
       # redirect_to board_path(params[:board_id]), notice: 'create successfully!'
