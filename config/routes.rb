@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   resources :boards do
     resources :cards do
       member do
-        get :solve
+        get :solve 
       end
     end
   resources :explore 
