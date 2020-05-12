@@ -6,6 +6,7 @@
   <li>
     Q：<%= card.title %> |
     <%= link_to '編輯卡片', edit_board_card_path(@board.id, card.id) %>
+    <%= link_to '刪除卡片', board_card_path(@board.id, card.id), method: :delete %>
   </li>
   <% end %>
   <%= link_to '出題', new_board_card_path(@board.id) %>

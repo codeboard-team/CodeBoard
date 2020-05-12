@@ -29,6 +29,15 @@
     <%= f.label :answer, '出題者解答' %>
     <%= f.text_area :answer %>
   </div>
+
+  <div>
+    <%= f.label :test_code, '測試資料' %>
+    <%= f.text_area :test_code %>
+  </div>
+
+  <div>
+    印出結果：<%= @result %>
+  </div>
   
   <div>
     <%= f.label :level, '難易度' %>
