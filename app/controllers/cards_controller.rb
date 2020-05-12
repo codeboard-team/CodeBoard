@@ -27,7 +27,10 @@ class CardsController < ApplicationController
         result: @result.split("\n")
       )
     )
+<<<<<<< HEAD
     
+=======
+>>>>>>> add Cards show page
     if @card.save
       render :new
       # redirect_to board_path(params[:board_id]), notice: 'create successfully!'
@@ -56,7 +59,8 @@ class CardsController < ApplicationController
     redirect_to board_path(params[:board_id]), notice: 'deleted!'
   end
 
-
+  def show
+  end
 
   private
   def docker_run(code, test_code)
