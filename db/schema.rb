@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_09_125639) do
+ActiveRecord::Schema.define(version: 2020_05_12_031914) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,9 +39,13 @@ ActiveRecord::Schema.define(version: 2020_05_09_125639) do
     t.bigint "board_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.text "test_code", array: true
+    t.text "result", array: true
     t.index ["board_id"], name: "index_cards_on_board_id"
     t.index ["deleted_at"], name: "index_cards_on_deleted_at"
+    t.index ["result"], name: "index_cards_on_result"
     t.index ["tags"], name: "index_cards_on_tags"
+    t.index ["test_code"], name: "index_cards_on_test_code"
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
