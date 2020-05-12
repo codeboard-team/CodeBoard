@@ -15,7 +15,17 @@ require("channels")
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
+
+// tailwind.config.js
 import "stylesheets/application"
 
+//bootstrap
+import 'bootstrap'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
+// jquery
+import $ from 'jquery'
+window.$ = window.jquery = $
+
+// font-awesome
 import 'font-awesome/css/font-awesome.min.css'
