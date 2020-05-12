@@ -27,9 +27,7 @@
     <% end %>
   <% end %>
 
-
-
-<nav class="flex items-center justify-between flex-wrap bg-gray-100 py-3 lg:px-10 px-3 text-gray-700 border-b border-gray-400">
+  <nav class="flex items-center justify-between flex-wrap bg-gray-100 py-3 lg:px-10 px-3 text-gray-700 border-b border-gray-400">
 
 
 
@@ -83,23 +81,18 @@
     
     
   </div>
-</nav>
+  </nav>
 
+  <script>
+    //Javascript to toggle the menu
+    document.getElementById('nav-toggle').onclick = function(){
+      document.getElementById("nav-content").classList.toggle("hidden");
+    }
+  </script>
 
+  <main class="lg:px-10 px-4">
+    <%= content_for?(:content) ? yield(:content) : yield %>
+  </main>
 
-
-
-<script>
-  //Javascript to toggle the menu
-  document.getElementById('nav-toggle').onclick = function(){
-    document.getElementById("nav-content").classList.toggle("hidden");
-  }
-</script>
-
-    <main class="lg:px-10 px-4">
-      <%= content_for?(:content) ? yield(:content) : yield %>
-    </main>
   </body>
-
-  
 </html>
