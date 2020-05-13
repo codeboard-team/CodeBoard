@@ -1,6 +1,6 @@
 class Record < ApplicationRecord
-  belongs_to :Card
-  belongs_to :User
+  belongs_to :card
+  belongs_to :user
   
-  validate: code, presence: true
+  validates: code, presence: true
 end
