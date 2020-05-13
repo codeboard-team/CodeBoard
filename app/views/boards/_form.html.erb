@@ -3,26 +3,26 @@
   <% if @board.errors.any? %>
     <ul>
       <% @board.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+        <li class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert"><%= message %></li>
       <% end %>
     </ul>
   <% end %>
   
   <div>
-    <%= f.label :title, '名稱'%>
-    <%= f.text_field :title %>
+    <%= f.label :title, '名稱', class: 'text-m mb-2 text-gray-600'%>
+    <%= f.text_field :title, class: 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'%>
   </div>
   
   <div>
-    <%= f.label :description, '簡介' %>
-    <%= f.text_area :description %>
+    <%= f.label :description, '簡介', class: 'text-m mb-2 text-gray-600' %>
+    <%= f.text_area :description, class: 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' %>
   </div>
   
   <div>
-    <%= f.label :language, '程式語言' %>
-    <%= f.text_field :language %>
+    <%= f.label :language, '程式語言',class: 'text-m mb-2 text-gray-600' %>
+    <%= f.text_field :language, class: 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' %>
   </div>
   
-  <%= f.submit '送出' %>
+  <%= f.submit '送出', class: 'bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded'  %>
   
   <% end %>

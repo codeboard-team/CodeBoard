@@ -18,6 +18,7 @@ require("channels")
 
 // tailwind.config.js
 import "stylesheets/application"
+import "stylesheets/editor"
 
 // jquery
 import 'jquery'

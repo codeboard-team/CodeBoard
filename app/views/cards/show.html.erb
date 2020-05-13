@@ -1,7 +1,5 @@
-<strong>Card</strong>
-
+<h1 class="text-gray-900 font-bold text-xl border-b">Card</h1>
 <%= form_with model: @card, url: board_cards_path , local: true do |f| %>
-
 
   <div>
     <%= f.label :title, '名稱'%>
@@ -16,6 +14,7 @@
   <div>
     <%= f.label :default_code, '預設程式碼' %>
     <%= f.text_area :default_code %>
+    <div id="editorRubyDefult" class="editor"></div>
   </div>
 
   <div>

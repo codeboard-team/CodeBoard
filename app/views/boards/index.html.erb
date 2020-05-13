@@ -1,0 +1,30 @@
+<<<<<<< HEAD
+=======
+
+<div class="grid grid-cols-2 mx-1 my-2 px-3 py-3 border-b">
+  <div class="col-auto ">  
+    <h1 class="text-gray-900 font-bold text-xl ">My Boards</h1>
+  </div>
+  <div class="col-auto">  
+    <%= link_to 'Add Board', new_board_path, class: 'bg-blue-500 hover:bg-blue-700 text-white py-2 px-3 rounded' %>
+  </div>
+</div>
+
+
+<% @board.each do |board| %>
+
+  <div class="grid grid-cols-2 mx-1 ml-6 my-2 px-3 py-3">
+
+    <div class="col-auto">
+      <%= link_to board.title, board_path(board.id), class: 'text-blue-700 hover:text-blue-600 font-bold text-xl' %>
+    </div>
+
+    <div class="col-auto">
+      <%= link_to '編輯', edit_board_path(board.id), class: 'bg-orange-500 hover:bg-orange-700 text-white py-2 px-3 rounded' %>
+      <%= link_to '刪除', board_path(board.id), method: 'delete', class: 'bg-red-500 hover:bg-red-700 text-white py-2 px-3 rounded' %>
+    </div>
+
+  </div>
+
+<% end %>
+>>>>>>> card & board - 加入 tailwind 排版樣式/ ACE Editor,細節未完
