@@ -27,6 +27,9 @@ class BoardsController < ApplicationController
   def edit
   end
 
+  def my
+  end
+
   def update
     @board.update(board_params)
 
@@ -41,8 +44,6 @@ class BoardsController < ApplicationController
     @board.destroy
     redirect_to boards_path, notice: 'deleted!'
   end
-
-
 
   private
   def set_board
