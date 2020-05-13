@@ -30,7 +30,7 @@
   </div>
 
   <div class="flex p-4">
-          <!-- <%= f.label :tags, '標籤', class: 'block uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%> -->
+          <!-- <%= f.label :tags, '標籤', class: ' uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%> -->
     <%= f.text_field :tags,placeholder: '標籤', class: 'mr-4 w-1/10 shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' %>
 
     <div class="w-9/10 w-full">
@@ -74,7 +74,8 @@
       </div>
 
       <div>
-        <%= f.label :test_code, '測試方法', class: 'block uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
+        <%= f.label :test_code, '測試方法', class: 'uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
+        <i class="fa fa-plus-circle"></i>
         <div id="editorRubyTest" class="editor"></div>
         <!-- <%= f.text_area :test_code, class: 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' %> -->
       </div>
