@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
 
   resources :boards do
-    member do
+    collection do
       get :my
     end
     resources :cards do
