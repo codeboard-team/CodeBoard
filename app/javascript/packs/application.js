@@ -19,9 +19,13 @@ require("channels")
 // tailwind.config.js
 import "stylesheets/application"
 <<<<<<< HEAD
+<<<<<<< HEAD
 import "stylesheets/editor"
 =======
 import "channels/editor"
+=======
+import "pages/editor"
+>>>>>>> 修正commit紀錄
 
 >>>>>>> ACE JS檔改CDN連結/修正view 部分code縮排
 
