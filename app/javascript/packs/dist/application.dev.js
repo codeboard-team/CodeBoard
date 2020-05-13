@@ -4,12 +4,6 @@ require("stylesheets/application");
 
 require("channels/editor");
 
-require("plugin/ace");
-
-require("plugin/emmet");
-
-require("plugin/ext-emmet");
-
 var _jquery = _interopRequireDefault(require("jquery"));
 
 require("popper.js");
