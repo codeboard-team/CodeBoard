@@ -12,6 +12,9 @@ Rails.application.routes.draw do
 
 
   resources :boards do
+    collection do
+      get :my
+    end
     resources :cards do
       member do
         get :solve 
