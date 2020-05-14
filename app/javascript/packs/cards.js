@@ -1,5 +1,3 @@
-// ACE Editor theme :
-
 $(document).ready(function() {
 
     let editorDoms = document.getElementsByClassName('editor');
@@ -7,11 +5,10 @@ $(document).ready(function() {
 
         let aceEditor = ace.edit(editorDom);
         let input = document.getElementById(editorDom.dataset.target);
-
-        aceEditor.setTheme("ace/theme/solarized_light");
+        aceEditor.setTheme("ace/theme/gruvbox");
         aceEditor.getSession().setMode("ace/mode/ruby");
         aceEditor.getSession().setTabSize(2);
-        aceEditor.setValue(input.value, 1); //1 = moves cursor to end
+        aceEditor.setValue(input.value, 1);
 
         aceEditor.focus();
         aceEditor.setOptions({
@@ -19,8 +16,6 @@ $(document).ready(function() {
             showLineNumbers: true,
             showGutter: false,
             vScrollBarAlwaysVisible: true,
-            // enableBasicAutocompletion: false,
-            // enableLiveAutocompletion: false
         });
         aceEditor.setShowPrintMargin(false);
         aceEditor.setBehavioursEnabled(false);
@@ -32,8 +27,7 @@ $(document).ready(function() {
     }
 
     document.getElementById("btn-add-test-code").addEventListener("click", function() {
-        addInput = `<input name="card[test_code][]" class="border">`
-        console.log('test')
+        addInput = `<input name="card[test_code][]">`
         $("#section-test-code").append(addInput);
     });
 });
