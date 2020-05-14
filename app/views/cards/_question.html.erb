@@ -48,15 +48,15 @@
 
       <div>
         <%= f.label :description, '題目敘述', class: 'block uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
-        <%= f.hidden_field :description, id: "description" %>
-        <div class="editor" data-target="description"></div>
+        <%= f.text_area :description, class: 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' %>
       </div>
 
       <div>
         <%= f.label :default_code, '預設程式碼', class: 'block uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
-         <%= f.hidden_field :default_code, id: "default_code" %>
-        <div class="editor" data-target="default_code"></div>
-      
+        <!-- <%= f.text_area :default_code, class: 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' %> -->
+        
+        <div id="editorRubyDefult" class="editor"></div>
+
       </div>
 
     </div>
@@ -65,8 +65,8 @@
 
       <div>
         <%= f.label :answer, '出題者解答', class: 'block uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
-        <%= f.hidden_field :answer, id: "answer" %>
-        <div class="editor" data-target="answer"></div>
+        <!-- <%= f.text_area :answer, class: 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' %> -->
+        <div id="editorRubyAnswer" class="editor"></div>
       
         <div>
             印出結果：<div id="run-result" class="px-3 py-2"><%= @result %>test</div>
@@ -77,9 +77,9 @@
       <div>
         <%= f.label :test_code, '測試方法', class: 'uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
         <i class="fa fa-plus-circle"></i>
-        <%= f.text_area :test_code, id: "test_code", class: 'block border'%>
-        
-         </div>
+        <div id="editorRubyTest" class="editor"></div>
+        <!-- <%= f.text_area :test_code, class: 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' %> -->
+      </div>
 
     </div>
     

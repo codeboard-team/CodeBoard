@@ -1,6 +1,6 @@
 class CardsController < ApplicationController
   def new
-    @card = Card.new
+    @card = Card.new(answer: '123')
   end
 
   def create
@@ -56,6 +56,7 @@ class CardsController < ApplicationController
   end
 
   def show
+    @card = Board.find(params[:board_id]).cards.find_by(id: params[:id])
   end
 
   private
