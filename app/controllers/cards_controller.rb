@@ -1,8 +1,9 @@
 class CardsController < ApplicationController
 
   def show
+    @card = Board.find(params[:board_id]).cards.find_by(id: params[:id])
   end
-
+  
   def new
     @card = Card.new(test_code: [''])
   end
@@ -10,13 +11,17 @@ class CardsController < ApplicationController
   def create
     test = JSON.generate(params[:card][:test_code].split(",\r\n"))
     @result = docker_detached(params[:card][:answer], test)
+    if @result == nil || @result == "Times out!"
+      return 1
+    else
     @card = Board.find(params[:board_id]).cards.build(
       card_params.merge(
         test_code: params[:card][:test_code].split(",\r\n"),
         result: @result
       )
     )
-    debugger
+    end
+
     if @card.save
       render :new
       # redirect_to board_path(params[:board_id]), notice: 'create successfully!'
@@ -45,9 +50,6 @@ class CardsController < ApplicationController
     redirect_to board_path(params[:board_id]), notice: 'deleted!'
   end
 
-  def show
-    @card = Board.find(params[:board_id]).cards.find_by(id: params[:id])
-  end
 
   private
   def docker_detached(code, test_code)
@@ -62,7 +64,7 @@ class CardsController < ApplicationController
     }
     file.close
     id = `docker run -d -v #{tmp_file_path}:/#{random_file} ruby ruby /#{random_file}`
-    10.times do
+    5.times do
       if `docker ps --format "{{.ID}}: {{.Status}}" -f "id=#{id}"` == ""
         File.unlink(tmp_file_path)
         result = `docker logs #{id}`.split('======').pop
