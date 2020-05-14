@@ -1,6 +1,6 @@
 class CardsController < ApplicationController
   def new
-    @card = Card.new(answer: '123')
+    @card = Card.new
   end
 
   def create

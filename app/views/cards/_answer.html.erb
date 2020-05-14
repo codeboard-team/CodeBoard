@@ -21,22 +21,13 @@
     
       <div>
       
-        <%= f.label :default_code, '預設程式碼', class: 'block uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
+       <%= f.label :default_code, '預設程式碼', class: 'block uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
        <%= f.text_area :default_code, class: 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' %>
         
-        <div id="editorRubyRecord" class="editor"></div>
+       <div id="editorRubyRecord" class="editor"></div>
 
       </div>
-    
-
 
   <%= f.submit '送出', class: 'bg-blue-500 hover:bg-blue-700 text-white py-2 px-3 rounded my-5' %>
 
 <% end %>
-
-<script>
-
-$(document).ready(function() {
-    setupEditorRubyRecord();
-});
-</script>
