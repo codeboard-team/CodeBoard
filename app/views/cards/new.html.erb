@@ -4,21 +4,20 @@
 
   <% if @card.errors.any? %>
     <ul>
-        <% @card.errors.full_messages.each do |message| %>
-          <li class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert"><%= message %></li>
-        <% end %>
+      <% @card.errors.full_messages.each do |message| %>
+        <li class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert"><%= message %></li>
+      <% end %>
     </ul>
   <% end %>
-
   <div class="flex p-4">
 
     <div class="w-1/8">
-        <!-- <%= f.label :order, '題序' , class: 'block uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%> -->
+      <!-- <%= f.label :order, '題序' , class: 'block uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%> -->
       <%= f.text_field :order,placeholder: '關卡', class: 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' %>
     </div>
 
     <div class="w-2/8">
-        <!-- <%= f.label :level, '難易度', class: 'block uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%> -->
+      <!-- <%= f.label :level, '難易度', class: 'block uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%> -->
       <%= f.text_field :level,placeholder: '難度', class: 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' %>
     
     </div>
@@ -75,16 +74,17 @@
       </div>
 
       <div>
-        <%= f.label :test_code, '測試方法', class: 'uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
-        <i class="fa fa-plus-circle"></i>
-        <%= f.text_area :test_code, id: "test_code", class: 'block border'%>
-        
-         </div>
-
+        <div id="section-test-code">
+          <%= f.label :test_code, '測試方法', class: 'uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
+          <span id="btn-add-test-code"><i class="fa fa-plus-circle"></i></span>
+          <% @card.test_code.each do |test_code| %>
+            <input name="card[test_code][]" class="border">
+          <% end %>
+        </div>
+      </div>
     </div>
-    
   </div>
 
-  <%= f.submit '送出', class: 'bg-blue-500 hover:bg-blue-700 text-white py-2 px-3 rounded my-5' %>
+  <%= f.submit '送出',id: 'btn-card-submit', class: 'bg-blue-500 hover:bg-blue-700 text-white py-2 px-3 rounded my-5' %>
 
 <% end %>
