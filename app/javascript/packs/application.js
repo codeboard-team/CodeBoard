@@ -18,7 +18,7 @@ require("channels")
 
 // tailwind.config.js
 import "stylesheets/application"
-import "pages/editor"
+import "pages/cards"
 
 
 // jquery
