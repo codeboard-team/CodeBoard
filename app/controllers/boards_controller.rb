@@ -15,7 +15,7 @@ class BoardsController < ApplicationController
     @board = current_user.boards.new(board_params)
 
     if @board.save
-      redirect_to boards_path, notice: 'create successfully!'
+      redirect_to my_boards_path, notice: 'create successfully!'
     else
       render :new
     end
