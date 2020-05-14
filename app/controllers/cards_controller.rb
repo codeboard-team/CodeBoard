@@ -56,6 +56,7 @@ class CardsController < ApplicationController
   end
 
   def show
+    @card = Board.find(params[:board_id]).cards.find_by(id: params[:id])
   end
 
   private
