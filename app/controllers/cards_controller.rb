@@ -11,11 +11,11 @@ class CardsController < ApplicationController
     @result = docker_detached(params[:card][:answer], params[:card][:test_code])
     @card = Board.find(params[:board_id]).cards.build(
       card_params.merge(
-        test_code: params[:card][:test_code].split(",\r\n"),
+        test_code: params[:card][:test_code],
         result: @result
       )
     )
-
+    debugger
     if @card.save
       render :new
       # redirect_to board_path(params[:board_id]), notice: 'create successfully!'
@@ -49,10 +49,36 @@ class CardsController < ApplicationController
   end
 
   private
+  # def docker_detached(code, test_code)
+  #   random_file = [*"a".."z", *"A".."Z"].sample(5).join('') + ".rb"
+  #   tmp_file_path = Rails.root.join('tmp', "#{random_file}").to_s
+  #   test_data = test_code.split(",\r\n").map{ |e| e = "result.push(#{e})" }.join("\n")
+  #   file = File.open(tmp_file_path, "w")
+  #   contents = [code,"require 'json'","result = []",test_data,"puts '======'","puts JSON.generate(result)"]
+  #   contents.each { |e|
+  #     file.write(e)
+  #     file.write("\n")
+  #   }
+  #   file.close
+  #   id = `docker run -d -v #{tmp_file_path}:/#{random_file} ruby ruby /#{random_file}`
+  #   10.times do
+  #     if `docker ps --format "{{.ID}}: {{.Status}}" -f "id=#{id}"` == ""
+  #       File.unlink(tmp_file_path)
+  #       result = `docker logs #{id}`.split('======').pop
+  #       `docker rm -f #{id}`
+  #       return result
+  #     else
+  #       sleep 1
+  #     end
+  #   end
+  #   File.unlink(tmp_file_path)
+  #   `docker rm -f #{id}`
+  #   return "Times out!"
+  # end
   def docker_detached(code, test_code)
     random_file = [*"a".."z", *"A".."Z"].sample(5).join('') + ".rb"
     tmp_file_path = Rails.root.join('tmp', "#{random_file}").to_s
-    test_data = test_code.split(",\r\n").map{ |e| e = "result.push(#{e})" }.join("\n")
+    test_data = JSON.parse(test_code).map{ |e| e = "result.push(#{e})" }.join("\n")
     file = File.open(tmp_file_path, "w")
     contents = [code,"require 'json'","result = []",test_data,"puts '======'","puts JSON.generate(result)"]
     contents.each { |e|
@@ -76,21 +102,6 @@ class CardsController < ApplicationController
     return "Times out!"
   end
 
-  def docker_run(code, test_code)
-    random_file = [*"a".."z", *"A".."Z"].sample(5).join('') + ".rb"
-    tmp_file_path = Rails.root.join('tmp', "#{random_file}").to_s
-    test_data = test_code.split(",\r\n").map{ |e| e = "result.push(#{e})" }.join("\n")
-    file = File.open(tmp_file_path, "w")
-    contents = [code, "require 'json'", "result = []", test_data, "puts '======'", "puts JSON.generate(result)"]
-    contents.each { |e|
-      file.write(e)
-      file.write("\n")
-    }
-    file.close
-    result = `docker run --rm -v #{tmp_file_path}:/#{random_file} ruby ruby /#{random_file}`.split('======').pop
-    File.unlink(tmp_file_path)
-    return result
-  end
 
   def card_params
     params.require(:card).permit(:title,
