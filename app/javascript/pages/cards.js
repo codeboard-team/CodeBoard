@@ -1,6 +1,6 @@
 // ACE Editor theme :
 
-$(document).ready(function() {
+$(document).on("turbolinks:load", function() {
 
     let editorDoms = document.getElementsByClassName('editor');
     for (editorDom of editorDoms) {
@@ -32,7 +32,7 @@ $(document).ready(function() {
     }
 
     document.getElementById("btn-add-test-code").addEventListener("click", function() {
-        addInput = `<input name="card[test_code][]" class="border">`
+        addInput = `<input name="card[test_code][]" class="border block">`
         console.log('test')
         $("#section-test-code").append(addInput);
     });

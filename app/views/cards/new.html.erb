@@ -68,7 +68,10 @@
         <div class="editor" data-target="answer"></div>
       
         <div>
-            印出結果：<div id="run-result" class="px-3 py-2"><%= @result %>test</div>
+            印出結果：
+            <%= @result.each do |result| %>
+            <div id="run-result" class="px-3 py-2"><%= result %>test</div>
+            <% end %>
         </div>
 
       </div>
@@ -78,7 +81,7 @@
           <%= f.label :test_code, '測試方法', class: 'uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
           <span id="btn-add-test-code"><i class="fa fa-plus-circle"></i></span>
           <% @card.test_code.each do |test_code| %>
-            <input name="card[test_code][]" class="border">
+            <input name="card[test_code][]" class="border block">
           <% end %>
         </div>
       </div>

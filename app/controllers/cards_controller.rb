@@ -9,15 +9,15 @@ class CardsController < ApplicationController
   end
 
   def create
-    test = JSON.generate(params[:card][:test_code].split(",\r\n"))
-    @result = docker_detached(params[:card][:answer], test)
-    if @result == nil || @result == "Times out!"
+    result = docker_detached(params[:card][:answer], params[:card][:test_code])
+    @result = JSON.parse(result)
+    debugger
+    if result == nil || result == "Times out!"
       return 1
     else
     @card = Board.find(params[:board_id]).cards.build(
       card_params.merge(
-        test_code: params[:card][:test_code].split(",\r\n"),
-        result: @result
+        result: result
       )
     )
     end
@@ -55,7 +55,7 @@ class CardsController < ApplicationController
   def docker_detached(code, test_code)
     random_file = [*"a".."z", *"A".."Z"].sample(5).join('') + ".rb"
     tmp_file_path = Rails.root.join('tmp', "#{random_file}").to_s
-    test_data = JSON.parse(test_code).map{ |e| e = "result.push(#{e})" }.join("\n")
+    test_data = test_code.map{ |e| e = "result.push(#{e})" }.join("\n")
     file = File.open(tmp_file_path, "w")
     contents = [code,"require 'json'","result = []",test_data,"puts '======'","puts JSON.generate(result)"]
     contents.each { |e|
