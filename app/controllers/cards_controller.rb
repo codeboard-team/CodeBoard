@@ -11,7 +11,6 @@ class CardsController < ApplicationController
   def create
     result = docker_detached(params[:card][:answer], params[:card][:test_code])
     @result = JSON.parse(result)
-    debugger
     if result == nil || result == "Times out!"
       return 1
     else
