@@ -28,6 +28,7 @@ class BoardsController < ApplicationController
   end
 
   def my
+    @board = Board.where(user_id: current_user)
   end
 
   def update
