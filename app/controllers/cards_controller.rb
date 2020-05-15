@@ -49,6 +49,36 @@ class CardsController < ApplicationController
     redirect_to board_path(params[:board_id]), notice: 'deleted!'
   end
 
+  def show
+    @board = Board.find(params[:board_id]) 
+    @card = @board.cards.find(params[:id])
+    record = @card.records
+      if @board.user == current_user
+         render 'cards/questioner'
+      else
+        if 
+          record.find_by(user_id: current_user.id)
+          render 'cards/solver'
+          debugger
+          # (去解題檢視頁)
+        else
+          render :edit
+          # (去解題頁面)
+        end
+      end
+  end
+
+  def solve
+    @board = Board.find(params[:board_id]) 
+    @card = @board.cards.find(params[:id])
+    if  
+      redirect_to board_path(params[:board_id]), notice: '解題正確!'
+      # /boards/:id(:show)
+    else
+      redirect_to board_card_path(:boards_id, :cards_id), notice: '解題錯誤!'
+      # /boards/:board_id/cards/:id(:show)  
+    end
+  end
 
   private
   def docker_detached(code, test_code)
