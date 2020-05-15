@@ -4,7 +4,8 @@ class BoardsController < ApplicationController
 
   def index
     # @board = current_user.boards
-    @board = Board.where(user_id: current_user)
+    # @board = Board.where(user_id: current_user)
+    @board = Board.all
   end
 
   def new
