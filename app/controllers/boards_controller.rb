@@ -6,6 +6,9 @@ class BoardsController < ApplicationController
     # @board = current_user.boards
     # @board = Board.where(user_id: current_user)
     @board = Board.all
+
+    @board = Board.all
+    @board = Board.page(params[:page]).per(6)
   end
 
   def new
@@ -16,7 +19,7 @@ class BoardsController < ApplicationController
     @board = current_user.boards.new(board_params)
 
     if @board.save
-      redirect_to boards_path, notice: 'create successfully!'
+      redirect_to my_boards_path, notice: 'create successfully!'
     else
       render :new
     end
@@ -37,7 +40,7 @@ class BoardsController < ApplicationController
     @board.update(board_params)
 
     if @board.save
-      redirect_to boards_path, notice: 'update successfully!'
+      redirect_to my_boards_path, notice: 'update successfully!'
     else
       render :new
     end
@@ -45,7 +48,7 @@ class BoardsController < ApplicationController
 
   def destroy
     @board.destroy
-    redirect_to boards_path, notice: 'deleted!'
+    redirect_to my_boards_path, notice: 'deleted!'
   end
 
   private
@@ -58,3 +61,5 @@ class BoardsController < ApplicationController
   end
 
 end
+
+

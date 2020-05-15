@@ -1,0 +1,15 @@
+.editor {
+    min-height: 6rem;
+} //
+input[name^="card[test_code]"] {
+    background-color: #1D2021;
+    color: #7FC06D;
+    padding: .2rem;
+    font-family: monospace;
+}
+
+input[name^="card[hints]"],
+input[name^="card[test_code]"] {
+    border: 1px solid #ddd;
+    display: block;
+}

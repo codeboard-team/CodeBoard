@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+/* Buttons */
+.btn {
+  @apply font-semibold text-sm py-2 px-4 rounded cursor-pointer no-underline;
+}
+
+.btn-default {
+  @apply bg-white border border-gray-400 text-gray-700;
+}
+
+.btn-default:hover, .btn-default:focus {
+  @apply border-gray-500;
+}
+
+.link {
+  @apply no-underline text-gray-700;
+}
+
+.link:hover, .link:focus {
+  @apply text-gray-700;
+}
+
+/* Forms */
+.input {
+  @apply appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-300 rounded py-3 px-4 leading-tight;
+}
+
+.input:focus {
+  @apply outline-none bg-white border-gray-400;
+}
+
+.label {
+  @apply block text-gray-700 text-sm font-bold mb-2;
+}
+
+.select {
+  @apply appearance-none py-3 px-4 pr-8 block w-full bg-gray-100 border border-gray-300 text-gray-700
+   rounded leading-tight;
+  -webkit-appearance: none;
+}
+
+.select:focus {
+  @apply outline-none bg-white border-gray-400;
+}
+
+@tailwind utilities;
+.editor {
+  min-height: 6rem;
+}
+
+input[name^="card[test_code]"] {
+  background-color: #1D2021;
+  border: 1px solid #ddd;
+  display: block;
+  color: #7FC06D;
+  padding: .2rem;
+  font-family: monospace;
+}
+/*# sourceMappingURL=application.css.map */
