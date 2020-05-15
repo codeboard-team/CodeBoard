@@ -5,7 +5,7 @@ class CardsController < ApplicationController
   end
   
   def new
-    @card = Card.new(test_code: [''])
+    @card = Card.new(test_code: [''],hints: [''])
   end
 
   def create
@@ -88,6 +88,7 @@ class CardsController < ApplicationController
                                  :tags,
                                  :order,
                                  :board_id,
+                                 :hints=>[],
                                  :test_code=>[])
   end
 
