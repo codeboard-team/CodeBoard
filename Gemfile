@@ -69,4 +69,3 @@ gem 'foreman', '~> 0.87.1'
 # Kaminari is a Scope & Engine based, clean, powerful, agnostic, customizable and sophisticated paginator for Rails 4+
 gem 'kaminari', '~> 1.2.0'
 
-

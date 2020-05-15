@@ -19,7 +19,6 @@ Rails.application.routes.draw do
       member do
         get :solve 
       end
-    end
-  resources :explore 
+    end 
   end
 end
