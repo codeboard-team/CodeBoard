@@ -1,27 +1,118 @@
+<div class="container max-w-full my-12 mx-auto px-4 md:px-12">
+  <div class="flex flex-col">
+    <div class="my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+      <div class="align-middle block min-w-full shadow overflow-hidden sm:rounded-lg ">
+        <div class="bg-white mb-4 border-b px-4 py-5 sm:px-6">
+          <h3 class="text-2xl leading-6 font-medium text-gray-900 ">
+            Borads
+          </h3>
+        </div>
+        <nav class="bg-white shadow">
+          <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
+            <div class="flex justify-between h-16">
+              <div class="flex px-2 lg:px-0">
+                <div class="flex justify-center items-center w-full mx-auto max-w-sm content-center">
+                  <div class="relative w-full border-none">
+                    <select class="bg-gray-100 text-gray-600 appearance-none border inline-block py-3 pl-3 pr-8 rounded leading-tight w-full">
+                        <option>Beginner</option>
+                        <option>Mdeium</option>
+                        <option>Advanced</option>
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2">
+                      <i class="fa fa-chevron-circle-down" aria-hidden="true"></i>
+                    </div>      
+                  </div>
+                </div>
+              </div>
+              <div class="flex items-center justify-start px-2 lg:ml-6 lg:justify-end">
+                <div class="max-w-lg w-full lg:max-w-xs">
+                  <label for="search" class="sr-only">Search</label>
+                  <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <svg class="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+                      </svg>
+                    </div>
+                    <input id="search" class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:border-blue-300 focus:shadow-outline-blue sm:text-sm transition duration-150 ease-in-out" placeholder="Search" type="search" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
+        <hr>
+        <div>
+          <div class="my-5 mx-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <% @board.each do |board| %>
+            <div class="bg-white overflow-hidden shadow rounded-lg">
+              <div class="bg-gray-100 px-4 py-5 sm:p-6">
+                <div class="flex items-center">
+                  <div class="ml-5 w-0 flex-1">
+                    <dl>
+                      <span class="flex justify-center  px-2.5 py-0.5 rounded-full text-sm font-medium leading-5 bg-red-100 text-red-800 md:mt-2 lg:mt-0">
+                    
+                      </span>
+                      <div class="inline-flex items-center px-2.5 py-0.5 rounded-full text-sm font-medium leading-5 bg-green-100 text-green-800 md:mt-2 lg:mt-0">
+                  
+                      </div>
+                      <div class="inline-flex items-center px-2.5 py-0.5 rounded-full text-sm font-medium leading-5 bg-green-100 text-green-800 md:mt-2 lg:mt-0">
+                        Self
+                      </div>
 
-<div class="grid grid-cols-2 mx-1 my-2 px-3 py-3 border-b">
-  <div class="col-auto ">  
-    <h1 class="text-gray-900 font-bold text-xl ">My Boards(Henry的Explore)</h1>
-  </div>
-  <div class="col-auto">  
-    <%= link_to 'Add Board', new_board_path, class: 'bg-blue-500 hover:bg-blue-700 text-white py-2 px-3 rounded' %>
+                      <dt class="flex justify-start my-4 text-xl leading-5 font-medium text-black font-bold truncate">
+                        <%= board.title %>
+                      </dt>
+                      <hr>
+                      <p class="my-4 text-gray-500"><%= board.description %>。</p>
+                      <hr>
+                      <dd class="flex justify-between items-center mt-5">
+                        <div class="flex">
+                          <span class="inline-block h-6 w-6 rounded-full overflow-hidden bg-gray-100">
+                            <svg class="h-full w-full text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                              <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                            </svg>
+                          </span>
+                          <div class="text-xl leading-8 font-semibold text-gray-900">
+                            <p class="text-sm">
+                              boyu
+                            </p>
+                          </div>
+                        </div>
+                        <div class="flex items-baseline">
+                          <div class="text-sm leading-5 font-semibold text-green-600">
+                            10cards
+                            <svg class="inline-flex mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500" fill="currentColor" viewBox="0 0 20 20">
+                              <path fill-rule="evenodd" d="M3 5a2 2 0 012-2h6a2 2 0 012 2H5v8a2 2 0 01-2-2V5zm6 2a2 2 0 00-2 2v6a2 2 0 002 2h6a2 2 0 002-2V9a2 2 0 00-2-2H9z" clip-rule="evenodd"/>
+                            </svg>
+                          </div>
+                        </div>
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+              </div>
+              <div class="bg-gray-50 px-4 py-4 sm:px-6">
+                
+                <div class="flex justify-end items-center text-sm leading-5">
+                  <span class="inline-flex rounded-md shadow-sm">
+                    <button type="button" class="inline-flex items-center mx-1 my-1 px-2.5 py-1.5 border border-transparent text-xs leading-4 font-medium rounded text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150">
+                      Challenge
+                    </button>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <% end %>
+          </div>
+        </div>
+        <hr>
+        <nav class="bg-white px-4 py-3 flex items-center justify-between sm:px-6">
+          <div class="flex-1 flex justify-between sm:justify-end">
+            <%= link_to_prev_page @board, 'Prev', class: 'relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150' %>
+            <%= link_to_next_page @board, 'Next', class: 'relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150' %>
+          </div>
+        </nav>
+      </div>
+    </div>
   </div>
 </div>
-
-
-<% @board.each do |board| %>
-
-  <div class="grid grid-cols-2 mx-1 ml-6 my-2 px-3 py-3">
-
-    <div class="col-auto">
-      <%= link_to board.title, board_path(board.id), class: 'text-blue-700 hover:text-blue-600 font-bold text-xl' %>
-    </div>
-
-    <div class="col-auto">
-      <%= link_to '編輯', edit_board_path(board.id), class: 'bg-orange-500 hover:bg-orange-700 text-white py-2 px-3 rounded' %>
-      <%= link_to '刪除', board_path(board.id), method: 'delete', class: 'bg-red-500 hover:bg-red-700 text-white py-2 px-3 rounded' %>
-    </div>
-
-  </div>
-
-<% end %>
