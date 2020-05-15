@@ -1,8 +1,14 @@
 class BoardsController < ApplicationController
+<<<<<<< HEAD
   before_action :authenticate_user!, only: [:my, :new, :edit, :update, :destroy]
   before_action :find_board, only: [:show, :edit, :update, :destroy]
   before_action :build_board, only: [:new, :create]
   before_action :check_authority, only: [:edit, :update, :destroy]
+=======
+  before_action :authenticate_user!, only: [:my]
+  before_action :check_authority, only: [:edit, :update, :destroy]
+  before_action :set_board, only: [:edit, :update, :destroy]
+>>>>>>> WIP check_authority
 
   def index
     @boards = Board.all
