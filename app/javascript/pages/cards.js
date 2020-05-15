@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).on("turbolinks:load", function() {
 
     let editorDoms = document.getElementsByClassName('editor');
     for (editorDom of editorDoms) {

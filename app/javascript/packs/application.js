@@ -32,4 +32,4 @@ import "stylesheets/application"
 // import 'bootstrap/dist/css/bootstrap.min.css'
 
 // page style by HELB
-// import "pages/cards"
+import "pages/cards"
