@@ -1,6 +1,6 @@
 class BoardsController < ApplicationController
 
-  before_action :set_board, only: [:show, :edit, :update, :destroy]
+  before_action :set_board, only: [:edit, :update, :destroy]
 
   def index
     # @board = current_user.boards
@@ -23,6 +23,7 @@ class BoardsController < ApplicationController
   end
 
   def show
+    @board = Board.find_by(id: params[:id])
   end
 
   def edit

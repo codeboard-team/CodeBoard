@@ -58,18 +58,14 @@ class CardsController < ApplicationController
   def show
     @board = Board.find(params[:board_id]) 
     @card = @board.cards.find(params[:id])
-    record = @card.records
+    record = @card.records.last
       if @board.user == current_user
-         render 'cards/questioner'
+         render 'cards/_card_questioner'
       else
-        if 
-          record.find_by(user_id: current_user.id)
-          render 'cards/solver'
-          debugger
-          # (去解題檢視頁)
+        if record && record.state
+          render 'cards/_card_solved'
         else
-          render :edit
-          # (去解題頁面)
+          render 'cards/_card_solving'
         end
       end
   end
@@ -110,7 +106,8 @@ class CardsController < ApplicationController
                                  :tags,
                                  :order,
                                  :board_id,
-                                 :test_code)
+                                 :test_code,
+                                 )
   end
 
 end
