@@ -8,7 +8,6 @@ require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
 
-
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
 // or the `imagePath` JavaScript helper below.
@@ -16,20 +15,21 @@ require("channels")
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
-// tailwind.config.js
-import "stylesheets/application"
-import "pages/cards"
-
-
 // jquery
 import 'jquery'
 import $ from 'jquery'
 window.$ = window.jquery = $
 import 'popper.js'
 
-//bootstrap
-import 'bootstrap'
-// import 'bootstrap/dist/css/bootstrap.min.css'
-
 // font-awesome
 import 'font-awesome/css/font-awesome.min.css'
+
+// tailwind.config.js
+import "stylesheets/application"
+
+//bootstrap
+// import 'bootstrap'
+// import 'bootstrap/dist/css/bootstrap.min.css'
+
+// page style by HELB
+import "pages/cards"

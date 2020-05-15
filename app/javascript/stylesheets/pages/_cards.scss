@@ -1,3 +1,11 @@
 .editor {
     min-height: 6rem;
 } //
+input[name^="card[test_code]"] {
+    background-color: #1D2021;
+    border: 1px solid #ddd;
+    display: block;
+    color: #7FC06D;
+    padding: .2rem;
+    font-family: monospace;
+}
