@@ -116,7 +116,6 @@ class CardsController < ApplicationController
                                  :order,
                                  :board_id,
                                  :test_code,
-                                 )
                                  :hints=>[],
                                  :test_code=>[])
   end
