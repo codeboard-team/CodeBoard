@@ -24,6 +24,8 @@
                   </div>
                 </div>
               </div>
+
+
               <div class="flex items-center justify-start px-2 lg:ml-6 lg:justify-end">
                 <div class="max-w-lg w-full lg:max-w-xs">
                   <label for="search" class="sr-only">Search</label>
@@ -50,15 +52,11 @@
                   <div class="ml-5 w-0 flex-1">
                     <dl>
                       <span class="flex justify-center  px-2.5 py-0.5 rounded-full text-sm font-medium leading-5 bg-red-100 text-red-800 md:mt-2 lg:mt-0">
-                    
                       </span>
                       <div class="inline-flex items-center px-2.5 py-0.5 rounded-full text-sm font-medium leading-5 bg-green-100 text-green-800 md:mt-2 lg:mt-0">
-                  
                       </div>
                       <div class="inline-flex items-center px-2.5 py-0.5 rounded-full text-sm font-medium leading-5 bg-green-100 text-green-800 md:mt-2 lg:mt-0">
-                        Self
                       </div>
-
                       <dt class="flex justify-start my-4 text-xl leading-5 font-medium text-black font-bold truncate">
                         <%= board.title %>
                       </dt>
@@ -74,7 +72,7 @@
                           </span>
                           <div class="text-xl leading-8 font-semibold text-gray-900">
                             <p class="text-sm">
-                              boyu
+                              <%= board.user_id %>
                             </p>
                           </div>
                         </div>
@@ -91,8 +89,7 @@
                   </div>
                 </div>
               </div>
-              <div class="bg-gray-50 px-4 py-4 sm:px-6">
-                
+              <div class="bg-gray-50 px-4 py-4 sm:px-6">    
                 <div class="flex justify-end items-center text-sm leading-5">
                   <span class="inline-flex rounded-md shadow-sm">
                     <button type="button" class="inline-flex items-center mx-1 my-1 px-2.5 py-1.5 border border-transparent text-xs leading-4 font-medium rounded text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150">
@@ -106,7 +103,7 @@
           </div>
         </div>
         <hr>
-        <nav class="bg-white px-4 py-3 flex items-center justify-between sm:px-6">
+        <nav class="bg-white px-4 py-3 flex items-center justify-between sm:px-6 sm:justify-end">
           <div class="flex-1 flex justify-between sm:justify-end">
             <%= link_to_prev_page @board, 'Prev', class: 'relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150' %>
             <%= link_to_next_page @board, 'Next', class: 'relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150' %>
@@ -116,3 +113,4 @@
     </div>
   </div>
 </div>
+
