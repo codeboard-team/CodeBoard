@@ -3,8 +3,8 @@ class BoardsController < ApplicationController
   before_action :set_board, only: [:show, :edit, :update, :destroy]
 
   def index
-    # @board = current_user.boards
     @board = Board.all
+    @board = Board.page(params[:page]).per(6)
   end
 
   def new

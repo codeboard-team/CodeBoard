@@ -7,61 +7,6 @@
             Borads
           </h3>
         </div>
-
-        <!-- <div class="flex-1  flex-grow items-center  mb-8 lg:flex  lg:content-center lg:items-center lg:w-auto lg:block mt-2 lg:mt-0 z-20" id="nav-content">
-          <div class="flex justify-center items-center w-full mx-auto max-w-sm content-center">
-            <div class="relative w-full border-none">
-              <select class="bg-gray-100 text-gray-400 appearance-none border inline-block py-3 pl-3 pr-8 rounded leading-tight w-full">
-                  <option>GET</option>
-                  <option>POST</option>
-                  <option>PUT</option>
-                  <option>DELETE</option>
-              </select>
-              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2">
-                <i class="fa fa-chevron-circle-down" aria-hidden="true"></i>
-              </div>      
-            </div>
-          </div>
-          <div class="flex-1  mx-auto max-w-sm content-center py-4 lg:py-0">
-            <div class="relative pull-right pl-4 pr-4 md:pr-0">
-              <input type="search" placeholder="Search" class="w-full bg-gray-100 text-sm text-gray-800 transition border focus:outline-none focus:border-purple-500 rounded py-1 px-2 pl-10 appearance-none leading-normal">
-              <div class="absolute search-icon" style="top: 0.375rem;left: 1.75rem;">
-                <svg class="fill-current pointer-events-none text-gray-800 w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                  <path d="M12.9 14.32a8 8 0 1 1 1.41-1.41l5.35 5.33-1.42 1.42-5.33-5.34zM8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"></path>
-                </svg>
-              </div>
-            </div>
-          </div>
-
-          <ul class="list-reset flex justify-start items-center ">
-            <li class="mr-3 py-2 lg:py-0">
-              <div class="flex justify-between items-center">
-                <label class="text-gray-700 text-sm md:mr-6" for="beginner">
-                  <input type="checkbox" name="beginner" id="beginner" class="mx-2" >
-                  Beginner
-                </label>
-              </div>
-            </li>
-            <li class="mr-3 py-2 lg:py-0">
-              <div class="flex justify-between items-center">
-                <label class="text-gray-700 text-sm md:mr-6" for="medium">
-                  <input type="checkbox" name="medium" id="medium" class="mx-2">
-                  Medium
-                </label>
-              </div>
-            </li>
-            <li class="mr-3 py-2 lg:py-0">
-              <div class="flex justify-between items-center">
-                <label class="text-gray-700 text-sm md:mr-6" for="advanced">
-                  <input type="checkbox" name="advanced" id="advanced" class="mx-2">
-                  Advanced
-                </label>
-              </div>
-            </li>
-          </ul>
-
-          
-        </div> -->
         <nav class="bg-white shadow">
           <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
             <div class="flex justify-between h-16">
@@ -96,8 +41,6 @@
           </div>
         </nav>
         <hr>
-
-       
         <div>
           <div class="my-5 mx-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             <% @board.each do |board| %>
@@ -162,70 +105,13 @@
             <% end %>
           </div>
         </div>
-        
-
         <hr>
-
-
-        <div class="block bg-white px-4 py-3 flex items-center justify-between sm:px-6">
-          <div class="flex-1 flex justify-between sm:hidden">
-            <a href="#" class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150">
-              Previous
-            </a>
-            <a href="#" class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150">
-              Next
-            </a>
+        <nav class="bg-white px-4 py-3 flex items-center justify-between sm:px-6">
+          <div class="flex-1 flex justify-between sm:justify-end">
+            <%= link_to_prev_page @board, 'Prev', class: 'relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150' %>
+            <%= link_to_next_page @board, 'Next', class: 'relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150' %>
           </div>
-          <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
-            <div>
-              <p class="text-sm leading-5 text-gray-700">
-                Showing
-                <span class="font-medium">1</span>
-                to
-                <span class="font-medium">10</span>
-                of
-                <span class="font-medium">97</span>
-                results
-              </p>
-            </div>
-            <div>
-              <nav class="relative z-0 inline-flex shadow-sm">
-                <button type="button" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-500 hover:text-gray-400 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-500 transition ease-in-out duration-150" aria-label="Previous">
-                  <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                  </svg>
-                </button>
-                <button type="button" class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150">
-                  1
-                </button>
-                <button type="button" class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150">
-                  2
-                </button>
-                <button type="button" class="hidden md:inline-flex -ml-px relative items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150">
-                  3
-                </button>
-                <span class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-700">
-                  ...
-                </span>
-                <button type="button" class="hidden md:inline-flex -ml-px relative items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150">
-                  8
-                </button>
-                <button type="button" class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150">
-                  9
-                </button>
-                <button type="button" class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150">
-                  10
-                </button>
-                <button type="button" class="-ml-px relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-500 hover:text-gray-400 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-500 transition ease-in-out duration-150" aria-label="Next">
-                  <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
-                  </svg>
-                </button>
-              </nav>
-            </div>
-          </div>
-        </div>
-
+        </nav>
       </div>
     </div>
   </div>
