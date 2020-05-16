@@ -8,6 +8,7 @@ class CardsController < ApplicationController
   
   def new
     @card = Card.new(test_code: [''], hints: [''])
+    # @card = Card.new(card_params)
   end
 
   def create
@@ -16,7 +17,8 @@ class CardsController < ApplicationController
     # @result = JSON.parse(result)
     if result == nil || result == "Times out!"
       @card = Board.find(params[:board_id]).cards.build(card_params)
-      return 1
+      flash[:alert] = 'Wrong!'
+      return render "new"
     else
       @card = Board.find(params[:board_id]).cards.build(
         card_params.merge(
@@ -28,7 +30,7 @@ class CardsController < ApplicationController
     if @card.save
       redirect_to board_card_path(board_id: params[:board_id], id: @card.id), notice: 'create successfully!'
     else
-      redirect_to new_board_card_path(board_id: params[:board_id])
+      render 'new'
     end
   end
 
