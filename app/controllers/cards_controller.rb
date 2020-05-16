@@ -1,45 +1,48 @@
 class CardsController < ApplicationController
+  before_action :authenticate_user!, only: [:new, :edit, :update, :destroy]
+  before_action :check_authority, only: [:new, :edit, :update, :destroy]
 
   def show
     @card = Board.find(params[:board_id]).cards.find_by(id: params[:id])
   end
   
   def new
-    @card = Card.new(test_code: [''],hints: [''])
+    @card = Card.new(test_code: [''], hints: [''])
   end
 
   def create
     result = docker_detached(params[:card][:answer], params[:card][:test_code])
-    @result = JSON.parse(result)
+    # @card.valid?
+    # @result = JSON.parse(result)
     if result == nil || result == "Times out!"
+      @card = Board.find(params[:board_id]).cards.build(card_params)
       return 1
     else
-    @card = Board.find(params[:board_id]).cards.build(
-      card_params.merge(
-        result: result
+      @card = Board.find(params[:board_id]).cards.build(
+        card_params.merge(
+          result: result
+        )
       )
-    )
     end
 
     if @card.save
-      render :new
-      # redirect_to board_path(params[:board_id]), notice: 'create successfully!'
+      redirect_to board_card_path(board_id: params[:board_id], id: @card.id), notice: 'create successfully!'
     else
-      render :new
+      redirect_to new_board_card_path(board_id: params[:board_id])
     end
   end
 
   def edit
-    @card = Board.find(params[:board_id]).cards.find_by(id: params[:id])
+    @card = Board.find(params[:board_id]).cards.find(params[:id])
   end
 
   def update
     @card = Board.find(params[:board_id]).cards.find_by(id: params[:id])
     @card.update(card_params)
     if @card.save
-      redirect_to board_path(params[:board_id]), notice: 'update successfully!'
+      redirect_to board_card_path(board_id: params[:board_id], id: @card.id), notice: 'update successfully!'
     else
-      render :new
+      render :edit
     end
   end
 
@@ -76,6 +79,13 @@ class CardsController < ApplicationController
     File.unlink(tmp_file_path)
     `docker rm -f #{id}`
     return "Times out!"
+  end
+
+  def check_authority
+    redirect_to board_path(id: params[:board_id]) if Board.find(params[:board_id]).user_id != current_user.id
+  end
+
+  def set_card
   end
 
 
