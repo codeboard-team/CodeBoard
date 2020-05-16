@@ -1,1 +1,10 @@
 <h1>解題者的sidebar</h1>
+  <%=@board.title%>
+  <% @board.cards.each do |card| %>
+      <div class="grid grid-cols-2 mx-1 ml-6 my-2 px-3 py-3">
+      <div class="col-auto">
+          <%= link_to card.title, board_card_path(@board.id, card.id), class: 'text-blue-700 hover:text-blue-600 font-bold text-xl' %>
+      </div>
+      
+      </div>
+  <% end %>
