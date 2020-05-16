@@ -1,12 +1,12 @@
 <p>//解題者(未解題)-解題中頁面//</p>
 
-<div class="container mx-auto flex ">
+<div class="flex container mx-auto">
   
   <div class="part-slider" class="flex-1">
     <%= render "cards/list_solver" %>
   </div>
 
-  <div class="part-card"  class="flex-1 ">
+  <div class="part-card"  class="flex-2 ">
     <h1 class="text-gray-900 font-bold text-xl border-b">[解題]<%= @card.title %></h1>
     <%= form_with model: @card, url: board_cards_path , local: true do |f| %>
         <% if @card.errors.any? %>
