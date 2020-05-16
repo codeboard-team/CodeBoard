@@ -1,1 +1,49 @@
-<h1>這裡是解題中頁面</h1>
+<h1>//解題者(未解題)-解題中頁面//</h1>
+<h1 class="text-gray-900 font-bold text-xl border-b">[解題]<%= @card.title %></h1>
+
+<%= form_with model: @card, url: board_cards_path , local: true do |f| %>
+
+  <% if @card.errors.any? %>
+    <ul>
+      <% @card.errors.full_messages.each do |message| %>
+        <li class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert"><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  
+  <div>
+    <p><%= @board.title %></p>
+    <p>第<%= @card.order %>關</p>
+    <p>Level:<%= @card.level %></p>
+    <p>tags<%= @card.tags %></p>    
+  </div>
+
+  <div>
+    <%= f.label :description, '題目敘述', class: 'block uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
+    <%= @card.description %>
+  </div>
+
+  <div>
+    <%= f.label :default_code, '作答區', class: 'block uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
+    <%= f.hidden_field :default_code, id: "default_code" %>
+    <div class="editor" data-target="default_code"></div>
+    <div>
+      <span>印出結果：</span>
+      <div id="run-result" class="px-3 py-2"><%= @result %></div>
+    </div>
+  </div>
+  
+  <div id="section-hints">
+    <input id="btn-show-hints" type="button" value="求提示" class="bg-orange-500 hover:bg-orange-700 text-white py-2 px-3 rounded my-5">
+    <% @card.hints.each do |hints| %>
+      <ul>
+        <li class="hint hidden"><%= hints %></li>
+      </ul>
+    <% end %>
+  </div>
+
+  <div>
+    <%= f.submit '送出',id: 'btn-card-submit', class: 'bg-blue-500 hover:bg-blue-700 text-white py-2 px-3 rounded my-5' %>
+  </div>
+
+<% end %>

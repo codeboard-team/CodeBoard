@@ -26,14 +26,15 @@ $(document).on("turbolinks:load", function() {
         });
     }
 
-    // document.getElementById("btn-add-test-code").addEventListener("click", function() {
     $("#btn-add-test-code").click(function() {
         addInput = `<input name="card[test_code][]">`
         $("#section-test-code").append(addInput);
     });
     $("#btn-add-hints").click(function() {
-        // document.getElementById("btn-add-hints").addEventListener("click", function() {
         addInput = `<input name="card[hints][]">`
         $("#section-hints").append(addInput);
+    });
+    $("#btn-show-hints").click(function() {
+        $("#section-hints .hint.hidden").first().removeClass("hidden");
     });
 });

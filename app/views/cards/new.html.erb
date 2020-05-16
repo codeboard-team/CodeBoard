@@ -47,8 +47,10 @@
 
       <div>
         <%= f.label :description, '題目敘述', class: 'block uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
-        <%= f.hidden_field :description, id: "description" %>
-        <div class="editor" data-target="description"></div>
+        <%= f.text_area :description,placeholder: '題目敘述', class: 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' %>
+    
+
+
       </div>
 
       <div>
@@ -78,7 +80,7 @@
         <div class="editor" data-target="answer"></div>
         <div>
           印出結果：
-          <div id="run-result" class="px-3 py-2"><%= @result %>test</div>
+          <div id="run-result" class="px-3 py-2"><%= @result %></div>
         </div>
       </div>
       <div>
