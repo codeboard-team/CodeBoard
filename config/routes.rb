@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     collection do
       get :my
     end
-    resources :cards do
+    resources :cards, except: [:index] do
       member do
         get :solve 
       end
