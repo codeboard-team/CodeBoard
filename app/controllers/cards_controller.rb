@@ -1,5 +1,6 @@
 class CardsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit, :update, :destroy]
+  before_action :check_authority, only: [:new, :edit, :update, :destroy]
 
   before_action :find_board
   before_action :find_card, only: [:edit, :show, :update, :destroy, :solve]
@@ -26,7 +27,7 @@ class CardsController < ApplicationController
     if params[:commit] == "送出" && @card.save
       redirect_to board_card_path(board_id: @board.id, id: @card.id), notice: 'create successfully!'
     else
-      render :new
+      redirect_to new_board_card_path(board_id: params[:board_id])
     end
   end
 
