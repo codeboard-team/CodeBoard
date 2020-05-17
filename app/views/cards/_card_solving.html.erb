@@ -106,23 +106,22 @@
           <% end %>
         </ul>
       <% end %>
-      
 
-      <div class="shadow border rounded">
+      <div class="shadow border rounded  py-3 my-3">
         <div class="mg-0 leading-loose border-b">
-          <h1 class="text-gray-900 font-bold text-xl border-b">
+          <h1 class="text-gray-900 font-bold text-2xl border-b px-2">
             <span class="mr-1"><%= @card.order %></span><%= @card.title %>
           </h1>
         </div>
-        <div>
+        <div class="py-3 px-5">
           <p>
-            <span class="inline-block border-grap-700 text-grap-900 p-1 border rounded"><%= @card.level %></span>    
-            <span class="inline-block border-grap-700 text-grap-900 p-1 border rounded"><%= @card.tags %></span>    
+            <span class="inline-block border-grap-700 text-grap-900 px-2 py-1 border rounded text-sm text-white bg-gray-700"><%= @card.level %></span>    
+            <span class="inline-block border-grap-700 text-grap-900 px-2 py-1 border rounded text-sm text-white bg-gray-700"><%= @card.tags %></span>    
           </p>
         </div>
         <div class=" px-4 py-1 my-4">
           <section><%= @card.description %></section>
-          <div id="section-hints">
+          <div id="section-hints" class="">
             <% if @card.hints %>
               <input id="btn-show-hints" type="button" value="求提示(<%= @card.hints.length %>)" class="bg-orange-500 hover:bg-orange-700 text-white py-2 px-3 rounded my-5">
               <ul>
@@ -139,20 +138,19 @@
 
       <div class="shadow border rounded my-5">
         <div class="mg-0 leading-loose border-b">
-          <%= f.label :default_code, '作答', class: 'block w-100 px-5'%>
+          <%= f.label :code, 'Your answer', class: 'block w-100 px-5 text-gray-600'%>
         </div>
-        <div class=" px-4 py-1 my-4">
+        <div class="px-4 py-1 my-4">
+          <%= f.hidden_field :default_code, id: "default_code" %>
           <div solving class="editor" data-target="default_code"></div>
           <div class="">
-            <span>印出結果：</span>
-            <div id="run-result" class="px-3 py-2"><%= @result %></div>
+            <%= f.submit 'Run',id: 'btn-card-submit', class: 'bg-blue-500 hover:bg-blue-700 text-white py-2 px-3 rounded my-5' %>
+           <div id="run-result" class="block min-h-2 px-3 py-2 text-white bg-black"><%= @result %></div>
+          </div>
         </div>
       </div>
-    </div>
-      
 
       <div class="my-5">
-        <%= f.submit 'Run',id: 'btn-card-submit', class: 'bg-blue-500 hover:bg-blue-700 text-white py-2 px-3 rounded my-5' %>
         <%= f.submit '送出',id: 'btn-card-submit', class: 'bg-blue-500 hover:bg-blue-700 text-white py-2 px-3 rounded my-5' %>
       </div>
 

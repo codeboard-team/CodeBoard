@@ -1,13 +1,27 @@
- <h1>出題者的sidebar</h1>
-    <%=@board.title%>
+<div class="part-board border-b py-3"> 
+  <p class="text-xl text-gray-900"><%=@board.title%></p>
+  <!--ToDo:Board.username-->
+  <p class="text-s text-gray-600"><%=@board.description%></p>
+</div>
+<div class="part-carts-list">
+  <div class="">
     <% @board.cards.each do |card| %>
-        <div class="mx-1 ml-6 my-2 px-3 py-3">
-          <div class="">
-            <%= link_to card.title, board_card_path(@board.id, card.id), class: 'text-blue-700 hover:text-blue-600 font-bold text-xl' %>
-          </div>
-        <div class="">
-            <%= link_to '編輯', edit_board_card_path(@board.id, card.id), class: 'bg-orange-500 hover:bg-orange-700 text-white py-2 px-3 rounded' %>
-            <%= link_to '刪除', board_card_path(@board.id, card.id), method: 'delete', class: 'bg-red-500 hover:bg-red-700 text-white py-2 px-3 rounded' %>
-        </div>
-        </div>
+      <p class="flex w-100">
+       <span class="py-4 border-b w-12 m-0 p-0 text-blue-500 px-2 text-center"><%= card.order %></span>
+       <%= link_to card.title, board_card_path(@board.id, card.id), 
+                        class: 'border-b block w-full text-blue-700 hover:text-blue-500 hover:bg-gray-200 py-4 px-3' %>
+                        <!--<i class="fa fa-chevron-right border-b text-blue-700 hover:text-blue-500 hover:bg-gray-200 py-4 px-3"></i>-->
+      
+        <span class="block">
+          <%= link_to '編', edit_board_card_path(@board.id, card.id), 
+                      class: 'w-2 bg-orange-500 hover:bg-orange-700 text-white py-1 px-2 rounded mr-1' %>
+        </span>
+        <span class="block">
+          <%= link_to '刪', board_card_path(@board.id, card.id), method: 'delete', 
+                      class: 'w-2 bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded' %>
+        </span>
+      </p>
+      
     <% end %>
+  </div>
+</div>
