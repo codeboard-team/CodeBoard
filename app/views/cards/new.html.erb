@@ -3,6 +3,7 @@
 <%= form_with model: @card, url: board_cards_path , local: true do |f| %>
 
   <% if @card.errors.any? %>
+  <% if @card.errors.any? %>
     <ul>
       <% @card.errors.full_messages.each do |message| %>
         <li class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert"><%= message %></li>
@@ -63,8 +64,11 @@
             <%= f.label :hints, '提示', class: 'uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
             <span id="btn-add-hints"><i class="fa fa-plus-circle hover:text-blue-700 text-blue-500 rounded-full text-2xl"></i></span>
           </section> 
-          <% @card.hints.each do |hints| %>
-            <input name="card[hints][]">
+          
+          <% if @card.hints %>
+            <% @card.hints.each do |hints| %>
+              <input name="card[hints][]">
+            <% end %>
           <% end %>
         </div>
       </div>
