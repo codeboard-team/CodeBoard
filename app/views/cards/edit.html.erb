@@ -66,9 +66,17 @@
             <span id="btn-add-hints"><i class="fa fa-plus-circle hover:text-blue-700 text-blue-500 rounded-full text-2xl"></i></span>
           </section> 
           
-          <% @card.hints.each do |hints| %>
-            <input name="card[hints][]">
+         
+          <% if @card.hints %>
+            <% @card.hints.each do |hints| %>
+              <input name="card[hints][]" value="<%= hints %>">
+            <% end %>
           <% end %>
+
+
+
+
+          
         </div>
       </div>
     </div>

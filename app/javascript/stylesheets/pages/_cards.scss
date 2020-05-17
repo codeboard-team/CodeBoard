@@ -13,3 +13,9 @@ input[name^="card[test_code]"] {
     border: 1px solid #ddd;
     display: block;
 }
+
+button,
+input[type="button"],
+input[type="submit"] {
+    cursor: pointer;
+}

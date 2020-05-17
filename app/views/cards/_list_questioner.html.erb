@@ -1,11 +1,11 @@
  <h1>出題者的sidebar</h1>
     <%=@board.title%>
     <% @board.cards.each do |card| %>
-        <div class="grid grid-cols-2 mx-1 ml-6 my-2 px-3 py-3">
-        <div class="col-auto">
+        <div class="mx-1 ml-6 my-2 px-3 py-3">
+          <div class="">
             <%= link_to card.title, board_card_path(@board.id, card.id), class: 'text-blue-700 hover:text-blue-600 font-bold text-xl' %>
-        </div>
-        <div class="col-auto">
+          </div>
+        <div class="">
             <%= link_to '編輯', edit_board_card_path(@board.id, card.id), class: 'bg-orange-500 hover:bg-orange-700 text-white py-2 px-3 rounded' %>
             <%= link_to '刪除', board_card_path(@board.id, card.id), method: 'delete', class: 'bg-red-500 hover:bg-red-700 text-white py-2 px-3 rounded' %>
         </div>
