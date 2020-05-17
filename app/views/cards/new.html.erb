@@ -3,7 +3,6 @@
 <%= form_with model: @card, url: board_cards_path , local: true do |f| %>
 
   <% if @card.errors.any? %>
-  <% if @card.errors.any? %>
     <ul>
       <% @card.errors.full_messages.each do |message| %>
         <li class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert"><%= message %></li>
@@ -27,7 +26,7 @@
       <!-- <%= f.label :title, '名稱', class: 'block uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%> -->
       <%= f.text_field :title,placeholder: '題目名稱', class: 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' %>
     </div>
-    
+
   </div>
 
   <div class="flex p-4">
@@ -39,19 +38,13 @@
       <span class="bg-gray-300 hover:bg-gray-500 text-gray-700 font-semibold hover:text-white py-2 px-1 border border-gray-500 hover:border-transparent rounded">tag1<i class="fa fa-times"></i></span>
       <span class="bg-gray-300 hover:bg-gray-500 text-gray-700 font-semibold hover:text-white py-2 px-1 border border-gray-500 hover:border-transparent rounded">tag1<i class="fa fa-times"></i></span>
     </div>
-
   </div>
 
   <div class="flex mb-4">
-
     <div class="w-1/2 p-4">
-
       <div>
         <%= f.label :description, '題目敘述', class: 'block uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
         <%= f.text_area :description,placeholder: '題目敘述', class: 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' %>
-    
-
-
       </div>
 
       <div>
@@ -66,26 +59,25 @@
             <%= f.label :hints, '提示', class: 'uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
             <span id="btn-add-hints"><i class="fa fa-plus-circle hover:text-blue-700 text-blue-500 rounded-full text-2xl"></i></span>
           </section> 
-          
-          <% if @card.hints %>
-            <% @card.hints.each do |hints| %>
-              <input name="card[hints][]">
-            <% end %>
+          <% @card.hints.each do |hints| %>
+            <input name="card[hints][]">
           <% end %>
         </div>
       </div>
+
     </div>
-    
+
     <div class="w-1/2 p-4">
       <div>
         <%= f.label :answer, '出題者解答', class: 'block uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
         <%= f.hidden_field :answer, id: "answer" %>
         <div class="editor" data-target="answer"></div>
-        <div>
-          印出結果：
-          <div id="run-result" class="px-3 py-2"><%= @result %></div>
+        <div class="">
+          <%= f.submit 'Run',id: 'btn-card-submit', class: 'bg-blue-500 hover:bg-blue-700 text-white py-2 px-3 rounded my-5' %>
+          <div id="run-result" class="block min-h-2 px-3 py-2 text-white bg-black"><%= @result %></div>
         </div>
       </div>
+
       <div>
         <div id="section-test-code">
           <section>
@@ -97,7 +89,9 @@
           <% end %>
         </div>
       </div>
+      
     </div>
+
   </div>
 
   <%= f.submit '送出',id: 'btn-card-submit', class: 'bg-blue-500 hover:bg-blue-700 text-white py-2 px-3 rounded my-5' %>

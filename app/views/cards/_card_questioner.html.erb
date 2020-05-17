@@ -1,22 +1,115 @@
 <p class="absolute right-0 text-xs text-gray-600">//出題者-檢視頁//</p>
 
 
-<div>
-</div>
-
-<div class="grid grid-rows-3 grid-flow-col gap-4">
-  <div class="row-span-3 bg-orange-100">
-    <%= render "cards/list_questioner" %>
-
-  </div>
-  <div class="row-span-1 col-span-2">
-    page content
-  </div>
-
-  <div class="row-span-2 col-span-2">
+<div class="flex container">
   
+  <div class="part-slider w-1/4 border-r">
+    <%= render "cards/list_questioner" %>
   </div>
 
-</div>
+  <div class="part-card px-4 w-3/4">
 
+    <%= form_with model: @card, url: board_cards_path , local: true do |f| %>
+      <% if @card.errors.any? %>
+        <ul>
+          <% @card.errors.full_messages.each do |message| %>
+            <li class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert"><%= message %></li>
+          <% end %>
+        </ul>
+      <% end %>
+
+      <div class="shadow border rounded  py-3 my-3">
+
+        <div class="mg-0 leading-loose border-b">
+          <h1 class="text-gray-900 font-bold text-2xl border-b px-2">
+            <span class="mr-1"><%= @card.order %></span><%= @card.title %>
+          </h1>
+        </div>
+
+        <div class="py-3 px-5">
+          <p>
+            <span class="inline-block border-grap-700 text-grap-900 px-2 py-1 border rounded text-sm text-white bg-gray-700"><%= @card.level %></span>    
+            <span class="inline-block border-grap-700 text-grap-900 px-2 py-1 border rounded text-sm text-white bg-gray-700"><%= @card.tags %></span>    
+          </p>
+        </div>
+
+        <div class=" px-4 py-1 my-4">
+          <section><%= @card.description %></section>
+          <hr/>
+          <div id="section-hints" class="">
+
+            <% if @card.hints %>
+              <span class="py-2 my-5">提示(<%= @card.hints.length %>):</span> 
+              <ul>
+                <% @card.hints.each do |hints| %>
+                  <li class="hint"><%= hints %></li>
+                <% end %>
+              </ul>
+            <% else %>
+
+              <span class="cursor-not-allowed text-gray-500 py-2 px-3 my-5">(無提示)</span> 
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <div class="shadow border rounded my-5">
+
+        <div class="mg-0 leading-loose border-b">
+          <%= f.label :code, 'deafult code', class: 'block w-100 px-5 text-gray-600'%>
+        </div>
+
+        <div class="px-4 py-1 my-4">
+          <%= f.hidden_field :default_code, id: "default_code" %>
+          <div solving class="editor" data-target="default_code"></div>
+        </div>
+
+      </div>
+
+      <div class="shadow border rounded my-5">
+        <div class="mg-0 leading-loose border-b">
+          <%= f.label :answer, 'answer code', class: 'block w-100 px-5 text-gray-600'%>
+        </div>
+
+        <div class="px-4 py-1 my-4">
+          <%= f.hidden_field :answer, id: "answer" %>
+          <div solving class="editor" data-target="answer"></div>
+        </div>
+
+        <div class="px-4 py-1 my-4">
+          <div class="">
+            <div id="run-result" class="block min-h-2 px-3 py-2 text-white bg-black"><%= @result %></div>
+          </div>
+        </div>
+
+      </div>
+    
+      <div class="shadow border rounded my-5">
+      
+        <div class="mg-0 leading-loose border-b">
+          <%= f.label :test_code, 'test_code code', class: 'block w-100 px-5 text-gray-600'%>
+        </div>
+
+        <div class="px-4 py-1 my-4">
+          <%= f.hidden_field :test_code, id: "test_code" %>
+          <div id="section-test-code">
+            <section>
+              <%= f.label :test_code, '測試方法', class: 'uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
+            </section>
+            <% @card.test_code.each do |test_code| %>
+              <%= f.label :test_code, id: "test_code", class: 'bg-black text-white block border', value: test_code%>
+            <% end %>
+          </div>
+        </div>
+        
+      </div>
+
+      <div class="my-5">
+        <span class="block">
+          <%= link_to '編輯', edit_board_card_path(@board.id, @card.id),  class: 'w-2 bg-orange-500 hover:bg-orange-700 text-white py-1 px-2 rounded mr-1' %>
+        </span>
+      </div>
+
+    <% end %>
+</div>
 

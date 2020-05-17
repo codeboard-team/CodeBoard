@@ -65,18 +65,11 @@
             <%= f.label :hints, '提示', class: 'uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
             <span id="btn-add-hints"><i class="fa fa-plus-circle hover:text-blue-700 text-blue-500 rounded-full text-2xl"></i></span>
           </section> 
-          
-         
           <% if @card.hints %>
             <% @card.hints.each do |hints| %>
               <input name="card[hints][]" value="<%= hints %>">
             <% end %>
           <% end %>
-
-
-
-
-          
         </div>
       </div>
     </div>
@@ -86,9 +79,9 @@
         <%= f.label :answer, '出題者解答', class: 'block uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
         <%= f.hidden_field :answer, id: "answer" %>
         <div class="editor" data-target="answer"></div>
-        <div>
-          印出結果：
-          <div id="run-result" class="px-3 py-2"><%= @result %></div>
+        <div class="">
+          <%= f.submit 'Run',id: 'btn-card-submit', class: 'bg-blue-500 hover:bg-blue-700 text-white py-2 px-3 rounded my-5' %>
+          <div id="run-result" class="block min-h-2 px-3 py-2 text-white bg-black"><%= @result %></div>
         </div>
       </div>
       <div>
