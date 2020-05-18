@@ -1,6 +1,6 @@
 <h1 class="text-gray-900 font-bold text-xl border-b">編輯 Card</h1>
 
-<%= form_with model: @card, url: board_cards_path , local: true do |f| %>
+<%= form_with model: @card, url: board_card_path, method: :patch , local: true do |f| %>
 
   <% if @card.errors.any? %>
     <ul>
@@ -91,7 +91,7 @@
             <span id="btn-add-test-code"><i class="fa fa-plus-circle hover:text-blue-700 text-blue-500 rounded-full text-2xl"></i></span>
           </section>
           <% @card.test_code.each do |test_code| %>
-            <%= f.text_field :test_code, id: "test_code", class: 'block border', value: test_code%>
+            <input name="card[test_code][]" value="<%= test_code %>">
           <% end %>
         </div>
       </div>

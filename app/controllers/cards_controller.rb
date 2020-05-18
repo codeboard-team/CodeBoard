@@ -33,23 +33,10 @@ class CardsController < ApplicationController
   end
 
   def edit
+    
   end
 
   def update
-    # @card.assign_attributes(test_code: @card.test_code.join)
-
-    result = docker_detached(params[:card][:answer], params[:card][:test_code])
-    @result = JSON.parse(result)
-    @card.valid?
-    if result.nil? || result == "Times out!"
-      @card.assign_attributes(card_params)
-      flash[:alert] = 'Wrong!'
-      return render :edit
-    else
-      attr_params = card_params.merge(result: result)
-      @card.assign_attributes(attr_params)
-    end
-
     if @card.update(card_params)
       render :edit
       # redirect_to board_card_path(board_id: @board.id, id: @card.id), notice: 'update successfully!'
@@ -79,9 +66,8 @@ class CardsController < ApplicationController
 
   def solve
     result = JSON.parse(docker_detached(params[:card][:default_code], @card.test_code).strip).map{ |e| e.to_s }
-    @record = @card.records.find_by(user_id: current_user.id)
-    current_user.records.create(card_id: @card.id) unless record
-    debugger
+    current_user.records.create(card_id: @card.id) unless @card.records.find_by(user_id: current_user.id)
+    record = @card.records.find_by(user_id: current_user.id)
     if result == @card.result
       record.update(code: params[:card][:default_code], state: true)
       flash[:notice] = "You Did it!"
