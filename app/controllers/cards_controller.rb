@@ -1,9 +1,5 @@
 class CardsController < ApplicationController
 
-  def show
-    @card = Board.find(params[:board_id]).cards.find_by(id: params[:id])
-  end
-  
   def new
     @card = Card.new(test_code: [''],hints: [''])
   end
@@ -52,9 +48,9 @@ class CardsController < ApplicationController
   def show
     @board = Board.find(params[:board_id]) 
     @card = @board.cards.find(params[:id])
-    record = @card.records.last
+    record = @card.records.find_by(user_id: current_user.id)
       if @board.user == current_user
-         render 'cards/_card_questioner'
+        render 'cards/_card_questioner'
       else
         if record && record.state
           render 'cards/_card_solved'
@@ -67,11 +63,13 @@ class CardsController < ApplicationController
   def solve
     @board = Board.find(params[:board_id]) 
     @card = @board.cards.find(params[:id])
-    if  
-      redirect_to board_path(params[:board_id]), notice: '解題正確!'
-      # /boards/:id(:show)
-    else
-      redirect_to board_card_path(:boards_id, :cards_id), notice: '解題錯誤!'
+    result = docker_detached(params[:card][:answer])
+    record = @card.records.code
+    if record == result 
+       redirect_to solve_board_card_path(), notice: '答題正確!'
+      #  /boards/:board_id/cards/:id/solve(:show)
+    else  
+      render 'cards/_card_solving', notice: '錯誤!'
       # /boards/:board_id/cards/:id(:show)  
     end
   end

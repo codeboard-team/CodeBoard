@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     end
     resources :cards do
       member do
-        get :solve 
+        patch :solve 
       end
     end 
   end
