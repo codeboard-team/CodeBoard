@@ -1,10 +1,9 @@
 class CardsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit, :update, :destroy]
-  before_action :check_authority, only: [:new, :edit, :update, :destroy]
 
   before_action :find_board
   before_action :find_card, only: [:edit, :show, :update, :destroy, :solve]
-  before_action :build_card, only: [:new, :create, :preview]
+  before_action :build_card, only: [:new, :create]
 
   before_action :check_authority, only: [:new, :edit, :update, :destroy]
   
