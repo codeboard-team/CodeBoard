@@ -1,55 +1,61 @@
 class BoardsController < ApplicationController
-
-  before_action :set_board, only: [:edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:my, :new, :edit, :update, :destroy]
+  before_action :find_board, only: [:show, :edit, :update, :destroy]
+  before_action :build_board, only: [:new, :create]
+  before_action :check_authority, only: [:edit, :update, :destroy]
 
   def index
     @board = Board.all
     @board = Board.page(params[:page]).per(6)
   end
 
-  def new
-    @board = Board.new
-  end
+  def new; end
 
   def create
-    @board = current_user.boards.new(board_params)
+    @board.assign_attributes(board_params)
 
     if @board.save
-      redirect_to my_boards_path, notice: 'create successfully!'
+      redirect_to board_path(@board.id), notice: 'create successfully!'
     else
       render :new
     end
   end
 
-  def show
-    @board = Board.find_by(id: params[:id])
-  end
+  def show; end
 
-  def edit
-  end
+  def edit; end
 
   def my
-    @board = Board.where(user_id: current_user)
+    @board = Board.where(user: current_user)
   end
 
   def update
-    @board.update(board_params)
-
-    if @board.save
+    if @board.update(board_params)
       redirect_to my_boards_path, notice: 'update successfully!'
     else
-      render :new
+      render :edit
     end
   end
 
   def destroy
-    @board.destroy
-    redirect_to my_boards_path, notice: 'deleted!'
+    if @board.destroy
+      redirect_to my_boards_path, notice: 'deleted!'
+    else
+      redirect_to my_boards_path
+    end
   end
 
   private
-  def set_board
-    @board = current_user.boards.find_by(id: params[:id])
+  def check_authority
+    redirect_to board_path(id: @board.id), notice: 'check authority error! not owner!' if @board.user_id != current_user.id
+  end
+  
+  def find_board
+    @board = Board.find_by(id: params[:id])
+  end
+
+  def build_board
+    @board = current_user.boards.new
   end
 
   def board_params
