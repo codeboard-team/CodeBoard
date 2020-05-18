@@ -5,7 +5,6 @@ class BoardsController < ApplicationController
   def index
     @board = Board.all
     @board = Board.page(params[:page]).per(6)
-    @boards = Board.search "*", aggs: [:title, :description, :language, :deleted_at] 
   end
 
   def new
@@ -45,10 +44,6 @@ class BoardsController < ApplicationController
   def destroy
     @board.destroy
     redirect_to my_boards_path, notice: 'deleted!'
-  end
-
-  def autocomplete
-    render json: ["Test"]
   end
 
   private

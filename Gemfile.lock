@@ -88,14 +88,6 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
-    elasticsearch (7.7.0)
-      elasticsearch-api (= 7.7.0)
-      elasticsearch-transport (= 7.7.0)
-    elasticsearch-api (7.7.0)
-      multi_json
-    elasticsearch-transport (7.7.0)
-      faraday (~> 1)
-      multi_json
     erubi (1.9.0)
     faraday (1.0.1)
       multipart-post (>= 1.2, < 3)
@@ -108,6 +100,9 @@ GEM
     hashie (4.1.0)
     i18n (1.8.2)
       concurrent-ruby (~> 1.0)
+    inline_svg (1.7.1)
+      activesupport (>= 3.0)
+      nokogiri (>= 1.6)
     jbuilder (2.10.0)
       activesupport (>= 5.0.0)
     jwt (2.2.1)
@@ -224,10 +219,6 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    searchkick (4.3.1)
-      activemodel (>= 5)
-      elasticsearch (>= 6)
-      hashie
     selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
@@ -289,6 +280,7 @@ DEPENDENCIES
   devise (~> 4.7, >= 4.7.1)
   foreman (~> 0.87.1)
   friendly_id (~> 5.3)
+  inline_svg (~> 1.7, >= 1.7.1)
   jbuilder (~> 2.7)
   kaminari (~> 1.2.0)
   listen (>= 3.0.5, < 3.2)
@@ -299,7 +291,6 @@ DEPENDENCIES
   puma (~> 4.1)
   rails (~> 6.0.2, >= 6.0.2.2)
   sass-rails (>= 6)
-  searchkick (~> 4.3, >= 4.3.1)
   selenium-webdriver
   sidekiq (~> 6.0, >= 6.0.1)
   spring

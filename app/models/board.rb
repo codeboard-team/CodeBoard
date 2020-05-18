@@ -11,6 +11,4 @@ class Board < ApplicationRecord
     update(deleted_at: Time.now)
   end
 
-  searchkick
-
 end
