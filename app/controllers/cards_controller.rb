@@ -1,80 +1,98 @@
 class CardsController < ApplicationController
+  before_action :authenticate_user!, only: [:show, :new, :edit, :update, :destroy]
 
-  def show
-    @card = Board.find(params[:board_id]).cards.find_by(id: params[:id])
-  end
+  before_action :find_board
+  before_action :find_card, only: [:edit, :show, :update, :destroy, :solve]
+  before_action :build_card, only: %i[new create]
+
+  before_action :check_authority, only: [:new, :edit, :update, :destroy]
   
   def new
-    @card = Card.new(test_code: [''],hints: [''])
+    @card.assign_attributes(test_code: [''], hints: [''])
+    # @card = @board.cards.new(test_code: [''], hints: [''])
+    # @card = Card.new(card_params)
   end
 
   def create
-    result = docker_detached(params[:card][:answer], params[:card][:test_code])
-    @result = JSON.parse(result)
-    if result == nil || result == "Times out!"
-      return 1
+    result = docker_detached(params[:card][:answer], params[:card][:test_code]).strip
+    @card.valid?
+    # @result = JSON.parse(result)
+    if result.nil? || result == "Times out!"
+      @card.assign_attributes(card_params)
+      flash[:alert] = 'Wrong!'
+      return render :new
     else
-    @card = Board.find(params[:board_id]).cards.build(
-      card_params.merge(
-        result: result
-      )
-    )
+      attr_params = card_params.merge(result: JSON.parse(result).map{ |x| x.to_s })
+      @card.assign_attributes(attr_params)
     end
-
     if @card.save
-      render :new
-      # redirect_to board_path(params[:board_id]), notice: 'create successfully!'
+      redirect_to board_card_path(board_id: @board.id, id: @card.id), notice: 'create successfully!'
     else
       render :new
     end
   end
 
   def edit
-    @card = Board.find(params[:board_id]).cards.find_by(id: params[:id])
   end
 
   def update
-    @card = Board.find(params[:board_id]).cards.find_by(id: params[:id])
-    @card.update(card_params)
-    if @card.save
-      redirect_to board_path(params[:board_id]), notice: 'update successfully!'
+    # @card.assign_attributes(test_code: @card.test_code.join)
+
+    result = docker_detached(params[:card][:answer], params[:card][:test_code])
+    @result = JSON.parse(result)
+    @card.valid?
+    if result.nil? || result == "Times out!"
+      @card.assign_attributes(card_params)
+      flash[:alert] = 'Wrong!'
+      return render :edit
     else
-      render :new
+      attr_params = card_params.merge(result: result)
+      @card.assign_attributes(attr_params)
+    end
+
+    if @card.update(card_params)
+      render :edit
+      # redirect_to board_card_path(board_id: @board.id, id: @card.id), notice: 'update successfully!'
+    else
+      render :edit
     end
   end
 
   def destroy
-    @card = Board.find(params[:board_id]).cards.find_by(id: params[:id])
-    @card.destroy
-    redirect_to board_path(params[:board_id]), notice: 'deleted!'
+    if @card.destroy
+      redirect_to board_path(@board), notice: 'deleted!'
+    else
+      redirect_to board_path(@board)
+    end
   end
 
   def show
-    @board = Board.find(params[:board_id]) 
-    @card = @board.cards.find(params[:id])
-    record = @card.records.last
-      if @board.user == current_user
-         render 'cards/_card_questioner'
-      else
-        if record && record.state
-          render 'cards/_card_solved'
-        else
-          render 'cards/_card_solving'
-        end
-      end
+    record = @card.records.find_by(user_id: current_user.id)
+    if @board.user == current_user
+      render '_card_questioner'
+    elsif record && record.state
+      render '_card_solved'
+    else
+      render '_card_solving'
+    end
   end
 
   def solve
-    @board = Board.find(params[:board_id]) 
-    @card = @board.cards.find(params[:id])
-    if  
-      redirect_to board_path(params[:board_id]), notice: '解題正確!'
-      # /boards/:id(:show)
+    result = JSON.parse(docker_detached(params[:card][:default_code], @card.test_code).strip).map{ |e| e.to_s }
+    @record = @card.records.find_by(user_id: current_user.id)
+    current_user.records.create(card_id: @card.id) unless record
+    debugger
+    if result == @card.result
+      record.update(code: params[:card][:default_code], state: true)
+      flash[:notice] = "You Did it!"
+      render '_card_solved'
     else
-      redirect_to board_card_path(:boards_id, :cards_id), notice: '解題錯誤!'
-      # /boards/:board_id/cards/:id(:show)  
-    end
+      record.update(code: params[:card][:default_code])
+      flash[:alert] = "Wrong!!"
+      render '_card_solving'
+    end 
   end
+
 
   private
   def docker_detached(code, test_code)
@@ -104,6 +122,9 @@ class CardsController < ApplicationController
     return "Times out!"
   end
 
+  def check_authority
+    redirect_to board_path(id: @board.id), notice: 'check authority error! not owner!' if @board.user_id != current_user.id
+  end
 
   def card_params
     params.require(:card).permit(:title,
@@ -114,8 +135,20 @@ class CardsController < ApplicationController
                                  :tags,
                                  :order,
                                  :board_id,
+                                 :result=>[],
                                  :hints=>[],
                                  :test_code=>[])
   end
 
+  def find_board
+    @board = Board.find(params[:board_id])
+  end
+
+  def find_card
+    @card = @board.cards.find(params[:id])
+  end
+
+  def build_card
+    @card = @board.cards.new
+  end
 end
