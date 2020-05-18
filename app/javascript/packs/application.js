@@ -20,6 +20,11 @@ import 'jquery'
 import $ from 'jquery'
 window.$ = window.jquery = $
 import 'popper.js'
+require('jquery-ui');
+
+// jquery-ui theme;
+require.context('file-loader?name=[path][name].[ext]&context=node_modules/jquery-ui-dist!jquery-ui-dist', true,    /jquery-ui\.css/ );
+require.context('file-loader?name=[path][name].[ext]&context=node_modules/jquery-ui-dist!jquery-ui-dist', true,    /jquery-ui\.theme\.css/ );
 
 // font-awesome
 import 'font-awesome/css/font-awesome.min.css'
@@ -33,3 +38,7 @@ import "stylesheets/application"
 
 // page style by HELB
 import "pages/cards"
+
+
+
+
