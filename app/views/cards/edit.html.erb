@@ -19,7 +19,8 @@
 
     <div class="w-2/8">
         <!-- <%= f.label :level, '難易度', class: 'block uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%> -->
-      <%= f.text_field :level,placeholder: '難度', class: 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' %>
+      <%= f.select :level,options_for_select([['Beginner'],['Medium'],['Advanced']], params[:level]),
+        {}, { :class => 'shadow appearance-none border rounded w-auto py-2 px-8 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' }%>
     
     </div>
 
