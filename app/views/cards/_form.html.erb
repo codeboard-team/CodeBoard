@@ -1,0 +1,92 @@
+<%= form_with model: model, url: url, local: true do |f| %>
+
+  <% if model.errors.any? %>
+    <ul>
+      <% model.errors.full_messages.each do |message| %>
+        <li class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert"><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  
+  <div class="flex p-4">
+
+    <div class="w-1/8">
+      <%= f.text_field :order,placeholder: '關卡', class: 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' %>
+    </div>
+
+    <div class="w-2/8">
+      <%= f.select :level, options_for_select([['Beginner'],['Medium'],['Advanced']], params[:level]),
+        {}, { :class => 'shadow appearance-none border rounded w-auto py-2 px-8 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' } %>
+        <%# <i class="fa fa-chevron-circle-down" aria-hidden="true"></i> %>
+    </div>
+
+    <div class="w-full w-5/8">
+      <%= f.text_field :title,placeholder: '題目名稱', class: 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' %>
+    </div>
+  </div>
+
+  <div class="flex p-4">
+    <select name="tag[tag_list][]" multiple= 'multiple', class= 'form-control shadow appearance-none border rounded w-2/6 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' >
+      <option value="tag1">tag1</option>
+      <option value="tag2">tag2</option>
+      <option value="tag3">tag3</option>
+    </select>
+  </div>
+
+  <div class="flex mb-4">
+
+    <div class="w-1/2 p-4">
+
+      <div>
+        <%= f.label :description, '題目敘述', class: 'block uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
+        <%= f.hidden_field :description, id: "description" %>
+        <div class="editor" data-target="description"></div>
+      </div>
+
+      <div>
+        <%= f.label :default_code, '預設程式碼', class: 'block uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
+        <%= f.hidden_field :default_code, id: "default_code" %>
+        <div class="editor" data-target="default_code"></div>
+      </div>
+
+      <div>
+        <div id="section-hints">
+          <section>
+            <%= f.label :hints, '提示', class: 'uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
+            <span id="btn-add-hints"><i class="fa fa-plus-circle hover:text-blue-700 text-blue-500 rounded-full text-2xl"></i></span>
+          </section> 
+          
+          <% model.hints.each do |hints| %>
+            <input name="card[hints][]">
+          <% end %>
+        </div>
+      </div>
+    </div>
+    
+    <div class="w-1/2 p-4">
+      <div>
+        <%= f.label :answer, '出題者解答', class: 'block uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
+        <%= f.hidden_field :answer, id: "answer" %>
+        <div class="editor" data-target="answer"></div>
+        <div>
+          印出結果：
+          <div id="run-result" class="px-3 py-2"><%= @result %>test</div>
+        </div>
+      </div>
+      <div>
+        <div id="section-test-code">
+          <section>
+            <%= f.label :test_code, '測試方法', class: 'uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
+            <span id="btn-add-test-code"><i class="fa fa-plus-circle hover:text-blue-700 text-blue-500 rounded-full text-2xl"></i></span>
+          </section>
+          <% model.test_code.each do |test_code| %>
+            <input name="card[test_code][]">
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%= f.submit '送出',id: 'btn-card-submit', class: 'bg-blue-500 hover:bg-blue-700 text-white py-2 px-3 rounded my-5' %>
+
+<% end %>

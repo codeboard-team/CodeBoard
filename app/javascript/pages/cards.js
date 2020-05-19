@@ -1,5 +1,4 @@
 $(document).on("turbolinks:load", function() {
-
     let editorDoms = document.getElementsByClassName('editor');
     for (editorDom of editorDoms) {
 
@@ -25,6 +24,10 @@ $(document).on("turbolinks:load", function() {
             input.value = newValue;
         });
     }
+
+    $(".form-control").select2({
+        tags: true,
+    })
 
     // document.getElementById("btn-add-test-code").addEventListener("click", function() {
     $("#btn-add-test-code").click(function() {
