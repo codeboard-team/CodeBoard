@@ -1,3 +1,4 @@
+<%# 需要帶的變數： url %>
 <%= form_with model: model, url: url, local: true do |f| %>
 
   <% if model.errors.any? %>
@@ -16,7 +17,7 @@
 
     <div class="w-2/8">
       <%= f.select :level, options_for_select([['Beginner'],['Medium'],['Advanced']], params[:level]),
-        {}, { :class => 'shadow appearance-none border rounded w-auto py-2 px-8 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' } %>
+        {}, { :class => 'shadow appearance-none border rounded w-auto py-2 px-8 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'}%>
         <%# <i class="fa fa-chevron-circle-down" aria-hidden="true"></i> %>
     </div>
 
