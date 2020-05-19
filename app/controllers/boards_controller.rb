@@ -3,8 +3,12 @@ class BoardsController < ApplicationController
   before_action :set_board, only: [:show, :edit, :update, :destroy]
 
   def index
-    @board = Board.all
-    @board = Board.page(params[:page]).per(6)
+    @boards = Board.all
+    @boards = Board.page(params[:page]).per(6)
+    if params[:search]
+      @search_term = params[:search]
+      @boards = @boards.search_by(@search_term)
+    end
   end
 
   def new

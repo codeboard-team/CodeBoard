@@ -25,7 +25,8 @@
                 </div>
               </div>
               <div class="flex items-center justify-start px-2 lg:ml-6 lg:justify-end">
-                <div class="max-w-lg w-full lg:max-w-xs">
+                <%= form_for "", url: boards_path, role: "search", method: :get  do %>
+                <div class="inline-flex items-center max-w-lg w-full lg:max-w-xs">
                   <label for="search" class="sr-only">Search</label>
                   <div class="relative">
                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -33,9 +34,14 @@
                         <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
                       </svg>
                     </div>
-                    <input id="search" class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:border-blue-300 focus:shadow-outline-blue sm:text-sm transition duration-150 ease-in-out" placeholder="Search" type="search" />
+                    <%# <input id="search" class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:border-blue-300 focus:shadow-outline-blue sm:text-sm transition duration-150 ease-in-out" placeholder="Search" type="search" /> %>
+                    <%= text_field_tag :search, @search_term ,class: "block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:border-blue-300 focus:shadow-outline-blue sm:text-sm transition duration-150 ease-in-out" ,placeholder: "Search ..." %>
                   </div>
+                  <span class="inline-flex rounded-md shadow-sm">
+                    <%= submit_tag "Search", class: "inline-flex items-center px-3 py-2 border border-gray-300 text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150"%>
+                  </span>
                 </div>
+                <% end %>
               </div>
             </div>
           </div>
@@ -43,12 +49,12 @@
         <hr>
         <div>
           <div class="my-5 mx-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            <% @board.each do |board| %>
+            <% @boards.each do |board| %>
             <div class="bg-white overflow-hidden shadow rounded-lg">
               <div class="bg-gray-100 px-4 py-5 sm:p-6">
                 <dl>
                   <span class="max-w-md flex justify-center  px-2.5 py-0.5 rounded-full text-sm font-medium leading-5 bg-red-100 text-red-800 md:mt-2 lg:mt-0">
-                    array
+                    <%= board.language %>
                   </span>
                   <div class="inline-flex items-center px-2.5 py-0.5 rounded-full text-sm font-medium leading-5 bg-green-100 text-green-800 md:mt-2 lg:mt-0">
                   </div>
@@ -100,8 +106,8 @@
         <hr>
         <nav class="bg-white px-4 py-3 flex items-center justify-between sm:px-6 sm:justify-end">
           <div class="flex-1 flex justify-between sm:justify-end">
-            <%= link_to_prev_page @board, 'Prev', class: 'relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150' %>
-            <%= link_to_next_page @board, 'Next', class: 'relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150' %>
+            <%= link_to_prev_page @boards, 'Prev', class: 'relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150' %>
+            <%= link_to_next_page @boards, 'Next', class: 'relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150' %>
           </div>
         </nav>
       </div>
