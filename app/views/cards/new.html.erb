@@ -74,8 +74,12 @@
         <%= f.hidden_field :answer, id: "answer" %>
         <div class="editor" data-target="answer"></div>
         <div class="">
-          <%= f.submit 'Run',id: 'btn-card-submit', class: 'bg-blue-500 hover:bg-blue-700 text-white py-2 px-3 rounded my-5' %>
-          <div id="run-result" class="block min-h-2 px-3 py-2 text-white bg-black"><%= @result %></div>
+          <%= f.submit 'run', id: 'btn-card-submit', class: 'bg-blue-500 hover:bg-blue-700 text-white py-2 px-3 rounded my-5' %>
+          <div id="run-result" class="block min-h-2 px-3 py-2 text-white bg-black">
+            <% @result.try(:each) do |result| %>
+              <div><%= result %></div>
+            <% end %>
+          </div>
         </div>
       </div>
 
@@ -85,8 +89,8 @@
             <%= f.label :test_code, '測試方法', class: 'uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
             <span id="btn-add-test-code"><i class="fa fa-plus-circle hover:text-blue-700 text-blue-500 rounded-full text-2xl"></i></span>
           </section>
-          <% @card.test_code.each do |test_code| %>
-            <input name="card[test_code][]">
+          <% params[:card].try(:[], :test_code).try(:each) do |test_code| %>
+            <input name="card[test_code][]" value="<%= test_code %>">
           <% end %>
         </div>
       </div>

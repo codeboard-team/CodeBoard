@@ -54,7 +54,11 @@
           <div solving class="editor" data-target="default_code"></div>
           <div class="">
             <%= f.submit 'Run',id: 'btn-card-submit', class: 'bg-blue-500 hover:bg-blue-700 text-white py-2 px-3 rounded my-5' %>
-           <div id="run-result" class="block min-h-2 px-3 py-2 text-white bg-black"><%= @result %></div>
+            <div id="run-result" class="block min-h-2 px-3 py-2 text-white bg-black">
+              <% @result.try(:each) do |result| %>
+                <div><%= result %></div>
+              <% end %>
+           </div>
           </div>
         </div>
       </div>
