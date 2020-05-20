@@ -6,7 +6,6 @@ class BoardsController < ApplicationController
   before_action :check_authority, only: [:edit, :update, :destroy]
 
   def index
-    @boards = Board.all
     @boards = Board.page(params[:page]).per(6)
     if params[:search]
       @search_term = params[:search]
