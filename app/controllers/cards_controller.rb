@@ -39,7 +39,6 @@ class CardsController < ApplicationController
   end
 
   def update
-    debugger
     # @card.assign_attributes(test_code: @card.test_code.join)
 
     result = docker_detached(params[:card][:answer], params[:card][:test_code])
@@ -110,9 +109,9 @@ class CardsController < ApplicationController
                                  :default_code,
                                  :answer,
                                  :level,
-                                 :tags,
                                  :order,
                                  :board_id,
+                                {:tags=>[]},
                                  :hints=>[],
                                  :test_code=>[])
   end
