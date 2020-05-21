@@ -53,10 +53,21 @@ $(document).on("turbolinks:load", function() {
 
         }
 
+        let tagsSelect2s = document.getElementsByClassName('tags_select2');
+        for (tagsSelect2 of tagsSelect2s) {
+            let $tagsSelect2 = $(tagsSelect2);
+            $tagsSelect2.val(JSON.parse(tagsSelect2.dataset.value));
+            $tagsSelect2.select2({
+                tags: true,
+            });
+
+        }
+
+
     }
 
-    $(".form-control").select2({
-        tags: true,
-    })
+    // $(".form-control").select2({
+    //     tags: true,
+    // })
 
 });

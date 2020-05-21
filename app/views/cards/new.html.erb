@@ -8,8 +8,9 @@
       <%= render "cards/nav_cards_list", nowCard: '' %>
     </div>
 
+
     <div class="part-card px-4 w-3/4">
-       <%= render 'form', model: @card, url: board_cards_path %>
+       <%= render 'form', model: @card, url: board_cards_path, order: Card.count %>
     </div>
   </div>
 

@@ -160,9 +160,9 @@ class CardsController < ApplicationController
                                  :default_code,
                                  :answer,
                                  :level,
-                                 :tags,
                                  :order,
                                  :board_id,
+                                {:tags=>[]},
                                  :result=>[],
                                  :hints=>[],
                                  :test_code=>[])
