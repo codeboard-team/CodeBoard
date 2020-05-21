@@ -1,4 +1,5 @@
-<%= form_with model: @card, url: board_cards_path, local: true do |f| %>
+<%# 需要帶的變數： url %>
+<%= form_with model: model, url: url, local: true do |f| %>
 
   <% if @card.errors.any? %>
     <ul>
@@ -57,10 +58,22 @@
           <section>
             <%= f.label :hints, '提示', class: 'uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
             <span id="btn-add-hints"><i class="fa fa-plus-circle hover:text-blue-700 text-blue-500 rounded-full text-2xl"></i></span>
-          </section> 
-          <% params[:card].try(:[], :hints).try(:each) do |hint| %>
-            <input name="card[hints][]" value="<%= hint %>">
+          </section>
+
+          <% if action_name=="new" %>
+            <% params[:card].try(:[], :hints).try(:each) do |hint| %>
+              <input name="card[hints][]" value="<%= hint %>">
+            <% end %>
+          <% else %>
+
+            <% if @card.hints %>
+              <% @card.hints.each do |hints| %>
+                <input name="card[hints][]" value="<%= hints %>">
+              <% end %>
+            <% end %>
+
           <% end %>
+          
         </div>
       </div>
 
@@ -87,12 +100,25 @@
             <%= f.label :test_code, '測試方法', class: 'uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
             <span id="btn-add-test-code"><i class="fa fa-plus-circle hover:text-blue-700 text-blue-500 rounded-full text-2xl"></i></span>
           </section>
-          <% params[:card].try(:[], :test_code).try(:each) do |test_code| %>
-            <input name="card[test_code][]" value="<%= test_code %>">
+
+
+
+          <% if action_name=="new" %>
+            <% params[:card].try(:[], :test_code).try(:each) do |test_code| %>
+              <input name="card[test_code][]" value="<%= test_code %>">
+            <% end %>
+          <% else %>
+
+              <% if @card.test_code %>
+                <% @card.test_code.each do |test_code| %>
+                  <input name="card[test_code][]" value="<%= test_code %>">
+                <% end %>
+              <% end %>
           <% end %>
+
+
         </div>
       </div>
-
       
     </div>
 
@@ -100,4 +126,5 @@
 
   <%= f.submit '送出',id: 'btn-card-submit', class: 'bg-blue-500 hover:bg-blue-700 text-white py-2 px-3 rounded my-5' %>
 
-<% end %>
+
+<%end%>

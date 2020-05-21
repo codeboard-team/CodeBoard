@@ -1,14 +1,8 @@
 <h1 class="text-gray-900 font-bold text-xl border-b">編輯 Card</h1>
 
+
 <%= form_with model: @card, url: board_card_path, method: :patch , local: true do |f| %>
 
-  <% if @card.errors.any? %>
-    <ul>
-      <% @card.errors.full_messages.each do |message| %>
-        <li class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert"><%= message %></li>
-      <% end %>
-    </ul>
-  <% end %>
   <div class="flex container">
 
     <div class="part-slider w-1/4 border-r">
@@ -16,10 +10,9 @@
     </div>
 
     <div class="part-card px-4 w-3/4">
-      <%= render 'form', model: @card, url: board_cards_path %>
+      <%= render 'form', model: @card, url: board_card_path %>
     </div>
   </div>
-    <%= f.submit '送出',id: 'btn-card-submit', class: 'bg-blue-500 hover:bg-blue-700 text-white py-2 px-3 rounded my-5' %>
 
 <% end %>
 
