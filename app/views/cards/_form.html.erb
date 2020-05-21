@@ -1,4 +1,5 @@
-<%= form_with model: @card, url: board_cards_path, local: true do |f| %>
+<%# 需要帶的變數： url %>
+<%= form_with model: model, url: url, local: true do |f| %>
 
   <% if @card.errors.any? %>
     <ul>
@@ -100,4 +101,5 @@
 
   <%= f.submit '送出',id: 'btn-card-submit', class: 'bg-blue-500 hover:bg-blue-700 text-white py-2 px-3 rounded my-5' %>
 
-<% end %>
+
+<%end%>
