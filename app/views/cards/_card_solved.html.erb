@@ -43,10 +43,9 @@
           <%= f.label :code, 'Your answer', class: 'block w-100 px-5 text-gray-600'%>
         </div>
         <div class="px-4 py-1 my-4">
-          <%= f.hidden_field :default_code, id: "default_code" %>
-          <div class="editor readonly" data-target="default_code"></div>
+          <%= f.hidden_field :code, id: "code" %>
+          <div class="editor readonly" data-target="code"></div>
           <div class="">
-            <%= @result %> (result)
           </div>
         </div>
       </div>

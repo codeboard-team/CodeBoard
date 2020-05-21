@@ -10,19 +10,12 @@
   <div class="part-card px-4 w-3/4">
 
     <%= form_with model: @card, url: board_cards_path , local: true do |f| %>
-      <% if @card.errors.any? %>
-        <ul>
-          <% @card.errors.full_messages.each do |message| %>
-            <li class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert"><%= message %></li>
-          <% end %>
-        </ul>
-      <% end %>
 
       <div class="shadow border rounded  py-3 my-3">
 
         <div class="mg-0 leading-loose border-b">
           <h1 class="text-gray-900 font-bold text-2xl border-b px-2">
-            <span class="mr-1"><%= @card.order %></span><%= @card.title %>
+            <span class="mr-1"><%= @card.order %>  </span><%= @card.title %>
           </h1>
         </div>
 
@@ -56,7 +49,7 @@
       <div class="shadow border rounded my-5">
 
         <div class="mg-0 leading-loose border-b">
-          <%= f.label :code, 'deafult code', class: 'block w-100 px-5 text-gray-600'%>
+          <%= f.label :code, '預設程式碼', class: 'block w-100 px-5 text-gray-600'%>
         </div>
 
         <div class="px-4 py-1 my-4">
@@ -68,7 +61,7 @@
 
       <div class="shadow border rounded my-5">
         <div class="mg-0 leading-loose border-b">
-          <%= f.label :answer, 'answer code', class: 'block w-100 px-5 text-gray-600'%>
+          <%= f.label :answer, '出題者解答', class: 'block w-100 px-5 text-gray-600'%>
         </div>
 
         <div class="px-4 py-1 my-4">
@@ -87,14 +80,14 @@
       <div class="shadow border rounded my-5">
 
         <div class="mg-0 leading-loose border-b">
-          <%= f.label :test_code, 'test_code code', class: 'block w-100 px-5 text-gray-600'%>
+          <%= f.label :test_code, 'Test', class: 'block w-100 px-5 text-gray-600'%>
         </div>
 
         <div class="px-4 py-1 my-4">
           <%= f.hidden_field :test_code, id: "test_code" %>
           <div id="section-test-code">
             <section>
-              <%= f.label :test_code, '測試方法', class: 'uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
+              <%= f.label :test_code, '測試資料', class: 'uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
             </section>
             <% @card.test_code.each do |test_code| %>
               <%= f.label :test_code, id: "test_code", class: 'block border', value: test_code%>
