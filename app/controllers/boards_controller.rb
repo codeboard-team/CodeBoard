@@ -11,6 +11,7 @@ class BoardsController < ApplicationController
       @search_term = params[:search]
       @boards = @boards.search_by(@search_term)
     end
+    @cards = Card.page(params[:page]).per(5)
   end
 
   def new; end
