@@ -40,7 +40,7 @@ class CardsController < ApplicationController
 
   def update
     # @card.assign_attributes(test_code: @card.test_code.join)
-
+    byebug
     result = docker_detached(params[:card][:answer], params[:card][:test_code])
     @result = JSON.parse(result)
     @card.valid?

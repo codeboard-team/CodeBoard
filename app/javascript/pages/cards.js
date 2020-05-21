@@ -24,10 +24,18 @@ $(document).on("turbolinks:load", function() {
             input.value = newValue;
         });
     }
-
-    $(".form-control").select2({
-        tags: true,
-    })
+    let tagsSelect2s = document.getElementsByClassName('tags_select2');
+    for (tagsSelect2 of tagsSelect2s) {
+        let $tagsSelect2 = $(tagsSelect2);
+        $tagsSelect2.val(JSON.parse(tagsSelect2.dataset.value));
+        $tagsSelect2.select2({
+          tags: true,
+        });
+        
+    } 
+    // $(".form-control").select2({
+    //     tags: true,
+    // })
 
     // document.getElementById("btn-add-test-code").addEventListener("click", function() {
     $("#btn-add-test-code").click(function() {

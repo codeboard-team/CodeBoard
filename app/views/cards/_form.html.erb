@@ -16,16 +16,15 @@
     </div>
 
     <div class="w-2/8">
-      <%= f.select :level, [['Beginner','Beginner'],['Medium','Medium'],['Advanced','Advanced']],{},{ class:"shadow appearance-none border rounded w-auto py-2 px-8 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" }%>
+      <%= f.select :level, [['Beginner','Beginner'],['Medium','Medium'],['Advanced','Advanced']],{},{ class:"shadow appearance-none border rounded w-auto py-2 px-8 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" } %>
     </div>
 
     <div class="w-full w-5/8">
       <%= f.text_field :title,placeholder: '題目名稱', class: 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' %>
     </div>
   </div>
-
   <div class="flex p-4">
-    <select name="card[tags][]" multiple= 'multiple', class= 'form-control shadow appearance-none border rounded w-2/6 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' >
+    <select name="card[tags][]" multiple= 'multiple', class= 'form-control tags_select2 shadow appearance-none border rounded w-2/6 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' data-value="<%= f.object.tags.to_json %>">
       <option value="tag1">tag1</option>
       <option value="tag2">tag2</option>
       <option value="tag3">tag3</option>
