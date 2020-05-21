@@ -35,12 +35,11 @@ input[type="submit"] {
     margin: 0 0.2px
 }
 
-.part-btns.hover .fa {
-    display: none;
-}
-
-section.one-card a {
-    &:hover+.part-btns.hover i.fa {
-        display: inline-block;
-    }
-}
+// .part-btns.hover .fa {
+//     display: none;
+// }
+// section.one-card a {
+//     &:hover+.part-btns.hover i.fa {
+//         display: inline-block;
+//     }
+// }
