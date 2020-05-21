@@ -63,12 +63,12 @@ class CardsController < ApplicationController
 
   def show
     if @board.user == current_user
-      render '_card_questioner'      
+      render 'card_questioner'      
     else
       if current_user.present?
         @record = @card.records.find_by(user_id: current_user.id)
         if @record.present? && @record.state
-          render '_card_solved'
+          render 'card_solved'
         else
           render_new_solving
         end  
@@ -91,7 +91,7 @@ class CardsController < ApplicationController
 
   def render_new_solving
     @record = Record.new(card_id: @card.id, code: @card.default_code)
-    render '_card_solving'
+    render 'card_solving'
   end
 
   def solve

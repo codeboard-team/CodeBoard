@@ -1,0 +1,63 @@
+<p class="absolute right-0 text-xs text-gray-600">//解題者(未解題)-解題中頁面//</p>
+
+<div class="flex container">
+  
+  <div class="part-slider w-1/4 border-r">
+    <%= render "nav_cards_list", nowCard: @card.id %>
+  </div>
+
+  <div class="part-card px-4 w-3/4">
+    <%= form_with model: @record, url: solve_board_card_path, method: :patch, local: true do |f| %>
+
+      
+      <div class="shadow border rounded  py-3 my-3">
+        <%= render "content_subject" %>
+      </div>
+
+      <div class="shadow border rounded my-5">
+        <div class="mg-0 leading-loose border-b">
+          <%= f.label :code, 'Your answer', class: 'block w-100 px-5 text-gray-600'%>
+        </div>
+        <div class="px-4 py-1 my-4">
+          <%= f.hidden_field :code, id: "code" %>
+          <div solving class="editor" data-target="code"></div>
+          
+          <div class="">
+            <% if user_authority != "guest" %>
+                <%= f.submit 'Run',id: 'btn-card-submit', class: 'bg-blue-500 hover:bg-blue-700 text-white py-2 px-3 rounded my-5' %>
+                <div id="run-result" class="block min-h-2 px-3 py-2 text-white bg-black">
+                <% @result.try(:each) do |result| %>
+                  <div><%= result %></div>
+                <% end %>
+            <% end %>
+          </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div id="section-test-code">
+        <section>
+          <%= f.label :test_code, '測試資料', class: 'uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
+        </section>
+        
+        <% if @card.test_code %>
+          <% @card.test_code.each do |test_code| %>
+            <%= f.label :test_code, id: "test_code", class: 'block border', value: test_code %>
+          <% end %>
+        <% end %>
+      </div>
+            
+      <div class="my-5">
+        <% if user_authority == "guest" %>
+          <%= link_to "作答", new_user_registration_path, class:"bg-blue-500 hover:bg-blue-700 text-white py-2 px-3 rounded my-5" %>
+        <% elsif user_authority == "user" %>
+          <%= f.submit '送出',id: 'btn-card-submit', class: 'bg-blue-500 hover:bg-blue-700 text-white py-2 px-3 rounded my-5' %>
+        <% end %>
+      </div>
+        
+      
+
+    <% end %>
+</div>
