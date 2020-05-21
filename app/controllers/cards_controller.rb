@@ -1,11 +1,17 @@
 class CardsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit, :update, :destroy]
 
-  before_action :find_board
-  before_action :find_card, only: [:edit, :show, :update, :destroy, :solve]
+  before_action :find_board, except: [:index]
+  before_action :find_card, only: [:edit, :show, :update, :destroy]
   before_action :build_card, only: [:new, :create]
 
   before_action :check_authority, only: [:new, :edit, :update, :destroy]
+
+  def index 
+    @cards = Card.page(params[:page]).per(5)
+  end
+
+  def show; end
   
   def new
     @card.assign_attributes(test_code: [''], hints: [''])
