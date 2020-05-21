@@ -54,14 +54,12 @@
                   <p class="my-4 text-gray-500"><%= board.description %></p>
                   <hr>
                   <dd class="flex justify-between items-center mt-5">
-                    <div class="flex">
-                      <span class="inline-block h-6 w-6 rounded-full overflow-hidden bg-gray-100">
-                        <svg class="h-full w-full text-gray-500" fill="currentColor" viewBox="0 0 24 24">
-                          <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
-                        </svg>
+                    <div class="flex mr-3">
+                      <span class="inline-block h-6 w-6 rounded-full overflow-hidden bg-gray-100 mr-3">
+                        <%= render_svg 'icons/head' %>
                       </span>
                       <div class="text-xl leading-8 font-semibold text-gray-900">
-                        <p class="flex items-baseline text-sm">
+                        <p class="flex items-baseline text-base">
                           <%= board.user.email %>
                         </p>
                       </div>
