@@ -7,14 +7,8 @@
   </div>
 
   <div class="part-card px-4 w-3/4">
-    <%= form_with model: @card, url: solve_board_card_path, method: :patch, local: true do |f| %>
-      <% if @card.errors.any? %>
-        <ul>
-          <% @card.errors.full_messages.each do |message| %>
-            <li class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert"><%= message %></li>
-          <% end %>
-        </ul>
-      <% end %>
+    <%= form_with model: @record, url: solve_board_card_path, method: :patch, local: true do |f| %>
+
 
       <div class="shadow border rounded  py-3 my-3">
         <div class="mg-0 leading-loose border-b">
@@ -50,8 +44,8 @@
           <%= f.label :code, 'Your answer', class: 'block w-100 px-5 text-gray-600'%>
         </div>
         <div class="px-4 py-1 my-4">
-          <%= f.hidden_field :default_code, id: "default_code" %>
-          <div solving class="editor" data-target="default_code"></div>
+          <%= f.hidden_field :code, id: "code" %>
+          <div solving class="editor" data-target="code"></div>
           <div class="">
             <%= f.submit 'Run',id: 'btn-card-submit', class: 'bg-blue-500 hover:bg-blue-700 text-white py-2 px-3 rounded my-5' %>
            <div id="run-result" class="block min-h-2 px-3 py-2 text-white bg-black">
@@ -68,7 +62,7 @@
       </div>
       <!--To Do:only 隱藏的人 導到註冊頁-->
       <div class="my-5">
-      <%= link_to "CodeBoard", root_path, class:"bg-blue-500 hover:bg-blue-700 text-white py-2 px-3 rounded my-5" %>
+      <%= link_to "CodeBoard", new_user_registration_path, class:"bg-blue-500 hover:bg-blue-700 text-white py-2 px-3 rounded my-5" %>
       </div>
 
     <% end %>

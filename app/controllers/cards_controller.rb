@@ -2,7 +2,7 @@ class CardsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit, :update, :destroy]
 
   before_action :find_board, except: [:index]
-  before_action :find_card, only: [:edit, :show, :update, :destroy]
+  before_action :find_card, only: [:edit, :show, :update, :destroy, :solve]
   before_action :build_card, only: [:new, :create]
 
   before_action :check_authority, only: [:new, :edit, :update, :destroy]
@@ -10,16 +10,13 @@ class CardsController < ApplicationController
   def index 
     @cards = Card.page(params[:page]).per(5)
   end
-
-  def show; end
   
   def new
     @card.assign_attributes(test_code: [''], hints: [''])
   end
 
   def create
-    @result = docker_detached(params[:card][:answer], params[:card][:test_code])
-  
+    @result = docker_detached(params[:card][:answer], params[:card][:test_code]) 
     if @result.nil? || @result == "Times out!"
       @card.assign_attributes(card_params)
       flash[:alert] = 'Error!'
@@ -32,7 +29,7 @@ class CardsController < ApplicationController
     if params[:commit] == "送出" && @card.save
       redirect_to board_card_path(board_id: @board.id, id: @card.id), notice: 'create successfully!'
     else
-      redirect_to new_board_card_path(board_id: params[:board_id])
+      render :new
     end
   end
 
@@ -40,7 +37,6 @@ class CardsController < ApplicationController
 
   def update
     @result = docker_detached(params[:card][:answer], params[:card][:test_code])
-    # @card.valid?
     if @result.nil? || @result == "Times out!"
       @card.assign_attributes(card_params)
       flash[:alert] = 'Error!'
@@ -67,37 +63,65 @@ class CardsController < ApplicationController
 
   def show
     if @board.user == current_user
-      render '_card_questioner'
-    elsif current_user.nil?
-      render '_card_solving'
-    elsif @card.records.find_by(user_id: current_user.id) && @card.records.find_by(user_id: current_user.id).state
-      render '_card_solved'
+      render '_card_questioner'      
     else
-      render '_card_solving'
+      if current_user.present?
+        @record = @card.records.find_by(user_id: current_user.id)
+        if @record.present? && @record.state
+          render '_card_solved'
+        else
+          render_new_solving
+        end  
+      else
+        render_new_solving
+      end
     end
+
+    #===
+    # if @board.user == current_user
+    #   render '_card_questioner'
+    # elsif current_user.nil?
+    #   render '_card_solving'
+    # elsif @card.records.find_by(user_id: current_user.id) && @card.records.find_by(user_id: current_user.id).state
+    #   render '_card_solved'
+    # else
+    #   render '_card_solving'
+    # end
+  end
+
+  def render_new_solving
+    @record = Record.new(card_id: @card.id, code: @card.default_code)
+    render '_card_solving'
   end
 
   def solve
-    @result = docker_detached(params[:card][:default_code], @card.test_code)
-    current_user.records.create(card_id: @card.id) unless @card.records.find_by(user_id: current_user.id)
-    record = @card.records.find_by(user_id: current_user.id)
-    if params[:commit] == "送出" && @result == @card.result
-      record.update(code: params[:card][:default_code], state: true)
-      flash[:notice] = "You Did it!"
-      render '_card_solved'
-    elsif params[:commit] == "送出" && @result != @card.result
-      record.update(code: params[:card][:default_code])
-      flash[:alert] = "wrong!"
-      render '_card_solving'
+    @result = docker_detached(params[:record][:code], @card.test_code)
+    @record = @card.records.find_by(user_id: current_user.id)
+    if @record.nil?
+      @record = current_user.records.new(card_id: @card.id, code: @card.default_code)
+    end
+    @record.attributes = record_params
+    
+    # record = @card.records.find_by(user_id: current_user.id)
+    if params[:commit] == "送出"
+      @record.state = @result == @card.result
+      @record.save
+
+      if @record.state
+        flash[:notice] = "You Did it!"
+        render '_card_solved'
+      else
+        flash[:alert] = "wrong!"
+        render '_card_solving'
+      end
     else
       render '_card_solving'
     end 
   end
 
-  
-
   private
   def docker_detached(code, test_code)
+    return flash[:alert] = "answer shouldn't be nil" if code.nil? || test_code.nil?
     random_file = [*"a".."z", *"A".."Z"].sample(5).join('') + ".rb"
     tmp_file_path = Rails.root.join('tmp', "#{random_file}").to_s
     test_data = test_code.map{ |e| e = "result.push(#{e})" }.join("\n")
@@ -114,7 +138,7 @@ class CardsController < ApplicationController
       if `docker ps --format "{{.ID}}: {{.Status}}" -f "id=#{id}"` == ""
         File.unlink(tmp_file_path)
         raw_output = `docker logs #{id}`
-        result = JSON.parse(raw_output.split('======').pop.strip).map{ |e| e.to_s }
+        result = JSON.parse(raw_output.split('======').pop.strip)#.map{|e| e.to_s}
         `docker rm -f #{id}`
         return result
       else
@@ -142,6 +166,10 @@ class CardsController < ApplicationController
                                  :result=>[],
                                  :hints=>[],
                                  :test_code=>[])
+  end
+
+  def record_params
+    params.require(:record).permit(:code)
   end
 
   def find_board
