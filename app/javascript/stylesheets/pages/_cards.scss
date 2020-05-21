@@ -1,9 +1,9 @@
 .editor {
     min-height: 6rem;
 } //
-input[name^="card[test_code]"] {
-    background-color: #1D2021;
-    color: #7FC06D;
+input[name^="card[test_code]"],
+#test_code {
+    color: #4287CB;
     padding: .2rem;
     font-family: monospace;
 }
@@ -18,4 +18,29 @@ button,
 input[type="button"],
 input[type="submit"] {
     cursor: pointer;
+}
+
+.part-carts-list section a.active {
+    background-color: #f1f1f1;
+}
+
+.editor.readonly * {
+    cursor: auto;
+}
+
+.btn-edit,
+.btn-del,
+.btn-add {
+    font-size: 20px;
+    margin: 0 0.2px
+}
+
+.part-btns.hover .fa {
+    display: none;
+}
+
+section.one-card a {
+    &:hover+.part-btns.hover i.fa {
+        display: inline-block;
+    }
 }
