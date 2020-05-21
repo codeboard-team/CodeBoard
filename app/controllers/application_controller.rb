@@ -5,22 +5,22 @@ class ApplicationController < ActionController::Base
   # with: :record_not_found
 
   before_action :configure_permitted_parameters, if: :devise_controller?
-
-
-
+  helper_method :user_authority
 
   private
-  # def record_not_found
-  #   render file: 'public/404',
-  #          status: 404
-  # end
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:username, :name])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:username, :name])
+  end
 
-
-
-  protected
-
-    def configure_permitted_parameters
-      devise_parameter_sanitizer.permit(:sign_up, keys: [:username, :name])
-      devise_parameter_sanitizer.permit(:account_update, keys: [:username, :name])
+  def user_authority
+    if current_user.nil?
+      return "guest"
+    elsif current_user == Board.find_by(id: params[:id]).try(:user) || current_user == Board.find_by(id: params[:board_id]).try(:user)
+      return "author"
+    else
+      return "user"
     end
+  end
+
 end

@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 // Custom SCSS
+@tailwind utilities;
 @import "components/buttons";
 @import "components/forms";
-@tailwind utilities;
 @import "pages/cards";

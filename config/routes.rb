@@ -17,9 +17,8 @@ Rails.application.routes.draw do
     end
     resources :cards, except: [:index] do
       member do
-        get :solve 
+        patch :solve 
       end
-    end
-  resources :explore 
+    end 
   end
 end
