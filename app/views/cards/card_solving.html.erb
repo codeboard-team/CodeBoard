@@ -10,6 +10,7 @@
     <%= form_with model: @record, url: solve_board_card_path, method: :patch, local: true do |f| %>
 
 
+
       <div class="shadow border rounded  py-3 my-3">
         <div class="mg-0 leading-loose border-b">
           <h1 class="text-gray-900 font-bold text-2xl border-b px-2">
@@ -18,12 +19,23 @@
         </div>
         <div class="py-3 px-5">
           <p>
-            <span class="inline-block border-grap-700 text-grap-900 px-2 py-1 border rounded text-sm text-white bg-gray-700"><%= @card.level %></span>    
-            <span class="inline-block border-grap-700 text-grap-900 px-2 py-1 border rounded text-sm text-white bg-gray-700"><%= @card.tags %></span>    
+          
+            <span class="inline-block border-grap-700 text-grap-900 px-2 py-1 border rounded text-sm text-white bg-orange-700">
+              <%= @card.level %>
+            </span>    
+              
+
+            <% if @card.tags %>
+            <%  @card.tags.each do |tag| %>
+              <span class="inline-block border-grap-700 text-grap-900 px-2 py-1 border rounded text-sm text-white bg-gray-700">
+                <%= tag %>
+              </span>    
+            <% end %>
+          <% end %>
           </p>
         </div>
         <div class=" px-4 py-1 my-4">
-          <section><%= @card.description %></section>
+          <section id="card-description"><%= @card.description %></section>
           <div id="section-hints" class="">
             <% if @card.hints %>
               <input id="btn-show-hints" type="button" value="求提示(<%= @card.hints.length %>)" class="bg-orange-500 hover:bg-orange-700 text-white py-2 px-3 rounded my-5">
@@ -47,22 +59,36 @@
           <%= f.hidden_field :code, id: "code" %>
           <div solving class="editor" data-target="code"></div>
           <div class="">
+          <% if user_authority != "guest" %>
             <%= f.submit 'Run',id: 'btn-card-submit', class: 'bg-blue-500 hover:bg-blue-700 text-white py-2 px-3 rounded my-5' %>
            <div id="run-result" class="block min-h-2 px-3 py-2 text-white bg-black">
             <% @result.try(:each) do |result| %>
               <div><%= result %></div>
             <% end %>
+          <% end %>
           </div>
           </div>
         </div>
       </div>
 
-      <div class="my-5">
-        <%= f.submit '送出',id: 'btn-card-submit', class: 'bg-blue-500 hover:bg-blue-700 text-white py-2 px-3 rounded my-5' %>
+      <div id="section-test-code">
+        <section>
+          <%= f.label :test_code, '測試資料', class: 'uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
+        </section>
+        
+        <% if @card.test_code %>
+          <% @card.test_code.each do |test_code| %>
+            <%= f.label :test_code, id: "test_code", class: 'block border', value: test_code %>
+          <% end %>
+        <% end %>
       </div>
-      <!--To Do:only 隱藏的人 導到註冊頁-->
+      
       <div class="my-5">
-      <%= link_to "CodeBoard", new_user_registration_path, class:"bg-blue-500 hover:bg-blue-700 text-white py-2 px-3 rounded my-5" %>
+        <% if user_authority == "guest" %>
+          <%= link_to "作答", new_user_registration_path, class:"bg-blue-500 hover:bg-blue-700 text-white py-2 px-3 rounded my-5" %>
+        <% elsif user_authority == "user" %>
+          <%= f.submit '送出',id: 'btn-card-submit', class: 'bg-blue-500 hover:bg-blue-700 text-white py-2 px-3 rounded my-5' %>
+        <% end %>
       </div>
 
     <% end %>

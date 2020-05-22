@@ -19,8 +19,10 @@
   </div>
   
   <div>
-    <%= f.label :select, '程式語言',class: 'text-m mb-2 text-gray-600' %>
-    <%= f.text_field :language, class: 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' %>
+    <%= f.label :language, '程式語言',class: 'text-m mb-2 text-gray-600' %>
+    <%= f.select :language, [['Ruby','Ruby'],['JavaScript','JavaScript']],{}, 
+                  class: 'shadow appearance-none border rounded w-auto py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline',
+                  style: 'text-align-last: center;'%>
   </div>
   
   <%= f.submit '送出', class: 'bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded'  %>

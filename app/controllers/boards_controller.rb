@@ -31,6 +31,7 @@ class BoardsController < ApplicationController
 
   def my
     @board = Board.where(user: current_user)
+    redirect_to new_board_path if @board.count == 0
   end
 
   def update

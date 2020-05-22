@@ -1,6 +1,3 @@
-<h1 class="text-gray-900 font-bold text-xl border-b">編輯 Card</h1>
-
-
 <%= form_with model: @card, url: board_card_path, method: :patch , local: true do |f| %>
 
   <div class="flex container">
@@ -10,7 +7,8 @@
     </div>
 
     <div class="part-card px-4 w-3/4">
-      <%= render 'form', model: @card, url: board_card_path %>
+      <h1 class="text-gray-900 font-bold text-xl border-b">編輯 Card</h1>
+      <%= render 'form', model: @card, url: board_card_path, order: Card.count %>
     </div>
   </div>
 
