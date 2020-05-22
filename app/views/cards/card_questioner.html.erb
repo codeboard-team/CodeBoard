@@ -15,7 +15,6 @@
         <%= render "content_subject" %>
       </div>
 
-  </div>
 
       <div class="shadow border rounded my-5">
 
@@ -51,15 +50,13 @@
       <div class="shadow border rounded my-5">
 
         <div class="mg-0 leading-loose border-b">
-          <%= f.label :test_code, 'Test', class: 'block w-100 px-5 text-gray-600'%>
+          <%= f.label :test_code, '測試資料', class: 'block w-100 px-5 text-gray-600'%>
         </div>
 
         <div class="px-4 py-1 my-4">
           <%= f.hidden_field :test_code, id: "test_code" %>
           <div id="section-test-code">
-            <section>
-              <%= f.label :test_code, '測試資料', class: 'uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
-            </section>
+         
             
             <% if @card.test_code %>
               <% @card.test_code.each do |test_code| %>
@@ -78,4 +75,5 @@
       </div>
 
     <% end %>
+  </div>
 </div>

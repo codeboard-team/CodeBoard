@@ -12,26 +12,31 @@
   <div class="flex p-4">
 
     <div class="w-1/8">
-    <%= order%>
-      <%#= f.label :order, '題序' , class: 'block uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
-      <%#= f.text_field :order,placeholder: '關卡', class: 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' %>
-    </div>
 
-    <div class="w-2/8">
-      <%= f.select :level, [['Beginner','Beginner'],['Medium','Medium'],['Advanced','Advanced']],{},{ 
-                    class:"shadow appearance-none border rounded w-auto py-2 px-8 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" } %>
-    </div>
+      <% if action_name=="new" %>
+        <span class=" bg-gray-200 appearance-none border rounded w-auto mr-2 py-2 px-8 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+          <%= order%>
+        </span>
+      <% end %>
 
-    <div class="w-full w-5/8">
-      <%= f.text_field :title,placeholder: '題目名稱', class: 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' %>
-    </div>
+        <%#= f.label :order, '題序' , class: 'block uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
+        <%#= f.text_field :order,placeholder: '關卡', class: 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' %>
+      </div>
 
+      <div class="w-2/8">
+        <%= f.select :level, [['Beginner','Beginner'],['Medium','Medium'],['Advanced','Advanced']],{},{ 
+                      class:"shadow appearance-none border rounded w-auto py-2 px-8 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" } %>
+      </div>
+
+      <div class="w-full w-5/8">
+        <%= f.text_field :title,placeholder: '題目名稱',class: 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' %>
+      </div>
   </div>
 
   <div class="flex p-4">
 
     <select name="card[tags][]" multiple= 'multiple', 
-            class= 'form-control tags_select2 shadow appearance-none border rounded w-2/6 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' 
+            class= 'w-full form-control tags_select2 shadow appearance-none border rounded w-2/6 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' 
             data-value="<%= f.object.tags.to_json %>">
             <%= render "tags_ruby" %>
 
@@ -39,11 +44,11 @@
 
   </div>
 
-  <div class="flex mb-4">
-    <div class="w-1/2 p-4">
+  <div class="mb-4">
+    <div class="p-4">
       <div>
         <%= f.label :description, '題目敘述', class: 'block uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
-        <%= f.text_area :description,placeholder: '題目敘述', class: 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' %>
+        <%= f.text_area :description,placeholder: '題目敘述',class: 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' %>
       </div>
 
       <div>
@@ -78,7 +83,7 @@
 
     </div>
 
-    <div class="w-1/2 p-4">
+    <div class="p-4">
       <div>
         <%= f.label :answer, '出題者解答', class: 'block uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
         <%= f.hidden_field :answer, id: "answer" %>

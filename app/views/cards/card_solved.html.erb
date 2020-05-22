@@ -7,35 +7,11 @@
   </div>
 
   <div class="part-card px-4 w-3/4">
-    <%= form_with model: @card, url: solve_board_card_path, method: :patch, local: true do |f| %>
+    <%#= form_with model: @card, url: solve_board_card_path, method: :patch, local: true do |f| %>
 
+    <%= form_with model: @record, url: solve_board_card_path, method: :patch, local: true do |f| %>
       <div class="shadow border rounded  py-3 my-3">
-        <div class="mg-0 leading-loose border-b">
-          <h1 class="text-gray-900 font-bold text-2xl border-b px-2">
-            <span class="mr-1"><%= @card.order %></span><%= @card.title %>
-          </h1>
-        </div>
-        <div class="py-3 px-5">
-          <p>
-            <span class="inline-block border-grap-700 text-grap-900 px-2 py-1 border rounded text-sm text-white bg-gray-700"><%= @card.level %></span>    
-            <span class="inline-block border-grap-700 text-grap-900 px-2 py-1 border rounded text-sm text-white bg-gray-700"><%= @card.tags %></span>    
-          </p>
-        </div>
-        <div class=" px-4 py-1 my-4">
-          <section><%= @card.description %></section>
-          <div id="section-hints" class="">
-            <% if @card.hints %>
-              <input id="btn-show-hints" type="button" value="求提示(<%= @card.hints.length %>)" class="bg-orange-500 hover:bg-orange-700 text-white py-2 px-3 rounded my-5">
-              <ul>
-                <% @card.hints.each do |hints| %>
-                  <li class="hint hidden"><%= hints %></li>
-                <% end %>
-              </ul>
-            <% else %>
-              <span class="cursor-not-allowed bg-gray-500 text-white py-2 px-3 rounded my-5">(無提示)</span> 
-            <% end %>
-          </div>
-        </div>
+        <%= render "content_subject" %>
       </div>
 
       <div class="shadow border rounded my-5">
@@ -47,12 +23,31 @@
           <div class="editor readonly" data-target="code"></div>
           <div class="">
           </div>
+          
+          <div>
+            <p>測試方法</p>
+            <% @card.test_code.each do |test_code| %>
+              <p class="ml-5"><%= test_code %></p>
+            <% end %>
+          </div>
+          <div>
+            <p>結果</p>
+            <% if @card.result %>
+              <% @card.result.each do |result| %>
+                <p class="ml-5"><%= result %></p>
+              <% end %>
+            <% end %>
+          </div>
+
+          
+          
+          
         </div>
       </div>
-
+      <!--之後編輯按鈕
       <div class="my-5">
-        <%= f.submit '送出',id: 'btn-card-submit', class: 'bg-blue-500 hover:bg-blue-700 text-white py-2 px-3 rounded my-5' %>
+        <%#= f.submit '送出',id: 'btn-card-submit', class: 'bg-blue-500 hover:bg-blue-700 text-white py-2 px-3 rounded my-5' %>
       </div>
-
+      -->
     <% end %>
 </div>

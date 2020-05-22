@@ -79,13 +79,13 @@ class CardsController < ApplicationController
 
     #===
     # if @board.user == current_user
-    #   render '_card_questioner'
+    #   render 'card_questioner'
     # elsif current_user.nil?
-    #   render '_card_solving'
+    #   render 'card_solving'
     # elsif @card.records.find_by(user_id: current_user.id) && @card.records.find_by(user_id: current_user.id).state
-    #   render '_card_solved'
+    #   render 'card_solved'
     # else
-    #   render '_card_solving'
+    #   render 'card_solving'
     # end
   end
 
@@ -109,13 +109,13 @@ class CardsController < ApplicationController
 
       if @record.state
         flash[:notice] = "You Did it!"
-        render '_card_solved'
+        render 'card_solved'
       else
         flash[:alert] = "wrong!"
-        render '_card_solving'
+        render 'card_solving'
       end
     else
-      render '_card_solving'
+      render 'card_solving'
     end 
   end
 
