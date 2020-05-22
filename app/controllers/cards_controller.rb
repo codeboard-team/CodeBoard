@@ -155,7 +155,7 @@ class CardsController < ApplicationController
 
   def render_new_solving
     @record = Record.new(card_id: @card.id, code: @card.default_code)
-    render '_card_solving'
+    render 'card_solving'
   end
 
   def save_type(raw=[])
