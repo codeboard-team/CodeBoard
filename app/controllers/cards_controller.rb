@@ -22,7 +22,7 @@ class CardsController < ApplicationController
       flash[:alert] = 'Error!'
       return render :new
     else
-      attr_params = card_params.merge(result: @result)
+      attr_params = card_params.merge(result: save_type(@result))
       @card.assign_attributes(attr_params)
     end
 
@@ -42,7 +42,7 @@ class CardsController < ApplicationController
       flash[:alert] = 'Error!'
       return render :edit
     else
-      attr_params = card_params.merge(result: @result)
+      attr_params = card_params.merge(result: save_type(@result))
       @card.assign_attributes(attr_params)
     end
 
@@ -89,22 +89,17 @@ class CardsController < ApplicationController
     # end
   end
 
-  def render_new_solving
-    @record = Record.new(card_id: @card.id, code: @card.default_code)
-    render 'card_solving'
-  end
-
   def solve
     @result = docker_detached(params[:record][:code], @card.test_code)
     @record = @card.records.find_by(user_id: current_user.id)
+    
     if @record.nil?
       @record = current_user.records.new(card_id: @card.id, code: @card.default_code)
     end
     @record.attributes = record_params
-    
-    # record = @card.records.find_by(user_id: current_user.id)
+
     if params[:commit] == "送出"
-      @record.state = @result == @card.result
+      @record.state = @result == compare_type(@card.result)
       @record.save
 
       if @record.state
@@ -138,20 +133,37 @@ class CardsController < ApplicationController
       if `docker ps --format "{{.ID}}: {{.Status}}" -f "id=#{id}"` == ""
         File.unlink(tmp_file_path)
         raw_output = `docker logs #{id}`
-        result = JSON.parse(raw_output.split('======').pop.strip)#.map{|e| e.to_s}
-        `docker rm -f #{id}`
-        return result
+        if raw_output == ""
+          return nil
+        else
+          result = JSON.parse(raw_output.split('======').pop.strip)
+          `docker rm -f #{id}`
+          return result
+        end
       else
         sleep 1
       end
     end
     File.unlink(tmp_file_path)
-    `docker rm -f #{id}`
+    `docker rm -f #{id} `
     return "Times out!"
   end
 
   def check_authority
     redirect_to board_path(id: @board.id), notice: 'check authority error! not owner!' if @board.user_id != current_user.id
+  end
+
+  def render_new_solving
+    @record = Record.new(card_id: @card.id, code: @card.default_code)
+    render '_card_solving'
+  end
+
+  def save_type(raw=[])
+    raw.map{ |e| JSON.generate(e) }
+  end
+
+  def compare_type(raw=[])
+    raw.map{ |e| JSON.parse(e) }
   end
 
   def card_params
