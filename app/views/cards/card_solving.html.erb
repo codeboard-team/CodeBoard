@@ -69,27 +69,27 @@
           </div>
           </div>
         </div>
-      </div>
 
-      <div id="section-test-code">
-        <section>
-          <%= f.label :test_code, '測試資料', class: 'uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
-        </section>
-        
-        <% if @card.test_code %>
-          <% @card.test_code.each do |test_code| %>
-            <%= f.label :test_code, id: "test_code", class: 'block border', value: test_code %>
+        <div id="section-test-code">
+          <section>
+            <%= f.label :test_code, '測試資料', class: 'uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
+          </section>
+          
+          <% if @card.test_code %>
+            <% @card.test_code.each do |test_code| %>
+              <%= f.label :test_code, id: "test_code", class: 'block border', value: test_code %>
+            <% end %>
           <% end %>
-        <% end %>
-      </div>
+        </div>
       
-      <div class="my-5">
-        <% if user_authority == "guest" %>
-          <%= link_to "作答", new_user_registration_path, class:"bg-blue-500 hover:bg-blue-700 text-white py-2 px-3 rounded my-5" %>
-        <% elsif user_authority == "user" %>
-          <%= f.submit '送出',id: 'btn-card-submit', class: 'bg-blue-500 hover:bg-blue-700 text-white py-2 px-3 rounded my-5' %>
-        <% end %>
-      </div>
+        <div class="my-5">
+          <% if user_authority == "guest" %>
+            <%= link_to "作答", new_user_registration_path, class:"bg-blue-500 hover:bg-blue-700 text-white py-2 px-3 rounded my-5" %>
+          <% elsif user_authority == "user" %>
+            <%= f.submit '送出',id: 'btn-card-submit', class: 'bg-blue-500 hover:bg-blue-700 text-white py-2 px-3 rounded my-5' %>
+          <% end %>
+        </div>
 
+      </div>
     <% end %>
 </div>
