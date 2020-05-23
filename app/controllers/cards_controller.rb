@@ -67,7 +67,7 @@ class CardsController < ApplicationController
     else
       if current_user.present?
         @record = @card.records.find_by(user_id: current_user.id)
-        if @record.present? && @record.state
+        if @record.present? && @record.solved
           render 'card_solved'
         else
           render_new_solving
