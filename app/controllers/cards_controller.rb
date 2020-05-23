@@ -16,11 +16,19 @@ class CardsController < ApplicationController
   end
 
   def create
-    @result = docker_detached(params[:card][:answer], params[:card][:test_code]) 
-    if @result.nil? || @result == "Times out!"
+    @result = docker_detached(params[:card][:answer], params[:card][:test_code])
+    if @result.nil?
       @card.assign_attributes(card_params)
-      flash[:alert] = 'Error!'
+      flash[:alert] = "answer/test_code can't be blank"
       return render :new
+    elsif @result == "Times out!"
+      @card.assign_attributes(card_params)
+      flash[:alert] = 'runtimes out!'
+      return render :new
+    elsif @result.class == String
+      @result = [@result]
+      attr_params = card_params.merge(result: @result)
+      @card.assign_attributes(attr_params)
     else
       attr_params = card_params.merge(result: save_type(@result))
       @card.assign_attributes(attr_params)
@@ -37,10 +45,18 @@ class CardsController < ApplicationController
 
   def update
     @result = docker_detached(params[:card][:answer], params[:card][:test_code])
-    if @result.nil? || @result == "Times out!"
+    if @result.nil?
       @card.assign_attributes(card_params)
-      flash[:alert] = 'Error!'
+      flash[:alert] = "answer/test_code can't be blank"
       return render :edit
+    elsif @result == "Times out!"
+      @card.assign_attributes(card_params)
+      flash[:alert] = 'runtimes out!'
+      return render :edit
+    elsif @result.class == String
+      @result = [@result]
+      attr_params = card_params.merge(result: @result)
+      @card.assign_attributes(attr_params)
     else
       attr_params = card_params.merge(result: save_type(@result))
       @card.assign_attributes(attr_params)
@@ -80,8 +96,8 @@ class CardsController < ApplicationController
 
   def solve
     @result = docker_detached(params[:record][:code], @card.test_code)
+    @result = [@result] if @result.class == String
     @record = @card.records.find_by(user_id: current_user.id)
-
     if @record.nil?
       @record = current_user.records.new(card_id: @card.id, code: @card.default_code)
     end
@@ -105,27 +121,29 @@ class CardsController < ApplicationController
 
   private
   def docker_detached(code, test_code)
-    return flash[:alert] = "answer shouldn't be nil" if code.nil? || test_code.nil?
+    return nil if code == "" || test_code.nil?
     random_file = [*"a".."z", *"A".."Z"].sample(5).join('') + ".rb"
+    devision = [*"a".."z", *"A".."Z"].sample(10).join('')
     tmp_file_path = Rails.root.join('tmp', "#{random_file}").to_s
     test_data = test_code.map{ |e| e = "result.push(#{e})" }.join("\n")
     file = File.open(tmp_file_path, "w")
-    contents = [code,"require 'json'","result = []",test_data,"puts '======'","puts JSON.generate(result)"]
+    contents = [code,"require 'json'","result = []",test_data,"puts \"#{devision}\"","puts JSON.generate(result)"]
     contents.each { |e|
       file.write(e)
       file.write("\n")
     }
     file.close
-    id = `docker run -d -v #{tmp_file_path}:/code.rb ruby ruby /code.rb`
+    id = `docker run -d -v #{tmp_file_path}:/main.rb ruby ruby /main.rb`
     # 每一秒檢查一次是否運算完成，共 5 次
     5.times do
       if `docker ps --format "{{.ID}}: {{.Status}}" -f "id=#{id}"` == ""
         File.unlink(tmp_file_path)
         raw_output = `docker logs #{id}`
         if raw_output == ""
-          return nil
+          out, err = Open3.capture3("`docker logs #{id}`")
+          return err
         else
-          result = JSON.parse(raw_output.split('======').pop.strip)
+          result = JSON.parse(raw_output.split("#{devision}").pop.strip)
           `docker rm -f #{id}`
           return result
         end
@@ -147,11 +165,11 @@ class CardsController < ApplicationController
     render 'card_solving'
   end
 
-  def save_type(raw=[])
+  def save_type(raw)
     raw.map{ |e| JSON.generate(e) }
   end
 
-  def compare_type(raw=[])
+  def compare_type(raw)
     raw.map{ |e| JSON.parse(e) }
   end
 
