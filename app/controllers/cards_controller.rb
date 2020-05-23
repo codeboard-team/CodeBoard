@@ -67,7 +67,7 @@ class CardsController < ApplicationController
     else
       if current_user.present?
         @record = @card.records.find_by(user_id: current_user.id)
-        if @record.present? && @record.state
+        if @record.present? && @record.solved
           render 'card_solved'
         else
           render_new_solving
@@ -76,33 +76,22 @@ class CardsController < ApplicationController
         render_new_solving
       end
     end
-
-    #===
-    # if @board.user == current_user
-    #   render 'card_questioner'
-    # elsif current_user.nil?
-    #   render 'card_solving'
-    # elsif @card.records.find_by(user_id: current_user.id) && @card.records.find_by(user_id: current_user.id).state
-    #   render 'card_solved'
-    # else
-    #   render 'card_solving'
-    # end
   end
 
   def solve
     @result = docker_detached(params[:record][:code], @card.test_code)
     @record = @card.records.find_by(user_id: current_user.id)
-    
+
     if @record.nil?
       @record = current_user.records.new(card_id: @card.id, code: @card.default_code)
     end
     @record.attributes = record_params
 
     if params[:commit] == "送出"
-      @record.state = @result == compare_type(@card.result)
+      @record.solved = @result == compare_type(@card.result)
       @record.save
 
-      if @record.state
+      if @record.solved
         flash[:notice] = "You Did it!"
         render 'card_solved'
       else
