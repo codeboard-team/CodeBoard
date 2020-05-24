@@ -38,12 +38,14 @@
               <% end %>
             <% end %>
           </div>
-
-          
-          
-          
+          <div>
         </div>
       </div>
+
+            <p>別人這樣解</p>
+            <% @card.records.each do |record| %>
+              <p class="ml-5"><%= record %></p>
+            <% end %>
       <!--之後編輯按鈕
       <div class="my-5">
         <%#= f.submit '送出',id: 'btn-card-submit', class: 'bg-blue-500 hover:bg-blue-700 text-white py-2 px-3 rounded my-5' %>

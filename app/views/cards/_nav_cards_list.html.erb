@@ -11,9 +11,8 @@
   <p class="text-s text-gray-600"><%=@board.description%></p>
   <p class="text-xs text-gray-600"><i class="fa fa-user"></i> <%=@board.user.email%></p>
   <!--email改username-->
-
-
 </div>
+
 <div class="part-carts-list">
 
   <% if @board.user == current_user %>   <!--controller更新時更換成實體變數-->
@@ -22,15 +21,15 @@
       <span class="">題目</span>
     <% end %>
   <% end %>
-  <div class="">
+  
+  <div>
     <% order = 0 %>
     <% @board.cards.reverse_each do |card| %>
-      
       <section class="one-card flex w-100 relative">
         <% if card.id %>
           <% order = order + 1 %>
           <%= link_to(board_card_path(@board.id, card.id), :class => "#{'active' if card.id == nowCard} flex border-b block w-full text-blue-700 hover:text-blue-500 hover:bg-gray-200 py-4 py-3") do %>
-            <span class="w-8 inline-block font-semibold border-r  mr-2 text-blue-500 text-center"><%= order %></span>
+            <span class="w-8 inline-block font-semibold border-r  mr-2 text-blue-500 text-center"><%= card.order %></span>
             <span class="inline-block flex-grow"><%= card.title %></span>
             <span class="inline-block w-4 px-1 mx-2"><i class="fa fa-chevron-right text-blue-700 hover:text-blue-500 hover:bg-gray-200"></i> </span>
           <% end %>
