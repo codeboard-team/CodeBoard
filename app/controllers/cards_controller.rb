@@ -71,6 +71,7 @@ class CardsController < ApplicationController
 
   def destroy
     if @card.destroy
+      # 後面關卡order-1
       redirect_to board_path(@board), notice: 'deleted!'
     else
       redirect_to board_path(@board)
