@@ -44,6 +44,7 @@ class CardsController < ApplicationController
   def edit; end
 
   def update
+    byebug
     @result = docker_detached(params[:card][:answer], params[:card][:test_code])
     if @result.nil?
       @card.assign_attributes(card_params)
@@ -137,7 +138,7 @@ class CardsController < ApplicationController
       file.write("\n")
     }
     file.close
-    id = `docker run -d -v #{tmp_file_path}:/main.rb ruby ruby /main.rb`
+    id = `docker run -d -m 128M -c 512 -v #{tmp_file_path}:/main.rb ruby ruby /main.rb`
     # 每一秒檢查一次是否運算完成，共 5 次
     5.times do
       if `docker ps --format "{{.ID}}: {{.Status}}" -f "id=#{id}"` == ""
