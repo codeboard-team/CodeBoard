@@ -73,7 +73,10 @@ gem 'kaminari', '~> 1.2.0'
 gem 'inline_svg', '~> 1.7', '>= 1.7.1'
 
 # Deploy
+gem 'bcrypt_pbkdf', '~> 1.0', '>= 1.0.1'
 gem 'capistrano', '~> 3.14'
 gem 'capistrano-rails', '~> 1.5'
 gem 'capistrano-passenger', '~> 0.2.0'
 gem 'capistrano-rbenv', '~> 2.1', '>= 2.1.6'
+gem 'ed25519', '~> 1.2', '>= 1.2.4'
+
