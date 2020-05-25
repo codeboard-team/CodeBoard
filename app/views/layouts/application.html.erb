@@ -41,21 +41,25 @@
       <div class="lg:flex-grow">
         <ul class="list-reset lg:flex justify-start flex-1 items-center">
           <li class="mr-3">
-            <%= link_to "Build", my_boards_path, class: "hover:no-underline block  border-b-2 border-transparent hover:border-indigo-400 mt-4 lg:inline-block lg:mt-0 lg:mr-4 mb-2 lg:mb-0 link" %>
+            <%= link_to "解題", boards_path, class: "hover:no-underline block border-b-2 border-transparent hover:border-indigo-400 mt-4 lg:inline-block lg:mt-0 lg:mr-4 mb-2 lg:mb-0 link" %>
           </li>
           <li class="mr-3">
-            <%= link_to "Solution", boards_path, class: "hover:no-underline block border-b-2 border-transparent hover:border-indigo-400 mt-4 lg:inline-block lg:mt-0 lg:mr-4 mb-2 lg:mb-0 link" %>
+            <%= link_to "出題", my_boards_path, class: "hover:no-underline block  border-b-2 border-transparent hover:border-indigo-400 mt-4 lg:inline-block lg:mt-0 lg:mr-4 mb-2 lg:mb-0 link" %>
           </li>
           <li class="mr-3">
-            <%= link_to "Contest", "#", class: "hover:no-underline block  border-b-2 border-transparent hover:border-indigo-400 mt-4 lg:inline-block lg:mt-0 lg:mr-4 mb-2 lg:mb-0 link" %>
+            <%= link_to "排名", "#", class: "hover:no-underline block  border-b-2 border-transparent hover:border-indigo-400 mt-4 lg:inline-block lg:mt-0 lg:mr-4 mb-2 lg:mb-0 link" %>
           </li>
         </ul> 
       </div>
-
+      
       <div class="w-full block lg:flex lg:flex-row lg:flex-1 mt-2 lg:mt-0 text-center lg:text-left lg:justify-end items-center">
         <% if user_signed_in? %>
+          <span class="">
+            <%= current_user.email.split("@")[0] %>
+          </span>
           <p class="mr-4"><%= current_user.name %></p>
           <%= link_to "Log out", destroy_user_session_path, method: :delete, class:"btn btn-default mb-2 lg:mr-2 lg:mb-0 block border rounded text-gray-500 border-gray-600 hover:text-black hover:border-gray-800" %>
+          
         <% else %>
           <%= link_to "Login", new_user_session_path, class:"btn btn-default mb-2 lg:mr-2 lg:mb-0 block border rounded text-gray-500 border-gray-600 hover:text-black hover:border-gray-800" %>
           <%= link_to "Sign Up", new_user_registration_path, class:" btn btn-default mb-2 lg:mr-2 lg:mb-0 block border rounded text-gray-500 border-gray-600 hover:text-black hover:border-gray-800" %>
