@@ -32,6 +32,21 @@ RSpec.describe DockerExec::RubyService do
       ["/main.rb:2:in `iteration': undefined local variable or method `day' for main:Object (NameError) from /main.rb:6:in `<main>'"]
     end
 
+    it "引數為 nil 的補救情況" do
+      code = ""
+      test_code1 = nil
+      test_code2 = [""]
+      test_code3 = ["", ""]
+
+      ruby1 = DockerExec::RubyService.new(code, test_code1)
+      ruby2 = DockerExec::RubyService.new(code, test_code2)
+      ruby3 = DockerExec::RubyService.new(code, test_code3)
+
+      expect(ruby1.run).to be nil
+      expect(ruby2.run).to be nil
+      expect(ruby3.run).to be nil
+    end
+
   end
 
 end

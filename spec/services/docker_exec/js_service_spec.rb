@@ -32,6 +32,21 @@ RSpec.describe DockerExec::JsService do
       ["/main.js:2\n  return day\n  ^\n\nReferenceError: day is not defined\n    at iteration (/main.js:2:3)\n    at Object.<anonymous> (/main.js:7:13)\n    at Module._compile (internal/modules/cjs/loader.js:1176:30)\n    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1196:10)\n    at Module.load (internal/modules/cjs/loader.js:1040:32)\n    at Function.Module._load (internal/modules/cjs/loader.js:929:14)\n    at Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:71:12)\n    at internal/main/run_main_module.js:17:47\n"]
     end
 
+    it "引數為 nil 的補救情況" do
+      code = ""
+      test_code1 = nil
+      test_code2 = [""]
+      test_code3 = ["", ""]
+
+      js1 = DockerExec::JsService.new(code, test_code1)
+      js2 = DockerExec::JsService.new(code, test_code2)
+      js3 = DockerExec::JsService.new(code, test_code3)
+
+      expect(js1.run).to be nil
+      expect(js2.run).to be nil
+      expect(js3.run).to be nil
+    end
+
   end
 
 end

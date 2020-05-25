@@ -10,22 +10,30 @@ module DockerExec
     end
   
     def run
-      create_file
-      get_id
-      5.times do
-        if done?
-          result = get_result
-          remove_file_and_container
-          return result
-        else
-          sleep 1
+      if lack_args?
+        return nil
+      else
+        create_file
+        get_id
+        5.times do
+          if done?
+            result = get_result
+            remove_file_and_container
+            return result
+          else
+            sleep 1
+          end
         end
+        remove_file_and_container
+        return "Times out!"
       end
-      remove_file_and_container
-      return "Times out!"
     end
   
     private
+    def lack_args?
+      return code.empty? || test_code.nil? || test_code.map{ |e| e.empty?}.include?(true)
+    end
+    
     def create_file
       file = File.open(path, "w") 
       contents.each { |e|

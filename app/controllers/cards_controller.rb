@@ -16,25 +16,16 @@ class CardsController < ApplicationController
   end
 
   def create
-    @result = docker_detached(params[:card][:answer], params[:card][:test_code])
-    if @result.nil?
+    @result = check_language_and_run(params[:card][:answer], params[:card][:test_code])
+    if @result.nil? || @result == "Times out!"
       @card.assign_attributes(card_params)
-      flash[:alert] = "answer/test_code can't be blank"
-      return render :new
-    elsif @result == "Times out!"
-      @card.assign_attributes(card_params)
-      flash[:alert] = 'runtimes out!'
-      return render :new
-    elsif @result.class == String
-      @result = [@result]
-      attr_params = card_params.merge(result: @result)
-      @card.assign_attributes(attr_params)
+      error_message
     else
       attr_params = card_params.merge(result: save_type(@result))
       @card.assign_attributes(attr_params)
     end
 
-    if params[:commit] == "送出" && @card.save
+    if params[:commit] == "送出" && @card.save # 會無法分辨 undefined 訊息
       redirect_to board_card_path(board_id: @board.id, id: @card.id), notice: 'create successfully!'
     else
       render :new
@@ -44,20 +35,20 @@ class CardsController < ApplicationController
   def edit; end
 
   def update
-    byebug
-    @result = docker_detached(params[:card][:answer], params[:card][:test_code])
-    if @result.nil?
+    @result = check_language_and_run(params[:card][:answer], params[:card][:test_code])
+    if @result.nil? || @result == "Times out!"
       @card.assign_attributes(card_params)
-      flash[:alert] = "answer/test_code can't be blank"
-      return render :edit
-    elsif @result == "Times out!"
-      @card.assign_attributes(card_params)
-      flash[:alert] = 'runtimes out!'
-      return render :edit
-    elsif @result.class == String
-      @result = [@result]
-      attr_params = card_params.merge(result: @result)
-      @card.assign_attributes(attr_params)
+      error_message
+      # flash[:alert] = "answer/test_code can't be blank"
+      # return render :edit
+    # elsif @result == "Times out!"
+    #   @card.assign_attributes(card_params)
+      # flash[:alert] = 'runtimes out!'
+      # return render :edit
+    # elsif @result.class == String
+    #   @result = [@result]
+    #   attr_params = card_params.merge(result: @result)
+    #   @card.assign_attributes(attr_params)
     else
       attr_params = card_params.merge(result: save_type(@result))
       @card.assign_attributes(attr_params)
@@ -100,13 +91,20 @@ class CardsController < ApplicationController
   end
 
   def solve
-    @result = docker_detached(params[:record][:code], @card.test_code)
-    @result = [@result] if @result.class == String
+    service = DockerExec::RubyService.new(params[:record][:code], @card.test_code)
+    @result = service.run
+    error_message if @result.nil? || @result == "Times out!"
+      # error_message
+    # elsif @result.class == String
+    #   @result = [@result]
+    # else
+    # end
+
     @record = @card.records.find_by(user_id: current_user.id)
     if @record.nil?
       @record = current_user.records.new(card_id: @card.id, code: @card.default_code)
     end
-    @record.attributes = record_params
+    @record.assign_attributes(record_params)
 
     if params[:commit] == "送出"
       @record.solved = @result == compare_type(@card.result)
@@ -125,44 +123,27 @@ class CardsController < ApplicationController
   end
 
   private
-  def docker_detached(code, test_code)
-    return nil if code == "" || test_code.nil?
-    random_file = [*"a".."z", *"A".."Z"].sample(5).join('') + ".rb"
-    devision = [*"a".."z", *"A".."Z"].sample(10).join('')
-    tmp_file_path = Rails.root.join('tmp', "#{random_file}").to_s
-    test_data = test_code.map{ |e| e = "result.push(#{e})" }.join("\n")
-    file = File.open(tmp_file_path, "w")
-    contents = [code,"require 'json'","result = []",test_data,"puts \"#{devision}\"","puts JSON.generate(result)"]
-    contents.each { |e|
-      file.write(e)
-      file.write("\n")
-    }
-    file.close
-    id = `docker run -d -m 128M -c 512 -v #{tmp_file_path}:/main.rb ruby ruby /main.rb`
-    # 每一秒檢查一次是否運算完成，共 5 次
-    5.times do
-      if `docker ps --format "{{.ID}}: {{.Status}}" -f "id=#{id}"` == ""
-        File.unlink(tmp_file_path)
-        raw_output = `docker logs #{id}`
-        if raw_output == ""
-          out, err = Open3.capture3("`docker logs #{id}`")
-          return err
-        else
-          result = JSON.parse(raw_output.split("#{devision}").pop.strip)
-          `docker rm -f #{id}`
-          return result
-        end
-      else
-        sleep 1
-      end
+  def error_message
+    case @result 
+    when nil
+      flash[:alert] = "Answer / Test_code can't be blank"
+    when "Times out!"
+      flash[:alert] = "Runtimes Out!"
     end
-    File.unlink(tmp_file_path)
-    `docker rm -f #{id} `
-    return "Times out!"
   end
 
+  def check_language_and_run(code, test_code)
+    service = case @board.language
+              when "Ruby"
+                DockerExec::RubyService.new(code, test_code)
+              when "JavaScript"
+                DockerExec::JsService.new(code, test_code)
+              end
+    service.run
+  end 
+
   def check_authority
-    redirect_to board_path(id: @board.id), notice: 'check authority error! not owner!' if @board.user_id != current_user.id
+    redirect_to board_path(id: @board.id), alert: 'check authority error! not owner!' if @board.user_id != current_user.id
   end
 
   def render_new_solving
