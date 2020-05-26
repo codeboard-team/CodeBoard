@@ -38,7 +38,7 @@
                           :class => 'w-2 text-orange-500 hover:text-orange-700 text-white py-1 rounded mr-1') do %>
                 <i class="btn-edit fa fa-pencil-square"></i>
               <% end %>
-              <%= link_to(board_card_path(@board.id, card.id), method: 'delete',data: {confirm: 'are you sure ?!'}, 
+              <%= link_to(board_card_path(@board.id, card.id), method: 'delete',data: {confirm: 'Are you sure ?!'}, 
                           :class => 'w-2 text-red-500 hover:text-red-700 text-white py-1 rounded mr-1') do %>
                 <i class="btn-del fa fa-window-close"></i>
               <% end %>
