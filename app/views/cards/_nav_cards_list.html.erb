@@ -23,11 +23,10 @@
   <% end %>
   
   <div>
-    <% order = 0 %>
-    <% @board.cards.reverse_each do |card| %>
+
+    <% @board.cards.order(:order).each do |card|%>
       <section class="one-card flex w-100 relative">
         <% if card.id %>
-          <% order = order + 1 %>
           <%= link_to(board_card_path(@board.id, card.id), :class => "#{'active' if card.id == nowCard} flex border-b block w-full text-blue-700 hover:text-blue-500 hover:bg-gray-200 py-4 py-3") do %>
             <span class="w-8 inline-block font-semibold border-r  mr-2 text-blue-500 text-center"><%= card.order %></span>
             <span class="inline-block flex-grow"><%= card.title %></span>
@@ -39,7 +38,7 @@
                           :class => 'w-2 text-orange-500 hover:text-orange-700 text-white py-1 rounded mr-1') do %>
                 <i class="btn-edit fa fa-pencil-square"></i>
               <% end %>
-              <%= link_to(board_card_path(@board.id, card.id), method: 'delete', 
+              <%= link_to(board_card_path(@board.id, card.id), method: 'delete',data: {confirm: 'are you sure ?!'}, 
                           :class => 'w-2 text-red-500 hover:text-red-700 text-white py-1 rounded mr-1') do %>
                 <i class="btn-del fa fa-window-close"></i>
               <% end %>
