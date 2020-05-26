@@ -1,5 +1,5 @@
 <p class="absolute right-0 text-xs text-gray-600">//解題者(已解題)-檢視頁面//</p>
-
+ 
 <span id="board-lang" class="hidden"><%= @board.editor_mode %></span>
 
 <div class="flex container">
@@ -43,8 +43,11 @@
 
           <div>
             <P>看看其他人的答案</p>
+
               <% @card.records.each do |record| %>
-                <p class="ml-5"><%= record.code %></p>
+                <div class="border m-12">
+                  <div class="editor-readonly"><%= record.code %></div>
+                </div>
               <% end %>
           </div>
           

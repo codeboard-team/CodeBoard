@@ -13,7 +13,7 @@
       <% end %>
     </section>
 
-    <% @board.cards.reverse_each do |card| %>
+    <% @board.cards.order(:order).each do |card| %>
       
       <section class="one-card flex w-100 relative">
         <% if card.id %>

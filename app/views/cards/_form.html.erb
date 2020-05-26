@@ -153,8 +153,8 @@
       </div>
     
       <div class="w-1/2">
-        <div id="run-result" class="h-full block min-h-2 px-3 py-2 text-white bg-black">
-          <div>
+        <div id="run-result" class="">
+          <div class="editor-readonly result">
             <% @result.try(:each) do |result| %>
               <section>
                 <%= result %>

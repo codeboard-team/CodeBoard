@@ -57,6 +57,44 @@ $(document).on("turbolinks:load", function() {
 
     // card:ACE Editor =======
 
+    let editorRoDoms = document.getElementsByClassName('editor-readonly');
+    for (editorRoDom of editorRoDoms) {
+
+        let aceRoEditor = ace.edit(editorRoDom);
+
+        aceRoEditor.setReadOnly(true)
+        aceRoEditor.getSession().setMode($("#board-lang").text());
+        aceRoEditor.setTheme("ace/theme/terminal");
+        aceRoEditor.getSession().setTabSize(2);
+
+        // aceRoEditor.setAutoScrollEditorIntoView(true);
+        aceRoEditor.setOption("maxLines", 100);
+
+        // aceRoEditor.focus();
+
+        aceRoEditor.setOptions({
+            fontSize: ".95rem",
+            // vScrollBarAlwaysVisible: true,
+            // autoScrollEditorIntoView: true,
+            showLineNumbers: false // 行數+摺疊
+                //  showGutter: false, // 摺疊功能
+        });
+        // aceRoEditor.setShowPrintMargin(false);
+        // aceRoEditor.setBehavioursEnabled(false);
+
+
+        if (editorRoDom.classList.contains("other-answer")) {
+            aceRoEditor.setTheme("ace/theme/terminal");
+        }
+        if (editorRoDom.classList.contains("result")) {
+            aceRoEditor.setOptions({
+                showLineNumbers: false // 行數+摺疊
+            });
+
+        }
+
+    };
+
 
     let editorDoms = document.getElementsByClassName('editor');
     for (editorDom of editorDoms) {
