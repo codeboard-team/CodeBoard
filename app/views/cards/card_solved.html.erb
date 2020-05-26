@@ -60,82 +60,17 @@
 
         </div>
 
-        <div id="content-answer" class="shadow border rounded mb-8">
-          <div class="content-head border-b bg-gray-500 text-white py-2 font-bold rounded-t ">
-            <p class="text-center">作答</p>
-          </div>
-
-          <div class="content-body p-5">
-
-            <div class="w-full mb-4">
-
-              <div class="mg-0 leading-loose">
-                <%= f.label :code, 'Your answer', class: 'block w-100 px-5 text-gray-600'%>
-              </div>
-              <div class="px-4 py-1 my-4">
-                <%= f.hidden_field :code, id: "code" %>
-                <div solving class="editor" data-target="code"></div>
-                </div>
-              </div>
-
-            </div>
-
-            <div id="part-test-run">   
-
-              <div class="flex w-full px-4 py-1 my-4">
-                <section class="w1/2 m-auto mt-6">
-                  <%= f.label :test_code, '執行結果 ← 測試方法', class: 'uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
-                </section>
-              </div>
-
-              <div class="flex w-full mb-4 px-6">
-
-                <div class="w-1/2">
-                  <div id="run-result" class="">
-                    <% num = 1 %>
-                    <% if @card.result %>
-                      <% @card.result.try(:each) do |result| %>
-                        <div id="result<%= num %>" class="border"><%= result %></div>
-                        <div class="editor-" data-target="result<%= num %>"></div>
-                        <% num = num + 1 %>
-                      <% end %>
-                    <% end %>
-                  </div>
-                </div>
-
-                <div class="w-1/2">
-                  <div id="section-test-code">
-                    <% if @card.test_code %>
-                      <% num = 0 %>
-                      <% @card.test_code.each do |test_code| %>
-                        <% num = num + 1 %>
-                        <%= render "cards/data_test_item",num: num ,test_code: test_code %>
-                      <% end %>
-                    <% end %>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div id="part-other-answers">
-
-              <div class="flex w-full mb-4">
-                <div>
-                  <P class="pl-6">看看其他人的答案</p>
-                  <% @card.records.each do |record| %>
-                    <div class="border m-12">
-                      <% unless record.user == current_user %>
-                        <div class="editor-readonly whitespace-pre-line p-5"><%= record.code %></div>
-                        <p class="ml-5 border-t"><%= record.user.email %>
-                      <% end %>
-                    </div>
-                  <% end %>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> 
-    </div>
-  </div>
-<% end %>
+            <p>別人這樣解</p>
+            <% @card.records.each do |record| %>
+              <% unless record.user == current_user %>
+                <p class="ml-5"><%= record.code %></p>
+                <p class="ml-5"><%= record.user.email %></p>
+              <% end %>
+            <% end %>
+      <!--之後編輯按鈕
+      <div class="my-5">
+        <%#= f.submit '送出',id: 'btn-card-submit', class: 'bg-blue-500 hover:bg-blue-700 text-white py-2 px-3 rounded my-5' %>
+      </div>
+      -->
+    <% end %>
+</div>
