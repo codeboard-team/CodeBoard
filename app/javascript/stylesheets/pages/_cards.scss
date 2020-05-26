@@ -10,8 +10,15 @@ input[name^="card[test_code]"],
 
 input[name^="card[hints]"],
 input[name^="card[test_code]"] {
-    border: 1px solid #ddd;
     display: block;
+}
+
+input[name^="card[test_code]"] {
+    border: 1px solid #ddd;
+}
+
+input[name^="card[hints]"] {
+    border-bottom: 1px solid #ddd;
 }
 
 button,
@@ -51,8 +58,44 @@ section.one-card:hover .part-btns.hover {
     display: inline-block;
 }
 
-// section.one-card a {
-//     &:hover+.part-btns.hover i.fa {
-//         display: inline-block;
-//     }
-// }
+#part-card-content {
+    padding: .5rem 4rem 2rem 4rem;
+}
+
+#section-test-code,
+#section-hints {
+    p {
+        display: flex;
+    }
+    p span {
+        width: 2rem;
+        display: inline-block;
+        text-align: center;
+    }
+    input {
+        flex-grow: 1;
+    }
+}
+
+#btn-add-test-code,
+#btn-add-hints,
+span[id^="btn-del"] {
+    position: absolute;
+    margin-left: -2rem;
+}
+
+.editor.ace_editor {
+    border: 1px solid #ddd;
+}
+
+#card_level option:first-child {
+    display: none;
+}
+
+#part-test-run {
+    #section-test-code {
+        .test-item:first-child:last-child #btn-del-test-code {
+            display: none;
+        }
+    }
+}

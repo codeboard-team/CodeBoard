@@ -19,4 +19,15 @@ class Board < ApplicationRecord
       all
     end
   end
+
+  def editor_mode
+    case self.language
+      when "Ruby"
+        "ace/mode/ruby"
+      when "Python"
+        "ace/mode/python"
+      when "JavaScript"
+        "ace/mode/javascript"
+    end
+  end
 end

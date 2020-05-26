@@ -1,16 +1,21 @@
 <%= form_with model: @card, url: board_cards_path, local: true do |f| %>
 
-  <div class="flex container">
-  
-    <div class="part-slider w-1/4 border-r">
-      <%= render "cards/nav_cards_list", nowCard: '' %>
+  <div id="page-new" class="container-full">
+
+    <div id="part-borard-info" class="w-full" border-b">
+        <%= render "cards/banner_board_info" %>
     </div>
 
-    <div class="part-card px-4 w-3/4">
-      <h1 class="text-gray-900 font-bold text-xl border-b">新增 Card</h1>
-       <%= render 'form', model: @card, url: board_cards_path, order: Card.count  %>
+    <div class="flex w-full">
+      
+      <div id="part-cards-list" class="w-1/4 border-r">
+        <%= render "cards/nav_cards_list", nowCard: '' %>
+      </div>
+    
+      <div id="part-card-content" class="w-3/4">
+        <%= render 'form', model: @card, url: board_cards_path  %>
+      </div>
+    
     </div>
-  </div>
 
 <% end %>
-
