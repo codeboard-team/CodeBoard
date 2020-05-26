@@ -44,7 +44,10 @@
 
             <p>別人這樣解</p>
             <% @card.records.each do |record| %>
-              <p class="ml-5"><%= record.code %></p>
+              <% unless record.user == current_user %>
+                <p class="ml-5"><%= record.code %></p>
+                <p class="ml-5"><%= record.user.email %></p>
+              <% end %>
             <% end %>
       <!--之後編輯按鈕
       <div class="my-5">
