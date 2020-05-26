@@ -58,6 +58,7 @@
 
         </div>
 
+<<<<<<< HEAD
         <div id="content-answer" class="shadow border rounded mb-8">
           <div class="content-head border-b bg-gray-500 text-white py-2 font-bold rounded-t ">
             <p class="text-center">作答</p>
@@ -146,3 +147,19 @@
     </div>
   </div>
 <% end %>
+=======
+            <p>別人這樣解</p>
+            <% @card.records.each do |record| %>
+              <% unless record.user == current_user %>
+                <p class="ml-5"><%= record.code %></p>
+                <p class="ml-5"><%= record.user.email %></p>
+              <% end %>
+            <% end %>
+      <!--之後編輯按鈕
+      <div class="my-5">
+        <%#= f.submit '送出',id: 'btn-card-submit', class: 'bg-blue-500 hover:bg-blue-700 text-white py-2 px-3 rounded my-5' %>
+      </div>
+      -->
+    <% end %>
+</div>
+>>>>>>> modify_solved頁面不顯示自身紀錄
