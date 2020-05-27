@@ -4,6 +4,9 @@ class CardsController < ApplicationController
   before_action :find_board, except: [:index]
   before_action :find_card, only: [:edit, :show, :update, :destroy, :solve]
   before_action :build_card, only: [:new, :create]
+  before_action :get_code, only: [:create, :update]
+  before_action :docker_exec_service, only: [:create, :update, :solve]
+  before_action :exec_and_get_result, only: [:create, :update]
 
   before_action :check_authority, only: [:new, :edit, :update, :destroy]
 
@@ -16,14 +19,17 @@ class CardsController < ApplicationController
   end
 
   def create
-    @result = check_language_and_run(params[:card][:answer], params[:card][:test_code])
-    if @result.nil? || @result == "Times out!"
-      @card.assign_attributes(card_params)
+    # error_message if @docker_exec_service.fail?
+    # attr_params = card_params.merge(result: @result)
+    # @card.assign_attributes(attr_params)
+    if @docker_exec_service.fail?
       error_message
+      attr_params = card_params.merge(result: @result)
     else
       attr_params = card_params.merge(result: save_type(@result))
-      @card.assign_attributes(attr_params)
     end
+
+    @card.assign_attributes(attr_params)
 
     if params[:commit] == "送出" && @card.save # 會無法分辨 undefined 訊息
       redirect_to board_card_path(board_id: @board.id, id: @card.id), notice: 'create successfully!'
@@ -35,24 +41,15 @@ class CardsController < ApplicationController
   def edit; end
 
   def update
-    @result = check_language_and_run(params[:card][:answer], params[:card][:test_code])
-    if @result.nil? || @result == "Times out!"
-      @card.assign_attributes(card_params)
+
+    if @docker_exec_service.fail?
       error_message
-      # flash[:alert] = "answer/test_code can't be blank"
-      # return render :edit
-    # elsif @result == "Times out!"
-    #   @card.assign_attributes(card_params)
-      # flash[:alert] = 'runtimes out!'
-      # return render :edit
-    # elsif @result.class == String
-    #   @result = [@result]
-    #   attr_params = card_params.merge(result: @result)
-    #   @card.assign_attributes(attr_params)
+      attr_params = card_params.merge(result: @result)
     else
       attr_params = card_params.merge(result: save_type(@result))
-      @card.assign_attributes(attr_params)
     end
+
+    @card.assign_attributes(attr_params)
 
     if params[:commit] == "送出" && @card.update(attr_params)
       redirect_to board_card_path(board_id: @board.id, id: @card.id), notice: 'update successfully!'
@@ -91,14 +88,10 @@ class CardsController < ApplicationController
   end
 
   def solve
-    service = DockerExec::RubyService.new(params[:record][:code], @card.test_code)
-    @result = service.run
-    error_message if @result.nil? || @result == "Times out!"
-      # error_message
-    # elsif @result.class == String
-    #   @result = [@result]
-    # else
-    # end
+    @docker_exec_service.code = params[:record][:code]
+    @docker_exec_service.test_code = @card.test_code
+    exec_and_get_result
+    error_message if @docker_exec_service.fail?
 
     @record = @card.records.find_by(user_id: current_user.id)
     if @record.nil?
@@ -124,23 +117,37 @@ class CardsController < ApplicationController
 
   private
   def error_message
-    case @result 
-    when nil
-      flash[:alert] = "Answer / Test_code can't be blank"
-    when "Times out!"
+    if @docker_exec_service.timeout?
       flash[:alert] = "Runtimes Out!"
+    elsif @docker_exec_service.result.nil?
+      flash[:alert] = "Answer / Test_code can't be blank"
+    else
+      @result = [@result]
     end
   end
 
-  def check_language_and_run(code, test_code)
-    service = case @board.language
-              when "Ruby"
-                DockerExec::RubyService.new(code, test_code)
-              when "JavaScript"
-                DockerExec::JsService.new(code, test_code)
-              end
-    service.run
-  end 
+  def docker_exec_service
+    @docker_exec_service ||= (
+      case @board.language
+      when "Ruby"
+        DockerExec::RubyService
+      when "JavaScript"
+        DockerExec::JsService
+      when "Python"
+        DockerExec::PythonService
+      end
+    ).new(@code, @test_code)
+  end
+
+  def exec_and_get_result
+    @docker_exec_service.run
+    @result = @docker_exec_service.result
+  end
+
+  def get_code
+    @code = params[:card][:answer]
+    @test_code = params[:card][:test_code]
+  end
 
   def check_authority
     redirect_to board_path(id: @board.id), alert: 'check authority error! not owner!' if @board.user_id != current_user.id

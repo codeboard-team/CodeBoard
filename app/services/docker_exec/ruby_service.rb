@@ -1,67 +1,43 @@
 module DockerExec
   class RubyService
-    attr_reader :code, :test_code, :path, :separator, :container_id
-    attr_reader :success?
-    attr_reader :timeout?
+    attr_reader :path, :separator, :container_id
+    attr_accessor :code, :test_code, :result
   
     def initialize(code = "", test_code = [''])
       @code = code
       @test_code = test_code
       @path = file_path
       @separator = get_separator
+      @timeout = false
+      @fail = false
     end
-  
-    def run
-      if lack_args?
-        # nil
-        { ok: false, message: 'No Argrument!'}
-      else
-        create_file
-        get_id
-        5.times do
-          if done?
-            result = get_result
-            remove_file_and_container
-            # return result
-            ok = result.is_a?(String) ? false : true
-            if ok
-              return { ok: true, data: result }
-            else
-              return { ok: false, message: result }
-            end
-          else
-            sleep 1
-          end
-        end
-        remove_file_and_container
-        # return "Times out!"
-        { ok: false, message: 'Times out!' }
-      end
+
+    def timeout?
+      @timeout
+    end
+
+    def fail?
+      @fail
     end
 
     def run
-      return { ok: false, message: 'No Argrument!'} if lack_args?
-
-      handle_result = lambda do
-        result = get_result
-        remove_file_and_container
-        if result.is_a?(String)
-          { ok: false, message: result }
-        else
-          { ok: true, data: result }
-        end
-      end
+      return @fail = true if lack_args?
 
       create_file
       get_id
       5.times do
-        return handle_result.() if done?
-        
-        sleep 1
+        if done?
+          @result = get_result
+          @fail = true if @result.is_a?(String)
+          return remove_file_and_container     
+        else
+          sleep 1
+        end
       end
-
+      
       remove_file_and_container
-      { ok: false, message: 'Times out!' }
+      @fail = true
+      @timeout = true
     end
   
     private

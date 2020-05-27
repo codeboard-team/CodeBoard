@@ -1,37 +1,48 @@
 module DockerExec
   class PythonService
-    attr_reader :code, :test_code, :path, :separator, :container_id
+    attr_reader :path, :separator, :container_id
+    attr_accessor :code, :test_code, :result
   
     def initialize(code = "", test_code = [''])
       @code = code
       @test_code = test_code
       @path = file_path
       @separator = get_separator
+      @timeout = false
+      @fail = false
     end
-  
+
+    def timeout?
+      @timeout
+    end
+
+    def fail?
+      @fail
+    end
+
     def run
-      if lack_args?
-        nil
-      else
-        create_file
-        get_id
-        5.times do
-          if done?
-            result = get_result
-            remove_file_and_container
-            return result
-          else
-            sleep 1
-          end
+      return @fail = true if lack_args?
+
+      create_file
+      get_id
+      5.times do
+        if done?
+          @result = get_result
+          @fail = true if @result.is_a?(String)
+          return remove_file_and_container     
+        else
+          sleep 1
         end
-        remove_file_and_container
-        return "Times out!"
       end
+      
+      remove_file_and_container
+      @fail = true
+      @timeout = true
     end
   
     private
     def lack_args?
-      return code.empty? || test_code.nil? || test_code.map{ |e| e.empty?}.include?(true)
+      code.empty? || test_code.nil? || test_code.map{ |e| e.empty?}.include?(true)
     end
 
     def create_file
@@ -44,7 +55,7 @@ module DockerExec
     end
   
     def get_id
-      @container_id = `docker run -d -m 128M -c 512 -v #{path}:/main.py python3 python3 /main.py`
+      @container_id = `docker run -d -m 128M -c 512 -v #{path}:/main.py python python /main.py`
     end
   
     def done?
@@ -55,7 +66,7 @@ module DockerExec
       raw_output = `docker logs #{container_id}`
       if raw_output.empty?
         out, err = Open3.capture3("`docker logs #{container_id}`")
-        [err]
+        err
       else
         out = JSON.parse(raw_output.split("#{separator}").pop.strip)
       end
