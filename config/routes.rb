@@ -22,6 +22,6 @@ Rails.application.routes.draw do
 
   resources :cards, only: [:index]
   
-  resources :solutions, only: [:index]
+  resources :profiles, only: [:index]
   
 end
