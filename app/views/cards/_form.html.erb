@@ -13,19 +13,17 @@
 
     <div class="w-1/8">
 
-      <% if action_name=="new" %>
-        <span class=" bg-gray-200 appearance-none border rounded w-auto mr-2 py-2 px-8 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-          <%= order%>
+      <% if action_name == "new" || "edit"%>
+        <%= f.text_field :order, readonly:'', required: true, value: @board.cards.length, class: 'shadow appearance-none border rounded w-16 text-center py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-200' %>
+      <% else %>
+        <span class=" block bg-gray-200 appearance-none border rounded w-auto mr-7 py-2 px-8 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+          <%= @card.order%>
         </span>
       <% end %>
-
-        <%#= f.label :order, '題序' , class: 'block uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
-        <%#= f.text_field :order,placeholder: '關卡', class: 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' %>
       </div>
 
       <div class="w-2/8">
-        <%= f.select :level, [['Beginner','Beginner'],['Medium','Medium'],['Advanced','Advanced']],{},{ 
-                      class:"shadow appearance-none border rounded w-auto py-2 px-8 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" } %>
+        <%= f.select :level, [['簡單','簡單'],['中等','中等'],['困難','困難']], {include_blank: '選擇難度'},{ class:"shadow appearance-none border rounded w-auto py-2 px-8 text-gray-700 leading-tight focus:outline-none focus:shadow-outline", style: 'text-align-last: center'} %>
       </div>
 
       <div class="w-full w-5/8">
