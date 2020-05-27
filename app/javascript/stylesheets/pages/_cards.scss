@@ -99,3 +99,18 @@ span[id^="btn-del"] {
         }
     }
 }
+
+.select-tags+span.select2::before {
+    content: "Tags";
+    position: absolute;
+    color: #777;
+    width: 100%;
+    text-align: center;
+    line-height: 2rem;
+}
+
+.select-tags+span.select2-container--open::before,
+.select-tags+span.select2-container--focus::before {
+    color: #fff;
+    display: none;
+}
