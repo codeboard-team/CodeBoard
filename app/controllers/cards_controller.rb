@@ -71,7 +71,10 @@ class CardsController < ApplicationController
 
   def destroy
     if @card.destroy
-      # 後面關卡order-1
+      @board.cards.order(:updated_at).each_with_index do |card, idx|
+        cur_order = idx + 1
+        card.update(order: cur_order) if card.order != cur_order 
+      end
       redirect_to board_path(@board), notice: 'deleted!'
     else
       redirect_to board_path(@board)

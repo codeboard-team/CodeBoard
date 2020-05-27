@@ -11,7 +11,6 @@
     </script>
   <% end %>
 
-
   <% if @card.errors.any? %>
     <ul>
       <% @card.errors.full_messages.each do |message| %>
@@ -20,19 +19,20 @@
     </ul>
   <% end %>
 
-
   <div id="part-subject w-full mt-4 mb-6 pb-4 ">
     <%#= render "content_subject" %>
-    <h1 class="mt-2 mb-4 text-gray-900 font-bold text-xl text-right">
+    <!--
+    <h1 class="mt-2 mb-4 text-blue-700 font-bold text-l text-center py-2 -ml-20">
       <% case action_name %>
         <% when "new"%>
-          <%="新建題目"%>
+          <%="新建題目 (Card)"%>
         <% when "edit"%>
-          <%="編輯題目"%>
+          <%="編輯題目 (Card)"%>
       <% end %>
     </h1>
-
+    -->
     <div class="flex w-full mb-4">
+
       <% if action_name=="new"  || "edit" %>
         <%= f.text_field :order, readonly:'', required: true, value: @board.cards.length, 
                           class: ' mr-6 w-16 shadow appearance-none border rounded text-center py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-200' %>
@@ -41,6 +41,13 @@
           <% @card.order %>
         </span>
       <% end %>
+
+        <%= f.text_field :title, placeholder: '題目名稱',
+                          class: 'flex-grow shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' %>
+    </div>
+
+    <div class="flex w-full mb-4">
+    
       <%= f.select :level, [['簡單','簡單'],['中等','中等'],['困難','困難']], {
                     include_blank: '選擇難度'},{ 
                     class:"mr-6 shadow appearance-none border rounded w-auto py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline", style: 'text-align-last: center'} %>
@@ -48,23 +55,17 @@
       <select name="card[tags][]" multiple= 'multiple', 
               class= 'flex-grow form-control tags_select2 shadow appearance-none border rounded w-2/6 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline',
               data-value='<%= f.object.tags.to_json %>',>
-              <% case @board.language %>
-                <% when "Ruby"%>
-                  <%= render "tags_ruby" %>
-                <% when "JavaScript"%>
-                  <%= render "tags_js" %>
-              <% end %>
+              <%= render "tags_option" %>
       </select>
+
+    </div>
       
-    </div>
+      <div class="flex w-full mb-4">
 
-    <div class="flex w-full mb-4">
-      <%= f.text_field :title, placeholder: '題目名稱',
-                        class: 'flex-grow shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' %>
-    </div>
+      
+      </div>
 
 
-  </div>
 
   <div id="part-Question">
     <div class="flex">

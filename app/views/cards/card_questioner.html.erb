@@ -2,24 +2,38 @@
 
 <span id="board-lang" class="hidden"><%= @board.editor_mode %></span>
 
-  <div id="page-new" class="container-full">
+  <div id="page-show-questuiber" class="container-full">
 
     <div id="part-borard-info" class="w-full" border-b">
         <%= render "cards/banner_board_info" %>
     </div>
 
     <div class="flex w-full">
-      
-      <div id="part-cards-list" class="w-1/4 border-r">
+
+      <div id="part-cards-list" class="w-1/4  m-0 pb-12">
         <%= render "cards/nav_cards_list", nowCard: @card.id %>
       </div>
-    
-      <div id="part-card-content" class="w-3/4">
+
+      <div id="part-card-content" class="w-3/4 m-0 pb-12">
+
+      <div class="flex w-full mb-4">
+      
+
+      </div>
+        <!--
+          <span class="block">
+            <%= link_to '編輯', edit_board_card_path(@board.id, @card.id),  class: 'w-2 bg-orange-500 hover:bg-orange-700 text-white py-1 px-2 rounded mr-1' %>
+          </span>
+        -->
+
+        <%#= render 'content_subject', model: @card, url: board_cards_path  %>
+
+
+
+
+        <div id="part-card-content" class="w-3/4">
 
         <div class="my-5">
-            <span class="block">
-              <%= link_to '編輯', edit_board_card_path(@board.id, @card.id),  class: 'w-2 bg-orange-500 hover:bg-orange-700 text-white py-1 px-2 rounded mr-1' %>
-            </span>
           </div>
         
         <%= form_with model: @card, url: board_cards_path , local: true do |f| %>
@@ -87,6 +101,30 @@
 
         <% end %>
 
+
       </div>
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      </div>
+
+
+
     </div>
+
+  </div>
