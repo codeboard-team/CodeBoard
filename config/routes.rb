@@ -20,6 +20,8 @@ Rails.application.routes.draw do
     end 
   end
 
-  resources :cards, only: [:index]  
+  resources :cards, only: [:index]
+  
+  resources :solutions, only: [:index]
   
 end
