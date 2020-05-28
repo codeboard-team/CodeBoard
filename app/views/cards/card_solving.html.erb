@@ -123,17 +123,14 @@
                 </div>
               <% end %>
 
+            <% if user_authority == "guest" %>
+              <div class="flex w-full">
+                <%= link_to "作答", new_user_registration_path, class:"m-auto bg-blue-500 hover:bg-blue-700 text-white py-2 px-3 rounded my-5" %>
+              </div>
+            <% end %>
             </div>
           </div>
         </div> 
-
-        <div class="flex my-6 pt-5 border-t">
-          <% if user_authority == "guest" %>
-            <%= link_to "作答", new_user_registration_path, class:"m-auto bg-blue-500 hover:bg-blue-700 text-white py-2 px-3 rounded my-5" %>
-          <% else %>
-            <%= f.submit '送出', class: 'w-1/3 m-auto bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'  %>
-          <% end %>
-        <div>
 
       </div>
 
