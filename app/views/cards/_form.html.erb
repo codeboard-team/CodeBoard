@@ -1,7 +1,6 @@
 <%# 需要帶的變數： url %>
 <%= form_with model: model, url: url, local: true do |f| %>
 
-  <!--↓ 偵測該card所屬語言以套用 Editor Mode-->
   <span id="board-lang" class="hidden"><%= @board.editor_mode %></span>
 
   <% if action_name=="new" %>
@@ -21,7 +20,7 @@
   <% end %>
 
   <div id="page" class="flex">
-    <h1 class="flex-grow text-blue-700 font-bold text-right -ml-20">
+    <h1 class="flex-grow text-blue-700 font-bold text-right mt-2 mb-3">
       <% case action_name %>
         <% when "new"%>
           <%="新建題目 (Card)"%>
@@ -33,7 +32,6 @@
  
   <div id="content-subject" class="shadow border rounded mb-8">
    
-    
     <div class="content-head border-b bg-gray-500 text-white py-2 font-bold rounded-t ">
       <p class="text-center">題目</p>
     </div>
@@ -94,20 +92,20 @@
         
         <div class="w-full mb-4">
           <div id="section-hints" class="">
-          </div>
-          <% if action_name=="new" %>
-            <% params[:card].try(:[], :hints).try(:each) do |hint| %>
-              <%= render "cards/data_hint",num: 1 ,hint: hint %>
-            <% end %>
-          <% else %>
-            <% if @card.hints %>
-                <% num = 0 %>
-              <% @card.hints.each do |hint| %>
-                <% num = num + 1 %>
-                <%= render "cards/data_hint",num: num ,hint: hint %>
+            <% if action_name=="new" %>
+              <% params[:card].try(:[], :hints).try(:each) do |hint| %>
+                <%= render "cards/data_hint",num: 1 ,hint: hint %>
+              <% end %>
+            <% else %>
+              <% if @card.hints %>
+                  <% num = 0 %>
+                <% @card.hints.each do |hint| %>
+                  <% num = num + 1 %>
+                  <%= render "cards/data_hint",num: num ,hint: hint %>
+                <% end %>
               <% end %>
             <% end %>
-          <% end %>
+          </div>
         </div>
         
       </div>
@@ -159,18 +157,22 @@
 
           <div class="w-1/2">
             <div id="run-result" class="">
-             <% num = 1 %>
-             <%= @result %>
-             <%= @result.class %>
-              <% if @result.class == Array %>
+              <% num = 1 %>
+            
+              <% if action_name=="new" %>
                 <% @result.try(:each) do |result| %>
                   <div id="result<%= num %>" class="border"><%= result %></div>
-                  <div class="editor" data-target="result<%= num %>"></div>
+                  <div class="editor-readonly" data-target="result<%= num %>"></div>
                   <% num = num + 1 %>
                 <% end %>
-              <% elsif @result.class != Array  %>
-                <div id="result000" class="border"><%= @result %></div>
-                <div class="editor" data-target="result000"></div>
+              <% else %>
+                <% if @card.result %>
+                  <% @card.result.try(:each) do |result| %>
+                    <div id="result<%= num %>" class="border"><%= result %></div>
+                    <div class="editor-readonly" data-target="result<%= num %>"></div>
+                    <% num = num + 1 %>
+                  <% end %>
+                <% end %>
               <% end %>
             </div>
           </div>

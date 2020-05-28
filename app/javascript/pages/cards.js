@@ -3,32 +3,16 @@ $(document).on("turbolinks:load", function() {
     // card:test-code =======
 
     $("#btn-add-test-code").click(function() {
-            let numTestCode = $(".test-item").length
-            addInput = `<p class="test-item flex">
+        let numTestCode = $(".test-item").length
+        addInput = `<p class="test-item flex">
                         <span class="numTestCode">${numTestCode + 1}</span>
                         <input name="card[test_code][]" class="w-full">
                         <span id="btn-del-test-code">
                             <i class="fa fa-minus-circle hover:text-red-700 text-red-500 rounded-full text-2xl"></i>
                         </span>
                     </p>`
-            $("#section-test-code").append($(addInput));
-        }
-
-    );
-    // $("#btn-add-test-code").click(function() {
-    //         let numTestCode = $(".test-item").length
-    //         addInput = `<p class="test-item">
-    //                         <span class="numTestCode">${numTestCode + 1}</span>
-    //                         <input name="card[test_code][]">
-    //                         <span id="btn-del-test-code">
-    //                             <i class="fa fa-minus-circle hover:text-red-700 text-red-500 rounded-full text-2xl"></i>
-    //                         </span>
-    //                         <div class="editor readonly result data-target="result-code>test</div>
-    //                     </p>`
-    //         $("#section-test-code").append($(addInput));
-    //     }
-
-    // );
+        $("#section-test-code").append($(addInput));
+    });
 
     $("#section-test-code").on("click", "#btn-del-test-code", function() {
         let numTestCode = 1
@@ -69,79 +53,18 @@ $(document).on("turbolinks:load", function() {
         $("#section-hints .hint.hidden").first().removeClass("hidden");
     });
 
-    // card:ACE Editor =======
-
-    // let editorRoDoms = document.getElementsByClassName('editor-readonly');
-    // for (editorRoDom of editorRoDoms) {
-
-    //     let aceRoEditor = ace.edit(editorRoDom);
-
-    //     aceRoEditor.setReadOnly(true)
-    //     aceRoEditor.getSession().setMode($("#board-lang").text());
-    //     aceRoEditor.setTheme("ace/theme/terminal");
-    //     aceRoEditor.getSession().setTabSize(2);
-
-    //     // aceRoEditor.setAutoScrollEditorIntoView(true);
-    //     aceRoEditor.setOption("maxLines", 100);
-
-    //     // aceRoEditor.focus();
-
-    //     aceRoEditor.setOptions({
-    //         fontSize: ".95rem",
-    //         // vScrollBarAlwaysVisible: true,
-    //         // autoScrollEditorIntoView: true,
-    //         showLineNumbers: false // 行數+摺疊
-    //             //  showGutter: false, // 摺疊功能
-    //     });
-    //     // aceRoEditor.setShowPrintMargin(false);
-    //     // aceRoEditor.setBehavioursEnabled(false);
-
-
-    //     if (editorRoDom.classList.contains("other-answer")) {
-    //         aceRoEditor.setTheme("ace/theme/terminal");
-    //     }
-
-    //     if (editorRoDom.classList.contains("result")) {
-
-    //         let input = document.getElementById(editorRoDom.dataset.target);
-    //         aceRoEditor.setValue(input.value, 1);
-
-    //         aceRoEditor.setOptions({
-    //             showLineNumbers: false, // 行數+摺疊
-    //             minLines: 1
-    //         });
-
-    //         aceRoEditor.getSession().on("change", function() {
-    //             let newValue = aceEditor.getValue();
-    //             input.value = newValue;
-    //         });
-
-
-    //     }
-
-    // };
-
 
     let editorDoms = document.getElementsByClassName('editor');
     for (editorDom of editorDoms) {
 
         let aceEditor = ace.edit(editorDom);
-        console.log(aceEditor)
         let input = document.getElementById(editorDom.dataset.target);
-        console.log(input)
 
         aceEditor.getSession().setMode($("#board-lang").text());
         aceEditor.setTheme("ace/theme/tomorrow");
         aceEditor.getSession().setTabSize(2);
-
-
+        console.log(input.value)
         aceEditor.setValue(input.value, 1);
-        // To Do
-        // if (input) {
-        //     aceEditor.setValue(input.value, 1);
-        // } else {
-        // aceEditor.setValue("", 1);
-        // }
 
         aceEditor.setAutoScrollEditorIntoView(true);
         aceEditor.setOption("maxLines", 100);
@@ -161,7 +84,6 @@ $(document).on("turbolinks:load", function() {
 
         if (editorDom.classList.contains("readonly")) {
             aceEditor.setReadOnly(true); //不可編輯
-
         }
 
         aceEditor.getSession().on("change", function() {
@@ -169,18 +91,17 @@ $(document).on("turbolinks:load", function() {
             input.value = newValue;
         });
 
-
-        // card:select2 =======
-
-        let tagsSelect2s = document.getElementsByClassName('tags_select2');
-        for (tagsSelect2 of tagsSelect2s) {
-            let $tagsSelect2 = $(tagsSelect2);
-            $tagsSelect2.val(JSON.parse(tagsSelect2.dataset.value));
-            $tagsSelect2.select2({
-                tags: true,
-            });
-        }
-
     }
+    // card:select2 =======
+
+    let tagsSelect2s = document.getElementsByClassName('tags_select2');
+    for (tagsSelect2 of tagsSelect2s) {
+        let $tagsSelect2 = $(tagsSelect2);
+        $tagsSelect2.val(JSON.parse(tagsSelect2.dataset.value));
+        $tagsSelect2.select2({
+            tags: true,
+        });
+    }
+
 
 });

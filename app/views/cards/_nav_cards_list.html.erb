@@ -18,6 +18,7 @@
               <span class="inline-block flex-grow"><%= card.title %></span>
               
             <% end %>
+
             <% if user_authority ==  "author" %>
 
               <div class="part-btns hover absolute my-4 pr-4 right-0">
@@ -34,20 +35,14 @@
 
               </div>
 
+            <% else %>
+              <div>
+                <div class="absolute my-4 pr-4 right-0">
+                    <i class="fa fa-file-o text-blue-700 hover:text-blue-500 hover:bg-gray-200"></i>
+                </div>
+              </div>
             <% end %>
 
-            <% if user_authority !=  "author" %>
-              <span>
-                  <i class="fa fa-file-o text-blue-700 hover:text-blue-500 hover:bg-gray-200"></i>
-                <!--ToDo 判斷該卡是否解records.solved而顯示不同的icon
-                <% if user_authority !=  "author" %>
-                  <i class="fa fa-file-o text-blue-700 hover:text-blue-500 hover:bg-gray-200"></i>
-                <% else %>
-                  <i class="fa fa-file-text-o text-blue-700 hover:text-blue-500 hover:bg-gray-200"></i>
-                <% end %>
-                -->
-              </span>
-            <% end %>
             
           <% end %>
 

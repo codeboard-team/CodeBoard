@@ -1,10 +1,19 @@
 <p class="absolute right-0 text-xs text-gray-600">//出題者-檢視頁//</p>
-<!--↓ 偵測該card所屬語言以套用 Editor Mode-->
+ 
 <span id="board-lang" class="hidden"><%= @board.editor_mode %></span>
+
+<style>
+  #btn-del-test-code{display:none;}
+  input[name^="card[test_code]"]{
+      disabled: true;
+      pointer-events: none;
+  }
+  
+</style>
 
 <%= form_with model: @card, url: board_cards_path , local: true do |f| %>
 
-  <div id="show-questioner" class="container-full">
+  <div id="page-show-questioner" class="container-full">  
 
     <div id="part-borard-info" class="w-full">
         <%= render "cards/banner_board_info" %>
@@ -12,123 +21,128 @@
 
     <div class="flex w-full">
 
-      <div id="part-cards-list" class="w-1/4  m-0 pb-12">
-        <%= render "cards/nav_cards_list", nowCard: @card.id %>
+      <div id="part-cards-list" class="w-1/4  m-0 pb-12 border-r">
+        <%= render "cards/nav_cards_list",  nowCard: @card.id  %>
       </div>
 
       <div id="part-card-content" class="w-3/4 m-0 m-auto pb-12">
-
-        <div class="shadow border rounded  py-3 my-3">
-          <%= render 'content_subject', model: @card, url: board_cards_path  %>
-        </div>
-
-        <div class="shadow border rounded  py-3 my-3">
-          <div id="section-hints" class="">
-
-            <% if @card.hints %>
-              <p class="block w-100 px-5 text-gray-600">提示</p>
-              <span class="py-2 my-5"><%= @card.hints.length %></span> 
-              <ul>
-                <% @card.hints.each do |hints| %>
-                  <li class="hint"><%= hints %></li>
-                <% end %>
-              </ul>
-            <% else %>
-              <span class="cursor-not-allowed text-gray-500 py-2 px-3 my-5">(無提示)</span> 
-            <% end %>
-          </div>
-        </div>
-        <div class="shadow border rounded  py-3 my-3">
-              <div class="mg-0 leading-loose border-b">
-                <%= f.label :code, '預設程式碼', class: 'block w-100 px-5 text-gray-600'%>
-              </div>
-
-              <div class="px-4 py-1 my-4">
-                <%= f.hidden_field :default_code, id: "default_code" %>
-                <div class="editor readonly" data-target="default_code"></div>
-              </div>   
-        </div>
-
-        <div class="shadow border rounded  py-3 my-3">
-        
-          <div class="mg-0 leading-loose border-b">
-            <%= f.label :answer, '出題者解答', class: 'block w-100 px-5 text-gray-600'%>
-          </div>
-
-          <div class="px-4 py-1 my-4">
-            <%= f.hidden_field :answer, id: "answer" %>
-            <div class="editor readonly" data-target="answer"></div>
-          </div>
-
-        </div>
-
-        <div class="shadow border rounded  py-3 my-3">
-          <div class="mg-0 leading-loose border-b">
-            <%= f.label :test_code, '測試資料', class: 'block w-100 px-5 text-gray-600'%>
-          </div>
-          <div class="flex w-full">
-
-            <div class="w-1/2 px-4">
-              <%= f.hidden_field :test_code, id: "test_code" %>
-              <div id="section-test-code">
-
-                <% if @card.test_code %>
-                  <% @card.test_code.each do |test_code| %>
-                    <p class="block border">
-                      <%= test_code %>
-                    </p>
-                  <% end %>
-                <% end %>
-              </div>
-            </div>
-
-            <div id="run-result" class="block px-3 w-1/2 ">
-              <% num = 1 %>
-              <% if @card.result %>
-                <% @card.result.each do |result| %>
-                  <div id="result<%= num %>" class="border"><%= result %></div>
-                  <% num = num + 1 %>
-                <% end %>
-              <% else %>
-                <div id="result0" class="border"><%= @result %></div>
+        <div>
+          <% if user_authority ==  "author" %>
+            <div class="part-btns absolute mr-6 pr-4 right-0">
+              <%= link_to(edit_board_card_path(@board.id, @card.id), 
+                          :class => 'w-2 text-orange-500 hover:text-orange-700 text-white py-1 rounded mr-1') do %>
+                <i class="btn-edit fa fa-pencil-square text-3xl"></i>
               <% end %>
-            
             </div>
+          <% end %>
+        </div>
+
+        <div id="content-subject" class="shadow border rounded mb-8">
+        
+          <div class="content-head border-b bg-gray-500 text-white py-2 font-bold rounded-t ">
+            <p class="text-center">題目</p>
+          </div>
+
+          <div class="content-body p-5">
+          
+            <div class="w-full mb-4">
+              <%= render "cards/content_subject" %>
+              <div class="">
+                <section class="text-gray-700 text-m font-bold mt-5 mb-3">
+                  階段提示
+                </section>
+                <% if @card.hints %>
+                  <% num = 1 %>
+                    <% @card.hints.each do |hint| %>
+                      <p>
+                        <span class="mr-4"><%= num %></span>
+                        <span><%= hint %></span>
+                      </p>
+                      <% num = num + 1 %>
+                    <% end %>
+                <% else %>
+                  <span>(暫無提示)</span>
+                <% end %>
+              </div>
+            </div>
+               
+            <div class="w-full mb-4 border-t">
+              <%= f.label :default_code, '預設程式碼', class: 'block uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
+              <%= f.hidden_field :default_code, id: "default_code" %>
+              <div class="editor readonly" data-target="default_code"></div>
+            </div>
+
           </div>
 
         </div>
+      
+        <div id="content-answer" class="shadow border rounded mb-8">
+          <div class="content-head border-b bg-gray-500 text-white py-2 font-bold rounded-t ">
+            <p class="text-center">正解</p>
+          </div>
 
-        <div class="shadow border rounded  py-3 my-3">
-        </div>
+          <div class="content-body p-5">
+            <div>
+              <%= f.label :answer, '定義解答', 
+                          class: 'require　block uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
+              <%= f.hidden_field :answer, id: "answer" %>
+              <div class="editor readonly" data-target="answer"></div>
+             
+            </div>
+
+            <div id="part-test-run">
+
+              <div class="flex w-full mb-4">
+
+                <section class="w1/2 m-auto mt-6">
+                  <%= f.label :test_code, '執行結果 ← 測試方法', class: 'uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
+                </section>
+
+              </div>
+
+              <div class="flex w-full mb-4">
+
+                <div class="w-1/2">
+                  <div id="run-result" class="">
+                  <% num = 1 %>
+                  <% if @card.result %>
+                    <% @card.result.try(:each) do |result| %>
+                      <div id="result<%= num %>" class="border"><%= result %></div>
+                      <div class="editor-" data-target="result<%= num %>"></div>
+                      <% num = num + 1 %>
+                    <% end %>
+                  <% end %>
+                  </div>
+                </div>
+
+                <div class="w-1/2">
+                  <div id="section-test-code">
+                    
+                    <% if action_name=="new" %>
+                      <% params[:card].try(:[], :test_code).try(:each) do |test_code| %>
+                        <%= render "cards/data_test_item",num: 1 ,test_code: test_code %>
+                      <% end %>
+                    <% else %>
+                      <% if @card.test_code %>
+                        <% num = 0 %>
+                        <% @card.test_code.each do |test_code| %>
+                          <% num = num + 1 %>
+                            <%= render "cards/data_test_item",num: num ,test_code: test_code %>
+                        <% end %>
+                      <% end %>
+                    <% end %>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div> 
 
       </div>
 
     </div>
-  </div>
-        
+
 <% end %>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      </div>
-
-
-
-    </div>
-
-  </div>
+  
+  

@@ -2,62 +2,149 @@
  
 <span id="board-lang" class="hidden"><%= @board.editor_mode %></span>
 
-<div class="flex container">
+<style>
+  #btn-del-test-code{display:none;}
+  input[name^="card[test_code]"]{
+      disabled: true;
+      pointer-events: none;
+  }
   
-  <div class="part-slider w-1/4 border-r">
-    <%= render "nav_cards_list", nowCard: @card.id  %>
-  </div>
+</style>
 
-  <div class="part-card px-4 w-3/4">
-    <%#= form_with model: @card, url: solve_board_card_path, method: :patch, local: true do |f| %>
+<%= form_with model: @record, url: solve_board_card_path, method: :patch, local: true do |f| %>
 
-    <%= form_with model: @record, url: solve_board_card_path, method: :patch, local: true do |f| %>
-      <div class="shadow border rounded  py-3 my-3">
-        <%= render "content_subject" %>
+  <div id="page-show-solved" class="container-full">  
+
+    <div id="part-borard-info" class="w-full">
+        <%= render "cards/banner_board_info" %>
+    </div>
+
+    <div class="flex w-full">
+
+      <div id="part-cards-list" class="w-1/4  m-0 pb-12 border-r">
+        <%= render "cards/nav_cards_list",  nowCard: @card.id  %>
       </div>
 
-      <div class="shadow border rounded my-5">
-        <div class="mg-0 leading-loose border-b">
-          <%= f.label :code, 'Your answer', class: 'block w-100 px-5 text-gray-600'%>
-        </div>
-        <div class="px-4 py-1 my-4">
-          <%= f.hidden_field :code, id: "code" %>
-          <div class="editor readonly" data-target="code"></div>
-          <div class="">
+      <div id="part-card-content" class="w-3/4 m-0 m-auto pb-12">
+
+        <div id="content-subject" class="shadow border rounded mb-8">
+        
+          <div class="content-head border-b bg-gray-500 text-white py-2 font-bold rounded-t ">
+            <p class="text-center">題目</p>
           </div>
+
+          <div class="content-body p-5">
           
-          <div>
-            <p>測試方法</p>
-            <% @card.test_code.each do |test_code| %>
-              <p class="ml-5"><%= test_code %></p>
-            <% end %>
-          </div>
-          <div>
-            <p>結果</p>
-            <% if @card.result %>
-              <% @card.result.each do |result| %>
-                <p class="ml-5"><%= result %></p>
-              <% end %>
-            <% end %>
+            <div class="w-full mb-4">
+              <%= render "cards/content_subject" %>
+              <div class="">
+                <section class="text-gray-700 text-m font-bold mt-5 mb-3">
+                  階段提示
+                </section>
+                  <div id="section-hints" class="">
+                    <% if @card.hints %>
+                      <input id="btn-show-hints" type="button" value="求提示(<%= @card.hints.length %>)" class="bg-orange-500 hover:bg-orange-700 text-white py-2 px-3 rounded my-5">
+                      <ul>
+                        <% @card.hints.each do |hints| %>
+                          <li class="hint hidden"><%= hints %></li>
+                        <% end %>
+                      </ul>
+                    <% else %>
+                      <span class="cursor-not-allowed bg-gray-500 text-white py-2 px-3 rounded my-5">(無提示)</span> 
+                    <% end %>
+                  </div>
+              </div>
+            </div>
+
           </div>
 
-          <div>
-            <P>看看其他人的答案</p>
+        </div>
+      
+        <div id="content-answer" class="shadow border rounded mb-8">
+          <div class="content-head border-b bg-gray-500 text-white py-2 font-bold rounded-t ">
+            <p class="text-center">作答</p>
+          </div>
 
-              <% @card.records.each do |record| %>
-                <div class="border m-12">
-                  <div class="editor-readonly"><%= record.code %></div>
+          <div class="content-body p-5">
+
+            <div class="w-full mb-4">
+
+              <div class="mg-0 leading-loose">
+                <%= f.label :code, 'Your answer', class: 'block w-100 px-5 text-gray-600'%>
+              </div>
+              <div class="px-4 py-1 my-4">
+                <%= f.hidden_field :code, id: "code" %>
+                <div solving class="editor" data-target="code"></div>
                 </div>
-              <% end %>
+              </div>
+              
+            </div>
+
+            <div id="part-test-run">   
+
+              <div class="flex w-full px-4 py-1 my-4">
+                <section class="w1/2 m-auto mt-6">
+                  <%= f.label :test_code, '執行結果 ← 測試方法', class: 'uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
+                </section>
+              </div>
+
+              <div class="flex w-full mb-4 px-6">
+
+                <div class="w-1/2">
+                  <div id="run-result" class="">
+                    <% num = 1 %>
+                    <% if @card.result %>
+                      <% @card.result.try(:each) do |result| %>
+                        <div id="result<%= num %>" class="border"><%= result %></div>
+                        <div class="editor-" data-target="result<%= num %>"></div>
+                        <% num = num + 1 %>
+                      <% end %>
+                    <% end %>
+                  </div>
+                </div>
+
+                <div class="w-1/2">
+                  <div id="section-test-code">
+                    <% if @card.test_code %>
+                      <% num = 0 %>
+                      <% @card.test_code.each do |test_code| %>
+                        <% num = num + 1 %>
+                        <%= render "cards/data_test_item",num: num ,test_code: test_code %>
+                      <% end %>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div id="part-other-answers">
+
+              <div class="flex w-full mb-4">
+                <div>
+                  <P class="pl-6">看看其他人的答案</p>
+                  <% @card.records.each do |record| %>
+                    <div class="border m-12">
+                      <% unless record.user == current_user %>
+                        <div class="editor-readonly whitespace-pre-line p-5"><%= record.code %></div>
+                        <p class="ml-5 border-t"><%= record.user.email %>
+                      <% end %>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+
           </div>
-          
-          
         </div>
-      </div>
-      <!--之後編輯按鈕
+      </div> 
+    </div>
+  </div>
+<% end %>
+
+<!--
+
       <div class="my-5">
-        <%#= f.submit '送出',id: 'btn-card-submit', class: 'bg-blue-500 hover:bg-blue-700 text-white py-2 px-3 rounded my-5' %>
+        <%#= f.submit '編輯',id: 'btn-card-submit', class: 'bg-blue-500 hover:bg-blue-700 text-white py-2 px-3 rounded my-5' %>
       </div>
-      -->
-    <% end %>
-</div>
+-->
+
