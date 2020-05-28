@@ -1,5 +1,5 @@
 <p class="absolute right-0 text-xs text-gray-600">//解題者(已解題)-檢視頁面//</p>
- 
+
 <span id="board-lang" class="hidden"><%= @board.editor_mode %></span>
 
 <style>
@@ -8,7 +8,7 @@
       disabled: true;
       pointer-events: none;
   }
-  
+
 </style>
 
 <%= form_with model: @record, url: solve_board_card_path, method: :patch, local: true do |f| %>
@@ -28,13 +28,13 @@
       <div id="part-card-content" class="w-3/4 m-0 m-auto pb-12">
 
         <div id="content-subject" class="shadow border rounded mb-8">
-        
+
           <div class="content-head border-b bg-gray-500 text-white py-2 font-bold rounded-t ">
             <p class="text-center">題目</p>
           </div>
 
           <div class="content-body p-5">
-          
+
             <div class="w-full mb-4">
               <%= render "cards/content_subject" %>
               <div class="">
@@ -59,7 +59,7 @@
           </div>
 
         </div>
-      
+
         <div id="content-answer" class="shadow border rounded mb-8">
           <div class="content-head border-b bg-gray-500 text-white py-2 font-bold rounded-t ">
             <p class="text-center">作答</p>
@@ -77,7 +77,7 @@
                 <div solving class="editor" data-target="code"></div>
                 </div>
               </div>
-              
+
             </div>
 
             <div id="part-test-run">   
@@ -133,18 +133,9 @@
                 </div>
               </div>
             </div>
-
           </div>
         </div>
       </div> 
     </div>
   </div>
 <% end %>
-
-<!--
-
-      <div class="my-5">
-        <%#= f.submit '編輯',id: 'btn-card-submit', class: 'bg-blue-500 hover:bg-blue-700 text-white py-2 px-3 rounded my-5' %>
-      </div>
--->
-

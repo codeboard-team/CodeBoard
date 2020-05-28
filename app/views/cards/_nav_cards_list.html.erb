@@ -1,7 +1,4 @@
  <div id="part-cards-list">
-
-  
-
   <div class="">
 
       <% @board.cards.order(:order).each do |card|%>
@@ -36,18 +33,18 @@
               </div>
 
             <% else %>
+
               <div>
                 <div class="absolute my-4 pr-4 right-0">
                     <i class="fa fa-file-o text-blue-700 hover:text-blue-500 hover:bg-gray-200"></i>
                 </div>
               </div>
+
             <% end %>
 
-            
           <% end %>
 
       </section>
-      
     <% end %>
   </div>
 </div>
