@@ -1,13 +1,20 @@
-.editor {
-    min-height: 6rem;
-} //
-input[name^="card[test_code]"],
-#test_code {
-    color: #4287CB;
-    padding: .2rem;
-    font-family: monospace;
+// .editor {
+//     min-height: 6rem;
+// } //
+// temp
+.editor.result {}
+
+p.hint-item {
+    line-height: 2rem;
+    margin-bottom: 1rem;
 }
 
+// input[name^="card[test_code]"],
+// #test_code {
+//     color: #4287CB;
+//     padding: .2rem;
+//     font-family: monospace;
+// }
 input[name^="card[hints]"],
 input[name^="card[test_code]"] {
     display: block;
@@ -18,7 +25,9 @@ input[name^="card[test_code]"] {
 }
 
 input[name^="card[hints]"] {
-    border-bottom: 1px solid #ddd;
+    border: 1px solid #ddd;
+    line-height: 1rem;
+    padding: .4rem .6rem;
 }
 
 button,
@@ -62,7 +71,6 @@ section.one-card:hover .part-btns.hover,
     padding: .5rem 4rem 2rem 4rem;
 }
 
-#section-test-code,
 #section-hints {
     p {
         display: flex;
@@ -77,13 +85,17 @@ section.one-card:hover .part-btns.hover,
     }
 }
 
-#btn-add-test-code,
-#btn-add-hints,
-span[id^="btn-del"] {
-    position: absolute;
-    margin-left: -2rem;
+*[id^="btn-"],
+*[class^="btn-"] {
+    cursor: pointer;
 }
 
+// #btn-add-test-code,
+// #btn-add-hints,
+// span[id^="btn-del"] {
+//     position: absolute;
+//     margin-left: -2rem;
+// }
 .editor.ace_editor {
     border: 1px solid #ddd;
 }
@@ -100,17 +112,37 @@ span[id^="btn-del"] {
     }
 }
 
-.select-tags+span.select2::before {
-    content: "Tags";
-    position: absolute;
-    color: #777;
-    width: 100%;
-    text-align: center;
-    line-height: 2rem;
+// select2 (tags) placeholder
+#select-tags {
+    &+span {
+        &.select2::before {
+            content: "Tags";
+            padding-left: 1rem;
+            position: absolute;
+            color: #777;
+            width: 0;
+            height: 0;
+            text-align: center;
+            line-height: 2rem;
+        }
+        &.select2-container--open::before,
+        &.select2-container--focus::before {
+            z-index: -1;
+            color: #fff;
+            display: none;
+        }
+    }
 }
 
-.select-tags+span.select2-container--open::before,
-.select-tags+span.select2-container--focus::before {
-    color: #fff;
-    display: none;
+.select2-selection__rendered li {
+    position: relative;
 }
+
+// .require {
+//     display: run-in;
+//     &::before {
+//         content: '＊';
+//         color: red;
+//         // display: block-in;
+//     }
+// }

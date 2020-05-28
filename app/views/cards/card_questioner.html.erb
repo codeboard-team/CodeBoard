@@ -1,10 +1,12 @@
 <p class="absolute right-0 text-xs text-gray-600">//出題者-檢視頁//</p>
-
+<!--↓ 偵測該card所屬語言以套用 Editor Mode-->
 <span id="board-lang" class="hidden"><%= @board.editor_mode %></span>
 
-  <div id="page-show-questuiber" class="container-full">
+<%= form_with model: @card, url: board_cards_path , local: true do |f| %>
 
-    <div id="part-borard-info" class="w-full" border-b">
+  <div id="show-questioner" class="container-full">
+
+    <div id="part-borard-info" class="w-full">
         <%= render "cards/banner_board_info" %>
     </div>
 
@@ -14,77 +16,62 @@
         <%= render "cards/nav_cards_list", nowCard: @card.id %>
       </div>
 
-      <div id="part-card-content" class="w-3/4 m-0 pb-12">
+      <div id="part-card-content" class="w-3/4 m-0 m-auto pb-12">
 
-      <div class="flex w-full mb-4">
-      
+        <div class="shadow border rounded  py-3 my-3">
+          <%= render 'content_subject', model: @card, url: board_cards_path  %>
+        </div>
 
-      </div>
-        <!--
-          <span class="block">
-            <%= link_to '編輯', edit_board_card_path(@board.id, @card.id),  class: 'w-2 bg-orange-500 hover:bg-orange-700 text-white py-1 px-2 rounded mr-1' %>
-          </span>
-        -->
+        <div class="shadow border rounded  py-3 my-3">
+          <div id="section-hints" class="">
 
-        <%#= render 'content_subject', model: @card, url: board_cards_path  %>
-
-
-
-
-        <div id="part-card-content" class="w-3/4">
-
-        <div class="my-5">
+            <% if @card.hints %>
+              <p class="block w-100 px-5 text-gray-600">提示</p>
+              <span class="py-2 my-5"><%= @card.hints.length %></span> 
+              <ul>
+                <% @card.hints.each do |hints| %>
+                  <li class="hint"><%= hints %></li>
+                <% end %>
+              </ul>
+            <% else %>
+              <span class="cursor-not-allowed text-gray-500 py-2 px-3 my-5">(無提示)</span> 
+            <% end %>
           </div>
-        
-        <%= form_with model: @card, url: board_cards_path , local: true do |f| %>
-                
-          <div class="shadow border rounded  py-3 my-3">
-            <%= render "content_subject" %>
-          </div>
-
-
-          <div class="shadow border rounded my-5">
-
-            <div class="mg-0 leading-loose border-b">
-              <%= f.label :code, '預設程式碼', class: 'block w-100 px-5 text-gray-600'%>
-            </div>
-
-            <div class="px-4 py-1 my-4">
-              <%= f.hidden_field :default_code, id: "default_code" %>
-              <div class="editor readonly" data-target="default_code"></div>
-            </div>
-
-          </div>
-
-          <div class="shadow border rounded my-5">
-            <div class="mg-0 leading-loose border-b">
-              <%= f.label :answer, '出題者解答', class: 'block w-100 px-5 text-gray-600'%>
-            </div>
-
-            <div class="px-4 py-1 my-4">
-              <%= f.hidden_field :answer, id: "answer" %>
-              <div class="editor readonly" data-target="answer"></div>
-            </div>
-
-            <div class="px-4 py-1 my-4">
-              <div class="">
-                <div id="run-result" class="block min-h-2 px-3 py-2"><%= @result %></div>
+        </div>
+        <div class="shadow border rounded  py-3 my-3">
+              <div class="mg-0 leading-loose border-b">
+                <%= f.label :code, '預設程式碼', class: 'block w-100 px-5 text-gray-600'%>
               </div>
-            </div>
-    
-          </div>
+
+              <div class="px-4 py-1 my-4">
+                <%= f.hidden_field :default_code, id: "default_code" %>
+                <div class="editor readonly" data-target="default_code"></div>
+              </div>   
+        </div>
+
+        <div class="shadow border rounded  py-3 my-3">
         
-          <div class="shadow border rounded my-5">
+          <div class="mg-0 leading-loose border-b">
+            <%= f.label :answer, '出題者解答', class: 'block w-100 px-5 text-gray-600'%>
+          </div>
 
-            <div class="mg-0 leading-loose border-b">
-              <%= f.label :test_code, '測試資料', class: 'block w-100 px-5 text-gray-600'%>
-            </div>
+          <div class="px-4 py-1 my-4">
+            <%= f.hidden_field :answer, id: "answer" %>
+            <div class="editor readonly" data-target="answer"></div>
+          </div>
 
-            <div class="px-4 py-1 my-4">
+        </div>
+
+        <div class="shadow border rounded  py-3 my-3">
+          <div class="mg-0 leading-loose border-b">
+            <%= f.label :test_code, '測試資料', class: 'block w-100 px-5 text-gray-600'%>
+          </div>
+          <div class="flex w-full">
+
+            <div class="w-1/2 px-4">
               <%= f.hidden_field :test_code, id: "test_code" %>
               <div id="section-test-code">
-            
-                
+
                 <% if @card.test_code %>
                   <% @card.test_code.each do |test_code| %>
                     <p class="block border">
@@ -94,15 +81,32 @@
                 <% end %>
               </div>
             </div>
+
+            <div id="run-result" class="block px-3 w-1/2 ">
+              <% num = 1 %>
+              <% if @card.result %>
+                <% @card.result.each do |result| %>
+                  <div id="result<%= num %>" class="border"><%= result %></div>
+                  <% num = num + 1 %>
+                <% end %>
+              <% else %>
+                <div id="result0" class="border"><%= @result %></div>
+              <% end %>
             
+            </div>
           </div>
 
-         
+        </div>
 
-        <% end %>
-
+        <div class="shadow border rounded  py-3 my-3">
+        </div>
 
       </div>
+
+    </div>
+  </div>
+        
+<% end %>
 
 
 

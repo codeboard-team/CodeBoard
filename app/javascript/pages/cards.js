@@ -4,17 +4,31 @@ $(document).on("turbolinks:load", function() {
 
     $("#btn-add-test-code").click(function() {
             let numTestCode = $(".test-item").length
-            addInput = `<p class="test-item">
-                        <span id="btn-del-test-code">
-                        <i class="fa fa-minus-circle hover:text-red-700 text-red-500 rounded-full text-2xl"></i>
-                        </span>
+            addInput = `<p class="test-item flex">
                         <span class="numTestCode">${numTestCode + 1}</span>
-                        <input name="card[test_code][]">
-                        </p>`
+                        <input name="card[test_code][]" class="w-full">
+                        <span id="btn-del-test-code">
+                            <i class="fa fa-minus-circle hover:text-red-700 text-red-500 rounded-full text-2xl"></i>
+                        </span>
+                    </p>`
             $("#section-test-code").append($(addInput));
         }
 
     );
+    // $("#btn-add-test-code").click(function() {
+    //         let numTestCode = $(".test-item").length
+    //         addInput = `<p class="test-item">
+    //                         <span class="numTestCode">${numTestCode + 1}</span>
+    //                         <input name="card[test_code][]">
+    //                         <span id="btn-del-test-code">
+    //                             <i class="fa fa-minus-circle hover:text-red-700 text-red-500 rounded-full text-2xl"></i>
+    //                         </span>
+    //                         <div class="editor readonly result data-target="result-code>test</div>
+    //                     </p>`
+    //         $("#section-test-code").append($(addInput));
+    //     }
+
+    // );
 
     $("#section-test-code").on("click", "#btn-del-test-code", function() {
         let numTestCode = 1
@@ -30,11 +44,11 @@ $(document).on("turbolinks:load", function() {
     $("#btn-add-hints").click(function() {
         let numHint = $(".hint-item").length
         addInput = `<p class="hint-item">
-                    <span id="btn-del-hint">
-                    <i class="fa fa-minus-circle hover:text-red-700 text-red-500 rounded-full text-2xl"></i>
-                    </span>
-                    <span class="numHint">${numHint + 1}</span>
-                    <input name="card[hints][]">
+                        <span class="numHint">${numHint + 1}</span>
+                        <input name="card[hints][]">
+                        <span id="btn-del-hint">
+                            <i class="fa fa-minus-circle hover:text-red-700 text-red-500 rounded-full text-2xl"></i>
+                        </span>
                     </p>`
         $("#section-hints").append(addInput);
     });
@@ -57,56 +71,78 @@ $(document).on("turbolinks:load", function() {
 
     // card:ACE Editor =======
 
-    let editorRoDoms = document.getElementsByClassName('editor-readonly');
-    for (editorRoDom of editorRoDoms) {
+    // let editorRoDoms = document.getElementsByClassName('editor-readonly');
+    // for (editorRoDom of editorRoDoms) {
 
-        let aceRoEditor = ace.edit(editorRoDom);
+    //     let aceRoEditor = ace.edit(editorRoDom);
 
-        aceRoEditor.setReadOnly(true)
-        aceRoEditor.getSession().setMode($("#board-lang").text());
-        aceRoEditor.setTheme("ace/theme/terminal");
-        aceRoEditor.getSession().setTabSize(2);
+    //     aceRoEditor.setReadOnly(true)
+    //     aceRoEditor.getSession().setMode($("#board-lang").text());
+    //     aceRoEditor.setTheme("ace/theme/terminal");
+    //     aceRoEditor.getSession().setTabSize(2);
 
-        // aceRoEditor.setAutoScrollEditorIntoView(true);
-        aceRoEditor.setOption("maxLines", 100);
+    //     // aceRoEditor.setAutoScrollEditorIntoView(true);
+    //     aceRoEditor.setOption("maxLines", 100);
 
-        // aceRoEditor.focus();
+    //     // aceRoEditor.focus();
 
-        aceRoEditor.setOptions({
-            fontSize: ".95rem",
-            // vScrollBarAlwaysVisible: true,
-            // autoScrollEditorIntoView: true,
-            showLineNumbers: false // 行數+摺疊
-                //  showGutter: false, // 摺疊功能
-        });
-        // aceRoEditor.setShowPrintMargin(false);
-        // aceRoEditor.setBehavioursEnabled(false);
+    //     aceRoEditor.setOptions({
+    //         fontSize: ".95rem",
+    //         // vScrollBarAlwaysVisible: true,
+    //         // autoScrollEditorIntoView: true,
+    //         showLineNumbers: false // 行數+摺疊
+    //             //  showGutter: false, // 摺疊功能
+    //     });
+    //     // aceRoEditor.setShowPrintMargin(false);
+    //     // aceRoEditor.setBehavioursEnabled(false);
 
 
-        if (editorRoDom.classList.contains("other-answer")) {
-            aceRoEditor.setTheme("ace/theme/terminal");
-        }
-        if (editorRoDom.classList.contains("result")) {
-            aceRoEditor.setOptions({
-                showLineNumbers: false // 行數+摺疊
-            });
+    //     if (editorRoDom.classList.contains("other-answer")) {
+    //         aceRoEditor.setTheme("ace/theme/terminal");
+    //     }
 
-        }
+    //     if (editorRoDom.classList.contains("result")) {
 
-    };
+    //         let input = document.getElementById(editorRoDom.dataset.target);
+    //         aceRoEditor.setValue(input.value, 1);
+
+    //         aceRoEditor.setOptions({
+    //             showLineNumbers: false, // 行數+摺疊
+    //             minLines: 1
+    //         });
+
+    //         aceRoEditor.getSession().on("change", function() {
+    //             let newValue = aceEditor.getValue();
+    //             input.value = newValue;
+    //         });
+
+
+    //     }
+
+    // };
 
 
     let editorDoms = document.getElementsByClassName('editor');
     for (editorDom of editorDoms) {
 
         let aceEditor = ace.edit(editorDom);
-
+        console.log(aceEditor)
         let input = document.getElementById(editorDom.dataset.target);
+        console.log(input)
 
         aceEditor.getSession().setMode($("#board-lang").text());
         aceEditor.setTheme("ace/theme/tomorrow");
         aceEditor.getSession().setTabSize(2);
+
+
         aceEditor.setValue(input.value, 1);
+        // To Do
+        // if (input) {
+        //     aceEditor.setValue(input.value, 1);
+        // } else {
+        // aceEditor.setValue("", 1);
+        // }
+
         aceEditor.setAutoScrollEditorIntoView(true);
         aceEditor.setOption("maxLines", 100);
 
