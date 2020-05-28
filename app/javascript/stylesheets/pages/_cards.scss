@@ -1,20 +1,8 @@
-// .editor {
-//     min-height: 6rem;
-// } //
-// temp
-.editor.result {}
-
 p.hint-item {
     line-height: 2rem;
     margin-bottom: 1rem;
 }
 
-// input[name^="card[test_code]"],
-// #test_code {
-//     color: #4287CB;
-//     padding: .2rem;
-//     font-family: monospace;
-// }
 input[name^="card[hints]"],
 input[name^="card[test_code]"] {
     display: block;
@@ -90,12 +78,6 @@ section.one-card:hover .part-btns.hover,
     cursor: pointer;
 }
 
-// #btn-add-test-code,
-// #btn-add-hints,
-// span[id^="btn-del"] {
-//     position: absolute;
-//     margin-left: -2rem;
-// }
 .editor.ace_editor {
     border: 1px solid #ddd;
 }
@@ -137,12 +119,3 @@ section.one-card:hover .part-btns.hover,
 .select2-selection__rendered li {
     position: relative;
 }
-
-// .require {
-//     display: run-in;
-//     &::before {
-//         content: '＊';
-//         color: red;
-//         // display: block-in;
-//     }
-// }
