@@ -37,54 +37,57 @@
         <div>
           <div class="my-5 mx-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             <% @boards.each do |board| %>
-            <div class="bg-white overflow-hidden shadow rounded-lg">
-              <div class="bg-gray-100 px-4 py-5 sm:p-6">
-                <dl>
-                  <span class="max-w-md flex justify-center  px-2.5 py-0.5 rounded-full text-sm font-medium leading-5 bg-red-100 text-red-800 md:mt-2 lg:mt-0">
-                    <%= board.language %>
-                  </span>
-                  <div class="inline-flex items-center px-2.5 py-0.5 rounded-full text-sm font-medium leading-5 bg-green-100 text-green-800 md:mt-2 lg:mt-0">
-                  </div>
-                  <div class="inline-flex items-center px-2.5 py-0.5 rounded-full text-sm font-medium leading-5 bg-green-100 text-green-800 md:mt-2 lg:mt-0">
-                  </div>
-                  <dt class="flex justify-start my-4 text-xl leading-5 font-medium text-black font-bold truncate">
-                    <%= board.title %>
-                  </dt>
-                  <hr>
-                  <p class="my-4 text-gray-500"><%= board.description %></p>
-                  <hr>
-                  <dd class="flex justify-between items-center mt-5">
-                    <div class="flex">
-                      <span class="inline-block h-6 w-6 rounded-full overflow-hidden bg-gray-100">
-                        <svg class="h-full w-full text-gray-500" fill="currentColor" viewBox="0 0 24 24">
-                          <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
-                        </svg>
+              <% if board.cards.count > 0%>
+            
+                <div class="bg-white overflow-hidden shadow rounded-lg">
+                  <div class="bg-gray-100 px-4 py-5 sm:p-6">
+                    <dl>
+                      <span class="max-w-md flex justify-center  px-2.5 py-0.5 rounded-full text-sm font-medium leading-5 bg-red-100 text-red-800 md:mt-2 lg:mt-0">
+                        <%= board.language %>
                       </span>
-                      <div class="text-xl leading-8 font-semibold text-gray-900">
-                        <p class="flex items-baseline text-sm">
-                          <%= board.user.email %>
-                        </p>
+                      <div class="inline-flex items-center px-2.5 py-0.5 rounded-full text-sm font-medium leading-5 bg-green-100 text-green-800 md:mt-2 lg:mt-0">
                       </div>
-                    </div>
-                    <div class="flex items-baseline">
-                      <div class="text-sm leading-5 font-semibold text-green-600">
-                        <%= board.cards.count %>
-                        <svg class="inline-flex mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500" fill="currentColor" viewBox="0 0 20 20">
-                          <path fill-rule="evenodd" d="M3 5a2 2 0 012-2h6a2 2 0 012 2H5v8a2 2 0 01-2-2V5zm6 2a2 2 0 00-2 2v6a2 2 0 002 2h6a2 2 0 002-2V9a2 2 0 00-2-2H9z" clip-rule="evenodd"/>
-                        </svg>
+                      <div class="inline-flex items-center px-2.5 py-0.5 rounded-full text-sm font-medium leading-5 bg-green-100 text-green-800 md:mt-2 lg:mt-0">
                       </div>
+                      <dt class="flex justify-start my-4 text-xl leading-5 font-medium text-black font-bold truncate">
+                        <%= board.title %>
+                      </dt>
+                      <hr>
+                      <p class="my-4 text-gray-500"><%= board.description %></p>
+                      <hr>
+                      <dd class="flex justify-between items-center mt-5">
+                        <div class="flex">
+                          <span class="inline-block h-6 w-6 rounded-full overflow-hidden bg-gray-100">
+                            <svg class="h-full w-full text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                              <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                            </svg>
+                          </span>
+                          <div class="text-xl leading-8 font-semibold text-gray-900">
+                            <p class="flex items-baseline text-sm">
+                              <%= board.user.email %>
+                            </p>
+                          </div>
+                        </div>
+                        <div class="flex items-baseline">
+                          <div class="text-sm leading-5 font-semibold text-green-600">
+                            <%= board.cards.count %>
+                            <svg class="inline-flex mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500" fill="currentColor" viewBox="0 0 20 20">
+                              <path fill-rule="evenodd" d="M3 5a2 2 0 012-2h6a2 2 0 012 2H5v8a2 2 0 01-2-2V5zm6 2a2 2 0 00-2 2v6a2 2 0 002 2h6a2 2 0 002-2V9a2 2 0 00-2-2H9z" clip-rule="evenodd"/>
+                            </svg>
+                          </div>
+                        </div>
+                      </dd>
+                    </dl>
+                  </div>
+                  <div class="bg-gray-50 px-4 py-4 sm:px-6">    
+                    <div class="flex justify-end items-center text-sm leading-5">
+                      <span class="inline-flex rounded-md shadow-sm">
+                        <%= link_to 'Challenge', board_path(board.id), class: "inline-flex items-center mx-1 my-1 px-5 py-2 border border-transparent text-xs leading-4 font-medium rounded text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150" %>
+                      </span>
                     </div>
-                  </dd>
-                </dl>
-              </div>
-              <div class="bg-gray-50 px-4 py-4 sm:px-6">    
-                <div class="flex justify-end items-center text-sm leading-5">
-                  <span class="inline-flex rounded-md shadow-sm">
-                    <%= link_to 'Challenge', board_path(board.id), class: "inline-flex items-center mx-1 my-1 px-5 py-2 border border-transparent text-xs leading-4 font-medium rounded text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150" %>
-                  </span>
+                  </div>
                 </div>
-              </div>
-            </div>
+              <% end%>
             <% end %>
           </div>
         </div>
