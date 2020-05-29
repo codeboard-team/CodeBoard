@@ -11,9 +11,9 @@ class Board < ApplicationRecord
     update(deleted_at: Time.now)
   end
 
-  def self.search_by(search_term)
+  def self.search_by_title(search_term)
     if search_term
-      where("LOWER(title) LIKE :search_term",
+      where("LOWER(boards.title) LIKE :search_term",
       search_term: "%#{search_term.downcase}%")
     else
       all
