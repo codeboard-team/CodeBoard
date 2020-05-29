@@ -1,17 +1,21 @@
-.editor {
-    min-height: 6rem;
-} //
-input[name^="card[test_code]"],
-#test_code {
-    color: #4287CB;
-    padding: .2rem;
-    font-family: monospace;
+p.hint-item {
+    line-height: 2rem;
+    margin-bottom: 1rem;
 }
 
 input[name^="card[hints]"],
 input[name^="card[test_code]"] {
-    border: 1px solid #ddd;
     display: block;
+}
+
+input[name^="card[test_code]"] {
+    border: 1px solid #ddd;
+}
+
+input[name^="card[hints]"] {
+    border: 1px solid #ddd;
+    line-height: 1rem;
+    padding: .4rem .6rem;
 }
 
 button,
@@ -20,39 +24,98 @@ input[type="submit"] {
     cursor: pointer;
 }
 
-.part-carts-list section a.active {
-    background-color: #f1f1f1;
+.one-card a.active {
+    background-color: #EDF2F7
+}
+
+.one-card a span.arrow {
+    visibility: hidden;
+}
+
+.one-card a.active span.arrow {
+    visibility: inherit;
 }
 
 .editor.readonly * {
     cursor: auto;
 }
 
-.btn-edit,
-.btn-del,
-.btn-add {
-    font-size: 1.5rem;
-    margin: 0 0.2px
-}
-
 #card-description {
     white-space: pre-line;
 }
 
-.part-btns {
-    right: 2rem;
+.part-btns.hover {
+    visibility: hidden;
 }
 
-.part-btns.hover {
+.one-board:hover {}
+
+section.one-card:hover .part-btns.hover,
+.one-board:hover .part-btns.hover {
+    visibility: inherit;
+}
+
+#part-card-content {
+    padding: .5rem 4rem 2rem 4rem;
+}
+
+#section-hints {
+    p {
+        display: flex;
+    }
+    p span {
+        width: 2rem;
+        display: inline-block;
+        text-align: center;
+    }
+    input {
+        flex-grow: 1;
+    }
+}
+
+*[id^="btn-"],
+*[class^="btn-"] {
+    cursor: pointer;
+}
+
+.editor.ace_editor {
+    border: 1px solid #ddd;
+}
+
+#card_level option:first-child {
     display: none;
 }
 
-section.one-card:hover .part-btns.hover {
-    display: inline-block;
+#part-test-run {
+    #section-test-code {
+        .test-item:first-child:last-child #btn-del-test-code {
+            display: none;
+        }
+    }
 }
 
-// section.one-card a {
-//     &:hover+.part-btns.hover i.fa {
-//         display: inline-block;
-//     }
-// }
+// select2 (tags) placeholder
+#select-tags {
+    &+span {
+        &.select2::before {
+            content: "Tags";
+            padding-left: 1rem;
+            position: absolute;
+            color: #777;
+            width: 0;
+            height: 0;
+            text-align: center;
+            line-height: 2rem;
+        }
+        &.select2-container--open::before,
+        &.select2-container--focus::before {
+            z-index: -1;
+            color: #fff;
+            display: none;
+        }
+    }
+}
+
+.select2-selection__rendered li {
+    position: relative;
+}

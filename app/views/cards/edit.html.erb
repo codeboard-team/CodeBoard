@@ -1,16 +1,21 @@
 <%= form_with model: @card, url: board_card_path, method: :patch , local: true do |f| %>
 
-  <div class="flex container">
+  <div id="page-edit" class="container-full">
 
-    <div class="part-slider w-1/4 border-r">
-      <%= render "cards/nav_cards_list", nowCard: '' %>
+    <div id="part-borard-info" class="w-full">
+        <%= render "cards/banner_board_info" %>
     </div>
 
-    <div class="part-card px-4 w-3/4">
-      <h1 class="text-gray-900 font-bold text-xl border-b">編輯 Card</h1>
-      <%= render 'form', model: @card, url: board_card_path, order: Card.count %>
+    <div class="flex w-full">
+
+      <div id="part-cards-list" class="w-1/4 m-0 pb-12 border-r">
+        <%= render "cards/nav_cards_list", nowCard: @card.id %>
+      </div>
+
+      <div id="part-card-content" class="w-3/4 m-0 pb-12">
+        <%= render 'form', model: @card, f: f %>
+      </div>
+
     </div>
-  </div>
 
 <% end %>
-
