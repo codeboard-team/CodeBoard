@@ -70,7 +70,7 @@
       <div class="w-full block lg:flex lg:flex-row lg:flex-1 mt-2 lg:mt-0 text-center lg:text-left lg:justify-end items-center">
         <% if user_signed_in? %>
           <span class="">
-          <%= link_to current_user.email.split("@")[0], profiles_path, class: "mr-4"%>
+          <%= link_to current_user.email.split("@")[0], class: "mr-4"%>
           </span>
           <%= link_to "Log out", destroy_user_session_path, method: :delete, class:"btn btn-default mb-2 lg:mr-2 lg:mb-0 block border rounded text-gray-500 border-gray-600 hover:text-black hover:border-gray-800" %>
           
