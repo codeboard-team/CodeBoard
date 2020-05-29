@@ -10,7 +10,7 @@ class BoardsController < ApplicationController
 
     if params[:search]
       @search_term = params[:search]
-      @boards = @boards.search_by(@search_term)
+      @boards = @boards.search_by_title(@search_term)
     end
   end
 
