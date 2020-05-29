@@ -1,17 +1,22 @@
 class CardsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit, :update, :destroy]
 
-  before_action :find_board, except: [:index]
+  before_action :find_board, except: [:list]
   before_action :find_card, only: [:edit, :show, :update, :destroy, :solve]
-  before_action :build_card, only: [:new, :create]
+  before_action :build_card, only: [:index, :new, :create]
   before_action :get_code, only: [:create, :update]
   before_action :docker_exec_service, only: [:create, :update, :solve]
   before_action :exec_and_get_result, only: [:create, :update]
 
   before_action :check_authority, only: [:new, :edit, :update, :destroy]
 
-  def index 
+  def index
+    redirect_to new_board_card_path
+  end
+
+  def list
     @cards = Card.page(params[:page]).per(5)
+    render :index
   end
   
   def new
