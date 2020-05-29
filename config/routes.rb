@@ -16,10 +16,11 @@ Rails.application.routes.draw do
     resources :cards, except: [:index] do
       member do
         patch :solve 
+        get :solve
       end
     end 
   end
 
-  resources :cards, only: [:index]  
+  resources :cards
   
 end
