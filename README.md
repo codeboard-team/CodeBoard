@@ -27,3 +27,7 @@ CodeBoard - Waiting for your code !
 - Eudora Huang
 - Luke Tai
 - Boyu Chen
+
+---
+
+CodeBoard is the best platform to help you enhance your skills, expand your knowledge, interactive with your colleague and also you can create your own questions to anyone who loves coding.
