@@ -6,7 +6,8 @@ class BoardsController < ApplicationController
   before_action :check_authority, only: [:edit, :update, :destroy]
 
   def index
-    @boards = Board.page(params[:page]).per(6)
+    @boards = Board.joins(:cards).distinct('boards.id').page(params[:page]).per(6)
+
     if params[:search]
       @search_term = params[:search]
       @boards = @boards.search_by(@search_term)
