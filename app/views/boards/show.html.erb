@@ -1,29 +1,16 @@
-<div class="grid grid-cols-2 mx-1 my-2 px-3 py-3 border-b">		
-  <div class="col-auto ">  		
-    <h1 class="text-gray-900 font-bold text-xl "><%= @board.title %></h1>		
-  </div>		
-  <% if user_authority ==  "author" %>		
-    <div class="col-auto">  		
-      <%= link_to '新增Card', new_board_card_path(@board.id), class: 'bg-blue-500 hover:bg-blue-700 text-white py-2 px-3 rounded' %>		
-      <%= link_to '編輯', edit_board_path(@board.id), class: 'bg-orange-500 hover:bg-orange-700 text-white py-2 px-3 rounded' %>		
-    </div>		
-  <% end %>		
-    <p class="text-gray-600 text-xs"><%= @board.description %></p>		
-    <p class="text-gray-600 text-m"><%= @board.language %></p>		
-  </div>		
 
-  <% @board.cards.each do |card| %>		
+<div id="page-board-list" class="container-full">
 
-    <div class="grid grid-cols-2 mx-1 ml-6 my-2 px-3 py-3">		
-      <div class="col-auto">		
-        <%= link_to card.title, board_card_path(@board.id, card.id), class: 'text-blue-700 hover:text-blue-600 font-bold text-xl' %>		
-      </div>		
-      <% if user_authority ==  "author" %>		
-        <div class="col-auto">		
-          <%= link_to '編輯', edit_board_card_path(@board.id, card.id), class: 'bg-orange-500 hover:bg-orange-700 text-white py-2 px-3 rounded' %>		
-          <%= link_to '刪除', board_card_path(@board.id, card.id), method: 'delete', class: 'bg-red-500 hover:bg-red-700 text-white py-2 px-3 rounded' %>		
-        </div>		
-      <% end %>		
+    <div id="part-borard-info" class="w-full">
+        <%= render "cards/banner_board_info" %>
+    </div>
 
-    </div>		
-  <% end %>
+    <div class="flex w-full">
+
+      <div id="part-cards-list" class="w-full m-auto m-0 pb-12 border-r">
+        <%= render "cards/nav_cards_list", nowCard: ''  %>
+      </div>
+
+    </div>
+
+</div>
