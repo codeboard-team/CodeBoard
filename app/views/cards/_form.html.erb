@@ -1,209 +1,204 @@
-<%# 需要帶的變數： url %>
-<%= form_with model: model, url: url, local: true do |f| %>
+<span id="board-lang" class="hidden"><%= @board.editor_mode %></span>
 
-  <span id="board-lang" class="hidden"><%= @board.editor_mode %></span>
+<% if action_name=="new" %>
+  <script>
+    $( document ).ready(function() {
+      $("#btn-add-test-code").click()
+    });
+  </script>
+<% end %>
 
-  <% if action_name=="new" %>
-    <script>
-      $( document ).ready(function() {
-        $("#btn-add-test-code").click()
-      });
-    </script>
-  <% end %>
+<% if @card.errors.any? %>
+  <ul>
+    <% @card.errors.full_messages.each do |message| %>
+      <li class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert"><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
 
-  <% if @card.errors.any? %>
-    <ul>
-      <% @card.errors.full_messages.each do |message| %>
-        <li class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert"><%= message %></li>
-      <% end %>
-    </ul>
-  <% end %>
+<div id="page" class="flex">
+  <h1 class="flex-grow text-blue-700 font-bold text-right mt-2 mb-3">
+    <% case action_name %>
+      <% when "new"%>
+        <%="新建題目 (Card)"%>
+      <% when "edit"%>
+        <%="修改題目 (Card)"%>
+    <% end %>
+  </h1>
+</div>
 
-  <div id="page" class="flex">
-    <h1 class="flex-grow text-blue-700 font-bold text-right mt-2 mb-3">
-      <% case action_name %>
-        <% when "new"%>
-          <%="新建題目 (Card)"%>
-        <% when "edit"%>
-          <%="修改題目 (Card)"%>
-      <% end %>
-    </h1>
+<div id="content-subject" class="shadow border rounded mb-8">
+  
+  <div class="content-head border-b bg-gray-500 text-white py-2 font-bold rounded-t ">
+    <p class="text-center">題目</p>
   </div>
- 
-  <div id="content-subject" class="shadow border rounded mb-8">
-   
-    <div class="content-head border-b bg-gray-500 text-white py-2 font-bold rounded-t ">
-      <p class="text-center">題目</p>
+
+  <div class="content-body p-5">
+    <div class="flex w-full mb-4">
+
+      <div>
+        <% if action_name=="new"%>
+          <%= f.text_field :order, readonly:'', required: true, value: @board.cards.length, 
+                            class: 'require  mr-6 w-16 shadow appearance-none border rounded text-center py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-200' %>
+        <% elsif %>
+          <%= f.text_field :order, readonly:'', required: true, value: @card.order, 
+                            class: 'require  mr-6 w-16 shadow appearance-none border rounded text-center py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-200' %>
+        <% end %>
+      </div>
+        <%= f.text_field :title, placeholder: '題目名稱',
+                          class: 'flex-grow shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' %>
     </div>
 
-    <div class="content-body p-5">
-      <div class="flex w-full mb-4">
+    <div class="flex w-full mb-4">
+    
+      <%= f.select :level, [['簡單','簡單'],['中等','中等'],['困難','困難']], {
+                    include_blank: 'Level ▼'},{ 
+                    class:"require mr-6 shadow appearance-none border rounded w-auto py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline", style: 'text-align-last: center'} %>
 
-        <div>
-          <% if action_name=="new"%>
-            <%= f.text_field :order, readonly:'', required: true, value: @board.cards.length, 
-                              class: 'require  mr-6 w-16 shadow appearance-none border rounded text-center py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-200' %>
-          <% elsif %>
-            <%= f.text_field :order, readonly:'', required: true, value: @card.order, 
-                              class: 'require  mr-6 w-16 shadow appearance-none border rounded text-center py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-200' %>
-          <% end %>
-        </div>
-          <%= f.text_field :title, placeholder: '題目名稱',
-                            class: 'flex-grow shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' %>
-      </div>
+      <select name="card[tags][]" multiple= 'multiple', 
+              id='select-tags',
+              class= 'flex-grow form-control tags_select2 shadow appearance-none border rounded w-2/6 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline',
+              data-value='<%= f.object.tags.to_json %>',>
+              <%= render "tags_option" %>
+      </select>
 
-      <div class="flex w-full mb-4">
-      
-        <%= f.select :level, [['簡單','簡單'],['中等','中等'],['困難','困難']], {
-                      include_blank: '難度 ▼'},{ 
-                      class:"require mr-6 shadow appearance-none border rounded w-auto py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline", style: 'text-align-last: center'} %>
-
-        <select name="card[tags][]" multiple= 'multiple', 
-                id='select-tags',
-                class= 'flex-grow form-control tags_select2 shadow appearance-none border rounded w-2/6 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline',
-                data-value='<%= f.object.tags.to_json %>',>
-                <%= render "tags_option" %>
-        </select>
-
-      </div>
-            
-      <div class="w-full mb-4">
-        <div class="border-box pr-6">
-          <%= f.label :description, '題目敘述', class: 'block uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
-          <%= f.text_area :description,class: 'h-32 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' %>
-        </div>
-      </div>
-
-      <div class="border-b py-6">
-
-        <div class="flex w-full mb-4">
-
-          <section class="w1/2">
-            <%= f.label :hints, '階段提示', class: 'uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
-          </section>
-
-          <div class="flex-grow mb-4 text-right">
-            <span id="btn-add-hints" class=" bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded">
-            <i class="fa fa-plus mr-2"></i>提示
-            </span>
-          </div>
+    </div>
           
+    <div class="w-full mb-4">
+      <div class="border-box pr-6">
+        <%= f.label :description, '題目敘述', class: 'block uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
+        <%= f.text_area :description,class: 'h-32 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' %>
+      </div>
+    </div>
+
+    <div class="border-b py-6">
+
+      <div class="flex w-full mb-4">
+
+        <section class="w1/2">
+          <%= f.label :hints, '階段提示', class: 'uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
+        </section>
+
+        <div class="flex-grow mb-4 text-right">
+          <span id="btn-add-hints" class=" bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded">
+          <i class="fa fa-plus mr-2"></i>提示
+          </span>
         </div>
         
-        <div class="w-full mb-4">
-          <div id="section-hints" class="">
+      </div>
+      
+      <div class="w-full mb-4">
+        <div id="section-hints" class="">
+          <% if action_name=="new" %>
+            <% params[:card].try(:[], :hints).try(:each) do |hint| %>
+              <%= render "cards/data_hint",num: 1 ,hint: hint %>
+            <% end %>
+          <% else %>
+            <% if @card.hints %>
+                <% num = 0 %>
+              <% @card.hints.each do |hint| %>
+                <% num = num + 1 %>
+                <%= render "cards/data_hint",num: num ,hint: hint %>
+              <% end %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+      
+    </div>
+
+    <div class="w-full mb-4">
+      <%= f.label :default_code, '預設程式碼', class: 'block uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
+      <%= f.hidden_field :default_code, id: "default_code" %>
+      <div class="editor" data-target="default_code"></div>
+    </div>
+
+  </div>
+
+</div>
+
+<div id="content-answer" class="shadow border rounded mb-8">
+  <div class="content-head border-b bg-gray-500 text-white py-2 font-bold rounded-t ">
+    <p class="text-center">正解</p>
+  </div>
+
+  <div class="content-body p-5">
+    <div>
+      <%= f.label :answer, '定義解答', 
+                  class: 'require　block uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
+      <%= f.hidden_field :answer, id: "answer" %>
+      <div class="editor" data-target="answer"></div>
+      <div class="flex m-auto">
+        <%= f.submit 'Run', id: 'btn-card-submit', 
+                            class: 'require z-10 m-auto mr-0 bg-blue-500 hover:bg-blue-700 text-white py-2 px-5 rounded my-5' %>
+      </div>
+    </div>
+
+    <div id="part-test-run">
+
+      <div class="flex w-full mb-4">
+
+        <section class="w1/2">
+          <%= f.label :test_code, '測試方法', class: 'uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
+        </section>
+
+        <div class="flex-grow mb-4 text-right">
+          <span id="btn-add-test-code" class=" bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded">
+            <i class="fa fa-plus mr-2"></i>測資
+          </span>
+        </div>
+
+      </div>
+
+      <div class="flex w-full mb-4">
+
+        <div class="w-1/2">
+          <div id="run-result" class="">
+            <% num = 1 %>
+          
             <% if action_name=="new" %>
-              <% params[:card].try(:[], :hints).try(:each) do |hint| %>
-                <%= render "cards/data_hint",num: 1 ,hint: hint %>
+              <% @result.try(:each) do |result| %>
+                <div id="result<%= num %>" class="border"><%= result %></div>
+                <div class="editor-readonly" data-target="result<%= num %>"></div>
+                <% num = num + 1 %>
               <% end %>
             <% else %>
-              <% if @card.hints %>
-                  <% num = 0 %>
-                <% @card.hints.each do |hint| %>
+              <% if @card.result %>
+                <% @card.result.each do |result| %>
+                  <div id="result<%= num %>" class="border"><%= result %></div>
+                  <div class="editor-readonly" data-target="result<%= num %>"></div>
                   <% num = num + 1 %>
-                  <%= render "cards/data_hint",num: num ,hint: hint %>
                 <% end %>
               <% end %>
             <% end %>
           </div>
         </div>
-        
-      </div>
 
-      <div class="w-full mb-4">
-        <%= f.label :default_code, '預設程式碼', class: 'block uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
-        <%= f.hidden_field :default_code, id: "default_code" %>
-        <div class="editor" data-target="default_code"></div>
-      </div>
-
-    </div>
-
-  </div>
- 
-  <div id="content-answer" class="shadow border rounded mb-8">
-    <div class="content-head border-b bg-gray-500 text-white py-2 font-bold rounded-t ">
-      <p class="text-center">正解</p>
-    </div>
-
-    <div class="content-body p-5">
-      <div>
-        <%= f.label :answer, '定義解答', 
-                    class: 'require　block uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
-        <%= f.hidden_field :answer, id: "answer" %>
-        <div class="editor" data-target="answer"></div>
-        <div class="flex m-auto">
-          <%= f.submit 'Run', id: 'btn-card-submit', 
-                              class: 'require z-10 m-auto mr-0 bg-blue-500 hover:bg-blue-700 text-white py-2 px-5 rounded my-5' %>
-        </div>
-      </div>
-
-      <div id="part-test-run">
-
-        <div class="flex w-full mb-4">
-
-          <section class="w1/2">
-            <%= f.label :test_code, '測試方法', class: 'uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
-          </section>
-
-          <div class="flex-grow mb-4 text-right">
-            <span id="btn-add-test-code" class=" bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded">
-              <i class="fa fa-plus mr-2"></i>測資
-            </span>
-          </div>
-
-        </div>
-
-        <div class="flex w-full mb-4">
-
-          <div class="w-1/2">
-            <div id="run-result" class="">
-              <% num = 1 %>
+        <div class="w-1/2">
+          <div id="section-test-code">
             
-              <% if action_name=="new" %>
-                <% @result.try(:each) do |result| %>
-                  <div id="result<%= num %>" class="border"><%= result %></div>
-                  <div class="editor-readonly" data-target="result<%= num %>"></div>
+            <% if action_name=="new" %>
+              <% params[:card].try(:[], :test_code).try(:each) do |test_code| %>
+                <%= render "cards/data_test_item",num: 1 ,test_code: test_code %>
+              <% end %>
+            <% else %>
+              <% if @card.test_code %>
+                <% num = 0 %>
+                <% @card.test_code.each do |test_code| %>
                   <% num = num + 1 %>
-                <% end %>
-              <% else %>
-                <% if @card.result %>
-                  <% @card.result.try(:each) do |result| %>
-                    <div id="result<%= num %>" class="border"><%= result %></div>
-                    <div class="editor-readonly" data-target="result<%= num %>"></div>
-                    <% num = num + 1 %>
-                  <% end %>
+                    <%= render "cards/data_test_item",num: num ,test_code: test_code %>
                 <% end %>
               <% end %>
-            </div>
+            <% end %>
           </div>
-
-          <div class="w-1/2">
-            <div id="section-test-code">
-              
-              <% if action_name=="new" %>
-                <% params[:card].try(:[], :test_code).try(:each) do |test_code| %>
-                  <%= render "cards/data_test_item",num: 1 ,test_code: test_code %>
-                <% end %>
-              <% else %>
-                <% if @card.test_code %>
-                  <% num = 0 %>
-                  <% @card.test_code.each do |test_code| %>
-                    <% num = num + 1 %>
-                      <%= render "cards/data_test_item",num: num ,test_code: test_code %>
-                  <% end %>
-                <% end %>
-              <% end %>
-            </div>
-          </div>
-
         </div>
+
       </div>
     </div>
-  </div> 
-
-  <div id="part-contorl" class="flex pb-12">
-    <%= f.submit '送出',id: 'btn-card-submit', 
-                        class: 'm-auto mr-0  bg-blue-500 hover:bg-blue-700 text-white py-2 px-5 rounded my-5' %>
   </div>
- 
-<%end%>
+</div> 
+
+<div id="part-contorl" class="flex pb-12">
+  <%= f.submit '送出',id: 'btn-card-submit', 
+                      class: 'm-auto mr-0  bg-blue-500 hover:bg-blue-700 text-white py-2 px-5 rounded my-5' %>
+</div>

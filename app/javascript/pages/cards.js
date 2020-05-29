@@ -63,7 +63,6 @@ $(document).on("turbolinks:load", function() {
         aceEditor.getSession().setMode($("#board-lang").text());
         aceEditor.setTheme("ace/theme/tomorrow");
         aceEditor.getSession().setTabSize(2);
-        console.log(input.value)
         aceEditor.setValue(input.value, 1);
 
         aceEditor.setAutoScrollEditorIntoView(true);
