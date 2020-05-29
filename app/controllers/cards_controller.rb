@@ -19,42 +19,38 @@ class CardsController < ApplicationController
   end
 
   def create
-    # error_message if @docker_exec_service.fail?
-    # attr_params = card_params.merge(result: @result)
-    # @card.assign_attributes(attr_params)
     if @docker_exec_service.fail?
       error_message
       attr_params = card_params.merge(result: @result)
+      @card.assign_attributes(attr_params)
+      return render :new
     else
       attr_params = card_params.merge(result: save_type(@result))
-    end
-
-    @card.assign_attributes(attr_params)
-
-    if params[:commit] == "送出" && @card.save # 會無法分辨 undefined 訊息
-      redirect_to board_card_path(board_id: @board.id, id: @card.id), notice: 'create successfully!'
-    else
-      render :new
+      @card.assign_attributes(attr_params)
+      if params[:commit] == "送出" && @card.save
+        redirect_to board_card_path(board_id: @board.id, id: @card.id), notice: 'create successfully!'
+      else
+        render :new
+      end
     end
   end
 
   def edit; end
 
   def update
-
     if @docker_exec_service.fail?
       error_message
       attr_params = card_params.merge(result: @result)
+      @card.assign_attributes(attr_params)
+      return render :edit
     else
       attr_params = card_params.merge(result: save_type(@result))
-    end
-
-    @card.assign_attributes(attr_params)
-
-    if params[:commit] == "送出" && @card.update(attr_params)
-      redirect_to board_card_path(board_id: @board.id, id: @card.id), notice: 'update successfully!'
-    else
-      render :edit
+      @card.assign_attributes(attr_params)
+      if params[:commit] == "送出" && @card.update(attr_params)
+        redirect_to board_card_path(board_id: @board.id, id: @card.id), notice: 'update successfully!'
+      else
+        render :edit
+      end
     end
   end
 
