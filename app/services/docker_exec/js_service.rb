@@ -55,7 +55,7 @@ module DockerExec
     end
   
     def get_id
-      @container_id = `docker run -d -m 128M -c 512 -v #{path}:/main.js node node /main.js`
+      @container_id = `docker run -d -m 128M -c 512 -v #{path}:/main.js node:#{ENV["js_version"]} node /main.js`
     end
   
     def done?
