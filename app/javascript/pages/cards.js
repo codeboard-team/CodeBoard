@@ -99,6 +99,7 @@ $(document).on("turbolinks:load", function() {
         $tagsSelect2.val(JSON.parse(tagsSelect2.dataset.value));
         $tagsSelect2.select2({
             tags: true,
+            placeholder: "Select Tags",
         });
     }
 

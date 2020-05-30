@@ -55,8 +55,7 @@
                     include_blank: 'Level ▼'},{ 
                     class:"require mr-6 shadow appearance-none border rounded w-auto py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline", style: 'text-align-last: center'} %>
 
-      <select name="card[tags][]" multiple= 'multiple', 
-              id='select-tags',
+      <select name="card[tags][]" multiple= 'multiple',
               class= 'flex-grow form-control tags_select2 shadow appearance-none border rounded w-2/6 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline',
               data-value='<%= f.object.tags.to_json %>',>
               <%= render "tags_option" %>
