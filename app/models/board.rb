@@ -11,12 +11,23 @@ class Board < ApplicationRecord
     update(deleted_at: Time.now)
   end
 
-  def self.search_by(search_term)
+  def self.search_by_title(search_term)
     if search_term
-      where("LOWER(title) LIKE :search_term",
+      where("LOWER(boards.title) LIKE :search_term",
       search_term: "%#{search_term.downcase}%")
     else
       all
+    end
+  end
+
+  def editor_mode
+    case self.language
+      when "Ruby"
+        "ace/mode/ruby"
+      when "Python"
+        "ace/mode/python"
+      when "JavaScript"
+        "ace/mode/javascript"
     end
   end
 end

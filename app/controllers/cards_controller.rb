@@ -1,14 +1,22 @@
 class CardsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit, :update, :destroy]
 
-  before_action :find_board, except: [:index]
+  before_action :find_board, except: [:list]
   before_action :find_card, only: [:edit, :show, :update, :destroy, :solve]
-  before_action :build_card, only: [:new, :create]
+  before_action :build_card, only: [:index, :new, :create]
+  before_action :get_code, only: [:create, :update]
+  before_action :docker_exec_service, only: [:create, :update, :solve]
+  before_action :exec_and_get_result, only: [:create, :update]
 
   before_action :check_authority, only: [:new, :edit, :update, :destroy]
 
-  def index 
+  def index
+    redirect_to new_board_card_path
+  end
+
+  def list
     @cards = Card.page(params[:page]).per(5)
+    render :index
   end
   
   def new
@@ -16,56 +24,38 @@ class CardsController < ApplicationController
   end
 
   def create
-    @result = docker_detached(params[:card][:answer], params[:card][:test_code])
-    if @result.nil?
-      @card.assign_attributes(card_params)
-      flash[:alert] = "answer/test_code can't be blank"
-      return render :new
-    elsif @result == "Times out!"
-      @card.assign_attributes(card_params)
-      flash[:alert] = 'runtimes out!'
-      return render :new
-    elsif @result.class == String
-      @result = [@result]
+    if @docker_exec_service.fail?
+      error_message
       attr_params = card_params.merge(result: @result)
       @card.assign_attributes(attr_params)
+      return render :new
     else
       attr_params = card_params.merge(result: save_type(@result))
       @card.assign_attributes(attr_params)
-    end
-
-    if params[:commit] == "送出" && @card.save
-      redirect_to board_card_path(board_id: @board.id, id: @card.id), notice: 'create successfully!'
-    else
-      render :new
+      if params[:commit] == "送出" && @card.save
+        redirect_to board_card_path(board_id: @board.id, id: @card.id), notice: 'create successfully!'
+      else
+        render :new
+      end
     end
   end
 
   def edit; end
 
   def update
-    @result = docker_detached(params[:card][:answer], params[:card][:test_code])
-    if @result.nil?
-      @card.assign_attributes(card_params)
-      flash[:alert] = "answer/test_code can't be blank"
-      return render :edit
-    elsif @result == "Times out!"
-      @card.assign_attributes(card_params)
-      flash[:alert] = 'runtimes out!'
-      return render :edit
-    elsif @result.class == String
-      @result = [@result]
+    if @docker_exec_service.fail?
+      error_message
       attr_params = card_params.merge(result: @result)
       @card.assign_attributes(attr_params)
+      return render :edit
     else
       attr_params = card_params.merge(result: save_type(@result))
       @card.assign_attributes(attr_params)
-    end
-
-    if params[:commit] == "送出" && @card.update(attr_params)
-      redirect_to board_card_path(board_id: @board.id, id: @card.id), notice: 'update successfully!'
-    else
-      render :edit
+      if params[:commit] == "送出" && @card.update(attr_params)
+        redirect_to board_card_path(board_id: @board.id, id: @card.id), notice: 'update successfully!'
+      else
+        render :edit
+      end
     end
   end
 
@@ -99,13 +89,16 @@ class CardsController < ApplicationController
   end
 
   def solve
-    @result = docker_detached(params[:record][:code], @card.test_code)
-    @result = [@result] if @result.class == String
+    @docker_exec_service.code = params[:record][:code]
+    @docker_exec_service.test_code = @card.test_code
+    exec_and_get_result
+    error_message if @docker_exec_service.fail?
+
     @record = @card.records.find_by(user_id: current_user.id)
     if @record.nil?
       @record = current_user.records.new(card_id: @card.id, code: @card.default_code)
     end
-    @record.attributes = record_params
+    @record.assign_attributes(record_params)
 
     if params[:commit] == "送出"
       @record.solved = @result == compare_type(@card.result)
@@ -124,44 +117,41 @@ class CardsController < ApplicationController
   end
 
   private
-  def docker_detached(code, test_code)
-    return nil if code == "" || test_code.nil?
-    random_file = [*"a".."z", *"A".."Z"].sample(5).join('') + ".rb"
-    devision = [*"a".."z", *"A".."Z"].sample(10).join('')
-    tmp_file_path = Rails.root.join('tmp', "#{random_file}").to_s
-    test_data = test_code.map{ |e| e = "result.push(#{e})" }.join("\n")
-    file = File.open(tmp_file_path, "w")
-    contents = [code,"require 'json'","result = []",test_data,"puts \"#{devision}\"","puts JSON.generate(result)"]
-    contents.each { |e|
-      file.write(e)
-      file.write("\n")
-    }
-    file.close
-    id = `docker run -d -v #{tmp_file_path}:/main.rb ruby ruby /main.rb`
-    # 每一秒檢查一次是否運算完成，共 5 次
-    5.times do
-      if `docker ps --format "{{.ID}}: {{.Status}}" -f "id=#{id}"` == ""
-        File.unlink(tmp_file_path)
-        raw_output = `docker logs #{id}`
-        if raw_output == ""
-          out, err = Open3.capture3("`docker logs #{id}`")
-          return err
-        else
-          result = JSON.parse(raw_output.split("#{devision}").pop.strip)
-          `docker rm -f #{id}`
-          return result
-        end
-      else
-        sleep 1
-      end
+  def error_message
+    if @docker_exec_service.timeout?
+      flash[:alert] = "Runtimes Out!"
+    elsif @docker_exec_service.result.nil?
+      flash[:alert] = "Answer / Test_code can't be blank"
+    else
+      @result = [@result]
     end
-    File.unlink(tmp_file_path)
-    `docker rm -f #{id} `
-    return "Times out!"
+  end
+
+  def docker_exec_service
+    @docker_exec_service ||= (
+      case @board.language
+      when "Ruby"
+        DockerExec::RubyService
+      when "JavaScript"
+        DockerExec::JsService
+      when "Python"
+        DockerExec::PythonService
+      end
+    ).new(@code, @test_code)
+  end
+
+  def exec_and_get_result
+    @docker_exec_service.run
+    @result = @docker_exec_service.result
+  end
+
+  def get_code
+    @code = params[:card][:answer]
+    @test_code = params[:card][:test_code]
   end
 
   def check_authority
-    redirect_to board_path(id: @board.id), notice: 'check authority error! not owner!' if @board.user_id != current_user.id
+    redirect_to board_path(id: @board.id), alert: 'check authority error! not owner!' if @board.user_id != current_user.id
   end
 
   def render_new_solving

@@ -13,13 +13,14 @@ Rails.application.routes.draw do
     collection do
       get :my
     end
-    resources :cards, except: [:index] do
+    resources :cards do
       member do
         patch :solve 
+        get :solve, to: 'cards#show'
       end
     end 
   end
 
-  resources :cards, only: [:index]  
+  resources :cards, only: [:index] ,to: 'cards#list'
   
 end
