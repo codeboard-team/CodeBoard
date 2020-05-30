@@ -1,8 +1,5 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  
-  # rescue_from ActiveRecord::RecordNotFound, 
-  # with: :record_not_found
 
   before_action :configure_permitted_parameters, if: :devise_controller?
   helper_method :user_authority, :email_account, :current_path_last_string
@@ -19,8 +16,8 @@ class ApplicationController < ActionController::Base
   end
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:username, :name])
-    devise_parameter_sanitizer.permit(:account_update, keys: [:username, :name])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:username])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:username])
   end
 
   def user_authority
