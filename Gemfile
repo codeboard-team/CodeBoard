@@ -80,5 +80,8 @@ gem 'capistrano-passenger', '~> 0.2.0'
 gem 'capistrano-rbenv', '~> 2.1', '>= 2.1.6'
 gem 'ed25519', '~> 1.2', '>= 1.2.4'
 
+# set ENV variables
 gem 'figaro', '~> 1.0'
 
+# soft delete
+gem 'paranoia', '~> 2.1', '>= 2.1.5'

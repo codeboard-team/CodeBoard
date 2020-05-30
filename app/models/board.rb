@@ -1,15 +1,11 @@
 class Board < ApplicationRecord
+  acts_as_paranoid
+
   has_many :cards
   belongs_to :user
 
   validates :title, presence: true
   validates :language, presence: true
-
-  default_scope -> { where(deleted_at: nil)}
-
-  def destroy
-    update(deleted_at: Time.now)
-  end
 
   def self.search_by_title(search_term)
     if search_term
