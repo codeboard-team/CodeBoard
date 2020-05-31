@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_22_063619) do
+ActiveRecord::Schema.define(version: 2020_05_31_090635) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,14 @@ ActiveRecord::Schema.define(version: 2020_05_22_063619) do
     t.index ["result"], name: "index_cards_on_result"
     t.index ["tags"], name: "index_cards_on_tags"
     t.index ["test_code"], name: "index_cards_on_test_code"
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.text "content"
+    t.integer "card_id"
+    t.integer "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
