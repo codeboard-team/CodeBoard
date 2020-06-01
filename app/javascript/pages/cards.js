@@ -98,7 +98,7 @@ $(document).on("turbolinks:load", function() {
         let $tagsSelect2 = $(tagsSelect2);
         $tagsSelect2.val(JSON.parse(tagsSelect2.dataset.value));
         $tagsSelect2.select2({
-            tags: true,
+            tags: false,
             placeholder: "Select Tags",
         });
     }
