@@ -53,6 +53,38 @@ $(document).on("turbolinks:load", function() {
         $("#section-hints .hint.hidden").first().removeClass("hidden");
     });
 
+    // Ace Editor-readonly
+
+    let editorRoDoms = document.getElementsByClassName('editor-readonly');
+    for (editorRoDom of editorRoDoms) {
+
+        let aceEditorRo = ace.edit(editorRoDom);
+
+        aceEditorRo.getSession().setMode($("#board-lang").text());
+        aceEditorRo.setTheme("ace/theme/tomorrow");
+        aceEditorRo.getSession().setTabSize(2);
+
+        aceEditorRo.setAutoScrollEditorIntoView(true);
+        aceEditorRo.setOption("maxLines", 30);
+
+        aceEditorRo.focus();
+        aceEditorRo.setReadOnly(true); //不可編輯
+
+        aceEditorRo.setOptions({
+            fontSize: ".95rem",
+            vScrollBarAlwaysVisible: true,
+            autoScrollEditorIntoView: true,
+            minLines: 8,
+            showLineNumbers: true // 行數+摺疊
+                //  showGutter: false, // 摺疊功能
+        });
+        aceEditorRo.setShowPrintMargin(false);
+        aceEditorRo.setBehavioursEnabled(false);
+
+
+    }
+
+    // Ace Editor
 
     let editorDoms = document.getElementsByClassName('editor');
     for (editorDom of editorDoms) {
