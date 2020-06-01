@@ -9,18 +9,27 @@
         </div>
         <nav class="bg-white mb-3">
           <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-              <div class="flex px-2 lg:px-0">
+            <div class="flex justify-between items-center h-16 ">
+              <div class="flex-shrink-0 flex items-center">
+                <div class="relative  border-none">
+                  <select class="bg-gray-100 text-gray-600 appearance-none border inline-block py-3 pl-3 pr-8 rounded leading-tight w-full">
+                      <option class="hidden" value="">language</option>
+                      <option value="Ruby">Ruby</option>
+                      <option value="Javascript">Javascript</option>
+                      <option value="Python">Python</option>
+                  </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2">
+                    <%= render_svg 'icons/chevron-down' %>
+                  </div>      
+                </div>
               </div>
-              <div class="flex items-center justify-center px-2 lg:ml-6 lg:justify-end">
-                <%= form_with  url: boards_path,local: true,  method: :get  do %>
+              <div class="sm:block  lg:flex-shrink-0 flex justify-end">
+                <%= form_with url: boards_path, local: true,  method: "get"  do %>
                 <div class="inline-flex items-center max-w-lg w-full lg:max-w-xs">
                   <label for="search" class="sr-only">搜尋</label>
                   <div class="relative">
                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                      <svg class="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
-                      </svg>
+                      <%= render_svg 'icons/search' %>
                     </div>
                     <%= text_field_tag :search, @search_term ,class: "block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:border-purple-300 focus:shadow-outline-purple sm:text-sm transition duration-150 ease-in-out" ,placeholder: "搜尋" %>
                   </div>
@@ -29,7 +38,7 @@
                   </span>
                 </div>
                 <% end %>
-              </div>
+              </div>             
             </div>
           </div>
         </nav>
@@ -37,6 +46,7 @@
         <div>
           <div class="my-5 mx-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             <% @boards.each do |board| %>
+<<<<<<< HEAD
               <div class="bg-white overflow-hidden shadow rounded-lg">
                 <div class="bg-gray-100 px-4 py-5 sm:p-6">
                   <dl>
@@ -64,6 +74,37 @@
                           <p class="flex items-baseline text-sm">
                             <%= email_account(board.user) %>
                           </p>
+=======
+              <% if board.cards.count > 0%>
+                <div class="bg-white overflow-hidden shadow rounded-lg">
+                  <div class="bg-gray-100 px-4 py-5 sm:p-6">
+                    <dl>
+                      <span class="max-w-md flex justify-center  px-2.5 py-0.5 rounded-full text-sm font-medium leading-5 bg-red-100 text-red-800 md:mt-2 lg:mt-0">
+                        <%= board.language %>
+                      </span>
+                      <div class="inline-flex items-center px-2.5 py-0.5 rounded-full text-sm font-medium leading-5 bg-green-100 text-green-800 md:mt-2 lg:mt-0">
+                      </div>
+                      <div class="inline-flex items-center px-2.5 py-0.5 rounded-full text-sm font-medium leading-5 bg-green-100 text-green-800 md:mt-2 lg:mt-0">
+                      </div>
+                      <dt class="flex justify-start my-4 text-xl leading-5 font-medium text-black font-bold truncate">
+                        <%= board.title %>
+                      </dt>
+                      <hr>
+                      <p class="my-4 text-gray-500"><%= board.description %></p>
+                      <hr>
+                      <dd class="flex justify-between items-center mt-5">
+                        <div class="flex">
+                          <span class="inline-block h-6 w-6 rounded-full overflow-hidden bg-gray-100">
+                            <svg class="h-full w-full text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                              <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                            </svg>
+                          </span>
+                          <div class="text-xl leading-8 font-semibold text-gray-900">
+                            <p class="flex items-baseline text-sm">
+                              <%= board.user.email %>
+                            </p>
+                          </div>
+>>>>>>> cards index
                         </div>
                       </div>
                       <div class="flex items-baseline">

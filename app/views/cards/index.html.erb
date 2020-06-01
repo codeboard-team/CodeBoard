@@ -21,7 +21,7 @@
                 </div>
               </div>
               <div class="sm:block  lg:flex-shrink-0 flex justify-end">
-                <%= form_with url: boards_path, local: true,  method: "get"  do %>
+                <%= form_with url: cards_path, local: true,  method: "get"  do %>
                 <div class="inline-flex items-center max-w-lg w-full lg:max-w-xs">
                   <label for="search" class="sr-only">Search</label>
                   <div class="relative">
@@ -42,32 +42,22 @@
                     <input type="checkbox" class="opacity-0 absolute">
                     <svg class="fill-current hidden w-4 h-4 text-green-500 pointer-events-none" viewBox="0 0 20 20"><path d="M0 11l2-2 5 5L18 3l2 2L7 18z"/></svg>
                   </div>
-                  <div class="select-none">Beginner</div>
+                  <div class="select-none">簡單</div>
                 </label>
                 <label class="flex justify-start items-center">
                   <div class="ml-8 inline-flex items-center px-1 pt-1 bg-white border-2 rounded border-gray-400 w-6 h-6 flex flex-shrink-0 justify-center items-center mr-2 focus-within:border-purple-500">
                     <input type="checkbox" class="opacity-0 absolute">
                     <svg class="fill-current hidden w-4 h-4 text-green-500 pointer-events-none" viewBox="0 0 20 20"><path d="M0 11l2-2 5 5L18 3l2 2L7 18z"/></svg>
                   </div>
-                  <div class="select-none">Meduim</div>
+                  <div class="select-none">中等</div>
                 </label>
                 <label class="flex justify-start items-center">
                   <div class="ml-8 inline-flex items-center px-1 pt-1 bg-white border-2 rounded border-gray-400 w-6 h-6 flex flex-shrink-0 justify-center items-center mr-2 focus-within:border-purple-500">
                     <input type="checkbox" class="opacity-0 absolute">
                     <svg class="fill-current hidden w-4 h-4 text-green-500 pointer-events-none" viewBox="0 0 20 20"><path d="M0 11l2-2 5 5L18 3l2 2L7 18z"/></svg>
                   </div>
-                  <div class="select-none">Advanced</div>
+                  <div class="select-none">困難</div>
                 </label>
-              </div>
-            </div>
-            <div class="flex items-center justify-end">
-              <div class="relative  border-none">
-                <select class="bg-gray-100 text-gray-600 appearance-none border inline-block py-3 pl-3 pr-8 rounded leading-tight w-full">
-                    <option>Sort by</option>    
-                </select>
-                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2">
-                  <%= render_svg 'icons/chevron-down' %>
-                </div>      
               </div>
             </div>
           </div>
@@ -78,61 +68,62 @@
           <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
             <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
               <table class="min-w-full">
-                <thead>
-                  <tr>
-                    <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                      Number
-                    </th>
-                    <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                      Title
-                    </th>
-                    <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                      resources
-                    </th>
-                    <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                      Answer
-                    </th>
-                    <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
-                  </tr>
-                </thead>
                 <tbody class="bg-white">
+                  <% order = 1 %> 
+                  <% @cards.each do |card|%>
                   <tr>
                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                       <div class="flex items-center">
-                        <div class="flex items-center  h-10 w-10 ">
-                          <p class="text-6xl text-center align-center">1</p>
+                        <div class="flex items-center justify-between h-10 w-10 ">
+                          <p class="text-3xl text-center align-center text-gray-500">
+                            <%= order %>
+                          </p>
                         </div>
                         <div class="ml-4 flex-wrap justify-center">
                           <div class="flex justify-between items-center">
-                            <div class="text-sm leading-5 font-medium text-gray-900">Advanced</div>
-                            <div class="text-sm leading-5 font-medium text-gray-900">Object</div>
-                            <div class="text-sm leading-5 font-medium text-gray-900">Array</div>
+                            <div class="text-sm leading-5 font-medium text-gray-900">
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-sm bg-indigo-600 text-white">
+                                  <%= card.level %>
+                                </span>
+                            </div>
                           </div>
-                          <div class="text-3xl w-full leading-5 text-gray-500">圓形面積</div>
+                          <div class="text-2xl w-full leading-5 text-black">
+                            <%= card.title %>
+                          </div>
                         </div>
                       </div>
                     </td>
                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                      <div class="text-sm leading-5 text-gray-900">Director</div>
-                      <div class="text-sm leading-5 text-gray-500">Human Resources</div>
+                      <div class="text-sm leading-5 text-gray-900">
+                        <%= card.tags %>
+                      </div>
                     </td>
                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                       <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                        Active
+                        
                       </span>
                     </td>
                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
-                      Owner
+                      
                     </td>
                     <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
                       <span class="w-full inline-flex rounded-md shadow-sm">
+<<<<<<< HEAD
                         <a class="inline-flex items-center px-3 py-2 border border-gray-300 text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-purple-300 focus:shadow-outline-purple active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150" href="#" >
                         <%= render_svg 'icons/edit' , styles: "fill-current w-4 h-4 mr-2"%>
                           <p class="flex justify-center items-center">Answer</p> 
                         </a>
+=======
+                        <span class="inline-flex items-center px-3 py-2 border border-gray-300 text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
+                          <%= link_to 'Answer', card_path(card.id), class: "flex justify-center items-center mr-2" %>
+                          <%= render_svg 'icons/edit' , styles: "fill-current w-3 h-3"%>
+                        </span>
+>>>>>>> cards index
                       </span>
                     </td>
                   </tr>
+                  <% order = order + 1 %>
+                  <% end %>
                 </tbody>
               </table>
             </div>
@@ -148,3 +139,4 @@
     </div>
   </div>
 </div>
+

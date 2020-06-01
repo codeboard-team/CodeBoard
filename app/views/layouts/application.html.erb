@@ -37,7 +37,6 @@
           <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
         </button>
       </div>
-<<<<<<< HEAD
 
       <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block pt-6 lg:pt-0" id="nav-content">
         <div class="lg:flex-grow">
@@ -65,22 +64,6 @@
           <% end %>
         </div>  
       </div>  
-=======
-      
-      <div class="w-full block lg:flex lg:flex-row lg:flex-1 mt-2 lg:mt-0 text-center lg:text-left lg:justify-end items-center">
-        <% if user_signed_in? %>
-          <span class="">
-          <%= link_to current_user.email.split("@")[0], class: "mr-4"%>
-          </span>
-          <%= link_to "Log out", destroy_user_session_path, method: :delete, class:"btn btn-default mb-2 lg:mr-2 lg:mb-0 block border rounded text-gray-500 border-gray-600 hover:text-black hover:border-gray-800" %>
-          
-        <% else %>
-          <%= link_to "Login", new_user_session_path, class:"btn btn-default mb-2 lg:mr-2 lg:mb-0 block border rounded text-gray-500 border-gray-600 hover:text-black hover:border-gray-800" %>
-          <%= link_to "Sign Up", new_user_registration_path, class:" btn btn-default mb-2 lg:mr-2 lg:mb-0 block border rounded text-gray-500 border-gray-600 hover:text-black hover:border-gray-800" %>
-        <% end %>
-      </div>    
-      
->>>>>>> feat_profile
     </div>    
   </nav>
 
