@@ -125,7 +125,8 @@
                   <% @card.records.each do |record| %>
                     <div class="border m-12">
                       <% unless record.user == current_user %>
-                        <div class="editor-readonly whitespace-pre-line p-5"><%= record.code %></div>
+                        <div class="editor-readonly whitespace-pre-line p-5">
+                        <%= record.solved %></div>
                         <p class="ml-5 border-t"><%= record.user.email %>
                       <% end %>
                     </div>
