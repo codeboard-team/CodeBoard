@@ -11,6 +11,7 @@
           <div class="max-w-7xl  px-2 sm:px-4 lg:px-8">
             <div class="flex justify-between items-center h-16 ">
               <div class="flex-shrink-0 flex items-center">
+                <%= form_with url: cards_path, local: true,  method: "get"  do |f| %>
                 <div class="relative  border-none">
                   <select class="bg-gray-100 text-gray-600 appearance-none border inline-block py-3 pl-3 pr-8 rounded leading-tight w-full">
                       <option>Tags</option>
@@ -20,6 +21,7 @@
                   </div>      
                 </div>
               </div>
+<<<<<<< HEAD
               <div class="sm:block  lg:flex-shrink-0 flex justify-end">
                 <%= form_with url: cards_path, local: true,  method: "get"  do %>
                 <div class="inline-flex items-center max-w-lg w-full lg:max-w-xs">
@@ -36,6 +38,8 @@
                 </div>
                 <% end %>
               </div>             
+=======
+>>>>>>> search card and cards_index_page
               <div class="flex justify-end">
                 <label class="flex justify-start items-center">
                   <div class="inline-flex items-center px-1 pt-1 bg-white border-2 rounded border-gray-400 w-6 h-6 flex flex-shrink-0 justify-center items-center mr-2 focus-within:border-purple-500">
@@ -59,6 +63,21 @@
                   <div class="select-none">困難</div>
                 </label>
               </div>
+              <div class="sm:block  lg:flex-shrink-0 flex justify-end">         
+                <div class="inline-flex items-center max-w-lg w-full lg:max-w-xs">
+                  <label for="search" class="sr-only">Search</label>
+                  <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <%= render_svg 'icons/search' %>
+                    </div>
+                    <%= text_field_tag :search, @search_term ,class: "block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:border-blue-300 focus:shadow-outline-blue sm:text-sm transition duration-150 ease-in-out" ,placeholder: "Search ...", model: @card, f: f %>
+                  </div>
+                  <span class="inline-flex rounded-md shadow-sm">
+                    <%= submit_tag "Search", class: "inline-flex items-center px-3 py-2 border border-gray-300 text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150", model: @card, f: f %>
+                  </span>
+                </div>
+              </div>             
+              <% end %>
             </div>
           </div>
         </nav>
@@ -76,7 +95,8 @@
                       <div class="flex items-center">
                         <div class="flex items-center justify-between h-10 w-10 ">
                           <p class="text-3xl text-center align-center text-gray-500">
-                            <%= order %>
+                            <% params[:page] = 1 if params[:page].nil? %>
+                            <%= order + ((params[:page].to_i - 1) * 6)%>
                           </p>
                         </div>
                         <div class="ml-4 flex-wrap justify-center">
