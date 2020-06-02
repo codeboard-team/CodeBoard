@@ -25,6 +25,10 @@ CodeBoard - Waiting for your code !
 ## 團隊 Member
 - Henry Tsai
 - Eudora Huang
+    - eudora.hsj@gmail.com
+    - [Medium](https://medium.com/eudora-hsj)
+    - [GitHub](https://github.com/eudora-hsj)
+
 - Luke Tai
 - Boyu Chen
 
