@@ -98,13 +98,11 @@
                 <div class="flex w-full mb-4 test-code-cover">
 
                   <div class="w-1/2">
-                    <div id="section-test-code">
-                      <% if @card.test_code %>
-                        <% num = 0 %>
-                        <% @card.test_code.each do |test_code| %>
-                          <% num = num + 1 %>
-                          <%= render "cards/data_test_item",num: num ,test_code: test_code %>
-                        <% end %>
+                    <div id="section-test-code">         
+                      <% num = 0 %>
+                      <% @test_code.each do |test_code| %>
+                        <% num = num + 1 %>
+                        <%= render "cards/data_test_item",num: num ,test_code: test_code %>
                       <% end %>
                     </div>
                   </div>
