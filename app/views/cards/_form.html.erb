@@ -136,43 +136,24 @@
 
     <div id="part-test-run">
 
-      <div class="flex w-full mb-4">
-
-        <section class="w1/2">
-          <%= f.label :test_code, '測試方法', class: 'uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
-        </section>
-
-        <div class="flex-grow mb-4 text-right">
-          <span id="btn-add-test-code" class=" bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded">
-            <i class="fa fa-plus mr-2"></i>測資
-          </span>
-        </div>
-
+      <div class="flex-grow mb-4 text-right">
+        <span id="btn-add-test-code" class=" bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded">
+          <i class="fa fa-plus mr-2"></i>測資
+        </span>
       </div>
 
       <div class="flex w-full mb-4">
 
-        <div class="w-1/2">
-          <div id="run-result" class="">
-            <% num = 1 %>
-          
-            <% if action_name=="new" %>
-              <% @result.try(:each) do |result| %>
-                <div id="result<%= num %>" class="border"><%= result %></div>
-                <div class="editor-readonly" data-target="result<%= num %>"></div>
-                <% num = num + 1 %>
-              <% end %>
-            <% else %>
-              <% if @card.result %>
-                <% @card.result.each do |result| %>
-                  <div id="result<%= num %>" class="border"><%= result %></div>
-                  <div class="editor-readonly" data-target="result<%= num %>"></div>
-                  <% num = num + 1 %>
-                <% end %>
-              <% end %>
-            <% end %>
-          </div>
+        <div class="flex w-full px-4 py-1 my-2 -mt-1">
+          <section class="w1/2 m-auto mt-6">
+            <%= f.label :test_code, '測試方法 → 執行結果 ', class: 'uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
+          </section>
         </div>
+
+
+      </div>
+
+      <div class="flex w-full mb-4 test-code-cover">
 
         <div class="w-1/2">
           <div id="section-test-code">
@@ -187,6 +168,28 @@
                 <% @card.test_code.each do |test_code| %>
                   <% num = num + 1 %>
                     <%= render "cards/data_test_item",num: num ,test_code: test_code %>
+                <% end %>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="w-1/2">
+          <div id="run-result" class="">
+            <% num = 1 %>
+          
+            <% if action_name=="new" %>
+              <% @result.try(:each) do |result| %>
+                <div id="result<%= num %>" class=""><%= result %></div>
+                <div class="editor readonly" data-target="result<%= num %>"></div>
+                <% num = num + 1 %>
+              <% end %>
+            <% else %>
+              <% if @card.result %>
+                <% @card.result.each do |result| %>
+                  <div id="result<%= num %>" class=""><%= result %></div>
+                  <div class="" data-target="result<%= num %>"></div>
+                  <% num = num + 1 %>
                 <% end %>
               <% end %>
             <% end %>
