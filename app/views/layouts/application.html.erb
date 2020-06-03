@@ -26,9 +26,9 @@
     <% end %>
   <% end %>
   
-  <nav class="flex items-center justify-between flex-wrap bg-gray-100 py-3 lg:px-10 px-3 text-gray-700 border-b border-gray-400">
+  <nav class="flex items-center justify-between flex-wrap bg-gray-900 py-3 lg:px-10 px-3 text-white border-b border-gray-400">
     <div class="flex items-center flex-no-shrink mr-10">
-      <%= link_to "CodeBoard", root_path, class:"hover:no-underline link border-b-2 border-transparent hover:border-indigo-400 text-xl tracking-tight font-semibold" %>
+      <%= link_to "{ CodeBoard }", root_path, class:"hover:no-underline link border-b-2 border-transparent hover:border-indigo-400 text-xl tracking-tight font-semibold" %>
     </div>
 
     <div class="block lg:hidden">
@@ -55,7 +55,7 @@
       <div class="w-full block lg:flex lg:flex-row lg:flex-1 mt-2 lg:mt-0 text-center lg:text-left lg:justify-end items-center">
         <% if user_signed_in? %>
           <span class="">
-            <%= current_user.email.split("@")[0] %>
+            <%=  email_account(current_user) %>
           </span>
           <p class="mr-4"><%= current_user.name %></p>
           <%= link_to "Log out", destroy_user_session_path, method: :delete, class:"btn btn-default mb-2 lg:mr-2 lg:mb-0 block border rounded text-gray-500 border-gray-600 hover:text-black hover:border-gray-800" %>

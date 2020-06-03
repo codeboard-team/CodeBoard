@@ -47,7 +47,7 @@
 
             <span class="">
               <i class="fa fa-user"></i>
-              by <%=@board.user.email.split("@")[0]%>
+              by <%= email_account(@board.user)%>
             </span>
 
           <% end %>
