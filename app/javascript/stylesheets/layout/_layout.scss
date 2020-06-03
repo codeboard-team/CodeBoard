@@ -1,5 +1,24 @@
 $color-main:#5967D8;
-$color-main:#8893E3;
-$color-main:#F3F3F7;
+$color-main-sub:#8893E3;
+$color-layout-bg:#F3F3F7;
 $color-nav-bg:#222;
-$color-nav-color:white;
+$color-nav-text:white;
+$color-nav-text-hover:white;
+body {
+    background-color: $color-layout-bg;
+}
+
+#nav {
+    a {
+        color: $color-nav-text;
+    }
+}
+
+#nav-content {
+    ul li a {
+        color: $color-nav-text;
+        &:hover {
+            color: $color-nav-text-hover
+        }
+    }
+}

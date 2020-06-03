@@ -1,0 +1,23 @@
+.devise-form {
+    input[placeholder] {
+        padding-left: 2.4rem;
+    }
+    input[type="submit"] {
+        background-color: $color-main;
+        fheight: 3rem;
+        font-size: 1.2rem;
+        color: #fff;
+        &:hover {
+            background-color: $color-main-sub;
+        }
+    }
+    span.item-icon {
+        position: absolute;
+        align-self: center;
+        font-size: 1.2rem;
+        padding-left: .5rem;
+        color: #888;
+        width: 2rem;
+        text-align: center;
+    }
+}

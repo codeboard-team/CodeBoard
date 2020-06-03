@@ -109,6 +109,7 @@ section.one-card:hover .part-btns.hover,
             height: 0;
             text-align: center;
             line-height: 2rem;
+            box-sizing: content-box;
         }
         &.select2-container--open::before,
         &.select2-container--focus::before {

@@ -5,11 +5,15 @@ class ApplicationController < ActionController::Base
   # with: :record_not_found
 
   before_action :configure_permitted_parameters, if: :devise_controller?
-  helper_method :user_authority, :email_account
+  helper_method :user_authority, :email_account, :current_path_last_string
   
   
   private
   
+  def current_path_last_string
+    request.path.split("/")[-1]
+  end
+
   def email_account(user)
     user.email.split("@")[0]
   end
