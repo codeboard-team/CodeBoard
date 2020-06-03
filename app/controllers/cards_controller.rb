@@ -72,7 +72,7 @@ class CardsController < ApplicationController
   end
 
   def show
-    @sovled_card = @card.records.with_solved
+    @solved_card = @card.records.with_solved
     if @board.user == current_user
       render 'card_questioner'      
     else
@@ -90,7 +90,7 @@ class CardsController < ApplicationController
   end
 
   def solve
-    @sovled_card = @card.records.with_solved
+    @solved_card = @card.records.with_solved
     @docker_exec_service.code = params[:record][:code]
     @docker_exec_service.test_code = @card.test_code
     exec_and_get_result

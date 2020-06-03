@@ -119,19 +119,6 @@
 
               </div>
             </div>
-
-
-              <div class="flex w-full mb-4">
-                <div>
-                  <p class="pl-6">看看其他人的答案</p>
-                  <% @sovled_card.records.each do |record| %>
-                    <div class="border m-12">
-                      <% unless record.user == current_user %>
-                        <div class="editor-readonly whitespace-pre-line p-5">
-                        <%= record.code %></div>
-                        <p class="ml-5 border-t"><%= record.user.email %>
-                      <% end %>
-                    </div>
         </div>
 
         <div id="content-otheranswer" class="shadow border rounded mb-8">
@@ -143,7 +130,7 @@
 
             <div class="w-full m-0 flex flex-wrap">
             
-                  <% @card.records.each do |record| %>
+                  <% @solved_card.records.each do |record| %>
                       <div class="border w-1/2 p-4 box-border">
                         <% unless record.user == current_user %>
                           <p class="border-b py-2">by <%= record.user.email.split("@")[0] %>
