@@ -90,24 +90,13 @@
 
               <% if user_authority != "guest" %>
                 
-                <div class="flex w-full mb-4">
+                <div class="flex w-full px-4 py-1 my-2 -mt-1">
                   <section class="w1/2 m-auto mt-6">
-                    <%= f.label :test_code, '執行結果 ← 測試方法', class: 'uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
+                    <%= f.label :test_code, '測試方法 → 執行結果 ', class: 'uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
                   </section>
                 </div>
 
-                <div class="flex w-full mb-4">
-
-                  <div class="w-1/2">
-                    <div id="run-result" class="">
-                      <% num = 1 %>
-                      <% @result.try(:each) do |result| %>
-                        <div id="result<%= num %>" class="border"><%= result %></div>
-                        <div class="editor-" data-target="result<%= num %>"></div>
-                        <% num = num + 1 %>
-                      <% end %>
-                    </div>
-                  </div>
+                <div class="flex w-full mb-4 test-code-cover">
 
                   <div class="w-1/2">
                     <div id="section-test-code">
@@ -120,6 +109,18 @@
                       <% end %>
                     </div>
                   </div>
+                  
+                  <div class="w-1/2">
+                    <div id="run-result" class="">
+                      <% num = 1 %>
+                      <% @result.try(:each) do |result| %>
+                        <div id="result<%= num %>" class=""><%= result %></div>
+                        <div class="editor-" data-target="result<%= num %>"></div>
+                        <% num = num + 1 %>
+                      <% end %>
+                    </div>
+                  </div>
+
                 </div>
               <% end %>
             </div>
