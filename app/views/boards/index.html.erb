@@ -8,6 +8,7 @@
           </div>
         </div>
         <nav class="bg-white mb-3">
+          <%= form_with url: boards_path, local: true,  method: "get"  do |f| %>
           <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
             <div class="flex justify-between items-center h-16 ">
               <div class="flex-shrink-0 flex items-center">
@@ -23,8 +24,7 @@
                   </div>      
                 </div>
               </div>
-              <div class="sm:block  lg:flex-shrink-0 flex justify-end">
-                <%= form_with url: boards_path, local: true,  method: "get"  do %>
+              <!-- <div class="sm:block  lg:flex-shrink-0 flex justify-end">               
                 <div class="inline-flex items-center max-w-lg w-full lg:max-w-xs">
                   <label for="search" class="sr-only">搜尋</label>
                   <div class="relative">
@@ -37,16 +37,23 @@
                     <%= submit_tag "搜尋", class: "inline-flex items-center px-3 py-2 border border-gray-300 text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-purple-300 focus:shadow-outline-purple active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150"%>
                   </span>
                 </div>
-                <% end %>
-              </div>             
+              </div>              -->
+              <div class="sm:block  lg:flex-shrink-0 flex justify-end rounded-lg">         
+                <div class="pt-2 relative mx-auto text-gray-600">
+                  <%= text_field_tag :search, @search_term, class: "border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none" ,placeholder: "Search ...", model: @card, f: f%>
+                  <button type="submit" class="absolute right-0 top-0 mt-5 mr-4">
+                    <%= render_svg 'icons/search'%>
+                  </button>
+                </div> 
+              </div>
             </div>
           </div>
+          <% end %>
         </nav>
         <hr>
         <div>
           <div class="my-5 mx-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             <% @boards.each do |board| %>
-<<<<<<< HEAD
               <div class="bg-white overflow-hidden shadow rounded-lg">
                 <div class="bg-gray-100 px-4 py-5 sm:p-6">
                   <dl>
@@ -74,37 +81,6 @@
                           <p class="flex items-baseline text-sm">
                             <%= email_account(board.user) %>
                           </p>
-=======
-              <% if board.cards.count > 0%>
-                <div class="bg-white overflow-hidden shadow rounded-lg">
-                  <div class="bg-gray-100 px-4 py-5 sm:p-6">
-                    <dl>
-                      <span class="max-w-md flex justify-center  px-2.5 py-0.5 rounded-full text-sm font-medium leading-5 bg-red-100 text-red-800 md:mt-2 lg:mt-0">
-                        <%= board.language %>
-                      </span>
-                      <div class="inline-flex items-center px-2.5 py-0.5 rounded-full text-sm font-medium leading-5 bg-green-100 text-green-800 md:mt-2 lg:mt-0">
-                      </div>
-                      <div class="inline-flex items-center px-2.5 py-0.5 rounded-full text-sm font-medium leading-5 bg-green-100 text-green-800 md:mt-2 lg:mt-0">
-                      </div>
-                      <dt class="flex justify-start my-4 text-xl leading-5 font-medium text-black font-bold truncate">
-                        <%= board.title %>
-                      </dt>
-                      <hr>
-                      <p class="my-4 text-gray-500"><%= board.description %></p>
-                      <hr>
-                      <dd class="flex justify-between items-center mt-5">
-                        <div class="flex">
-                          <span class="inline-block h-6 w-6 rounded-full overflow-hidden bg-gray-100">
-                            <svg class="h-full w-full text-gray-500" fill="currentColor" viewBox="0 0 24 24">
-                              <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
-                            </svg>
-                          </span>
-                          <div class="text-xl leading-8 font-semibold text-gray-900">
-                            <p class="flex items-baseline text-sm">
-                              <%= board.user.email %>
-                            </p>
-                          </div>
->>>>>>> cards index
                         </div>
                       </div>
                       <div class="flex items-baseline">

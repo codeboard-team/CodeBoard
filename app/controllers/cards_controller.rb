@@ -10,22 +10,17 @@ class CardsController < ApplicationController
 
   before_action :check_authority, only: [:new, :edit, :update, :destroy]
 
-<<<<<<< HEAD
   def index
     redirect_to new_board_card_path
   end
 
   def list
-    @cards = Card.page(params[:page]).per(5)
-    render :index
-=======
-  def index 
     @cards = Card.page(params[:page]).per(6)
     if params[:search]
       @search_term = params[:search]
       @cards = @cards.search_by(@search_term)
     end
->>>>>>> search card and cards_index_page
+    render :index
   end
   
   def new

@@ -1,19 +1,28 @@
 <div class="container max-w-full my-12 mx-auto px-4 md:px-12">
   <div class="flex flex-col">
+<<<<<<< HEAD
     <div class="">
       <div class="bg-white align-middle block min-w-full shadow overflow-hidden sm:rounded-lg ">
         <div class="bg-white mb-4 border-b px-4 py-5 sm:px-6">
           <div class="w-full max-w-md mx-auto shadow">
             <%= render "boards/index_tab" %>
           </div>
+=======
+    <div class="my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+      <div class="bg-gray-100 align-middle block min-w-full shadow overflow-hidden sm:rounded-lg ">
+        <div class="mb-4 border-b px-4 py-5 sm:px-6">
+          <h3 class="text-2xl leading-6 font-medium text-indigo-700">
+            Cards
+          </h3>
+>>>>>>> card index search button
         </div>
-        <nav class="bg-white mb-4">
+        <nav class="bg-gray-100 mb-4">
           <div class="max-w-7xl  px-2 sm:px-4 lg:px-8">
             <div class="flex justify-between items-center h-16 ">
               <div class="flex-shrink-0 flex items-center">
                 <%= form_with url: cards_path, local: true,  method: "get"  do |f| %>
                 <div class="relative  border-none">
-                  <select class="bg-gray-100 text-gray-600 appearance-none border inline-block py-3 pl-3 pr-8 rounded leading-tight w-full">
+                  <select class="bg-white text-indigo-500 appearance-none border inline-block py-3 pl-3 pr-8 rounded leading-tight w-full">
                       <option>Tags</option>
                   </select>
                   <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2">
@@ -63,20 +72,14 @@
                   <div class="select-none">困難</div>
                 </label>
               </div>
-              <div class="sm:block  lg:flex-shrink-0 flex justify-end">         
-                <div class="inline-flex items-center max-w-lg w-full lg:max-w-xs">
-                  <label for="search" class="sr-only">Search</label>
-                  <div class="relative">
-                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                      <%= render_svg 'icons/search' %>
-                    </div>
-                    <%= text_field_tag :search, @search_term ,class: "block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:border-blue-300 focus:shadow-outline-blue sm:text-sm transition duration-150 ease-in-out" ,placeholder: "Search ...", model: @card, f: f %>
-                  </div>
-                  <span class="inline-flex rounded-md shadow-sm">
-                    <%= submit_tag "Search", class: "inline-flex items-center px-3 py-2 border border-gray-300 text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150", model: @card, f: f %>
-                  </span>
-                </div>
-              </div>             
+              <div class="sm:block  lg:flex-shrink-0 flex justify-end rounded-lg">         
+                <div class="pt-2 relative mx-auto text-gray-600">
+                  <%= text_field_tag :search, @search_term, class: "border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none" ,placeholder: "Search ...", model: @card, f: f%>
+                  <button type="submit" class="absolute right-0 top-0 mt-5 mr-4">
+                    <%= render_svg 'icons/search'%>
+                  </button>
+                </div> 
+              </div>
               <% end %>
             </div>
           </div>
@@ -102,7 +105,7 @@
                         <div class="ml-4 flex-wrap justify-center">
                           <div class="flex justify-between items-center">
                             <div class="text-sm leading-5 font-medium text-gray-900">
-                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-sm bg-indigo-600 text-white">
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-sm bg-indigo-400 text-white">
                                   <%= card.level %>
                                 </span>
                             </div>
@@ -127,6 +130,7 @@
                       
                     </td>
                     <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
+<<<<<<< HEAD
                       <span class="w-full inline-flex rounded-md shadow-sm">
 <<<<<<< HEAD
                         <a class="inline-flex items-center px-3 py-2 border border-gray-300 text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-purple-300 focus:shadow-outline-purple active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150" href="#" >
@@ -136,6 +140,11 @@
 =======
                         <span class="inline-flex items-center px-3 py-2 border border-gray-300 text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
                           <%= link_to 'Answer', card_path(card.id), class: "flex justify-center items-center mr-2" %>
+=======
+                      <span class="w-full inline-flex">
+                        <span class="inline-flex items-center px-3 py-2 border border-gray-300 text-sm leading-4 font-medium rounded bg-indigo-600 text-white hover:bg-indigi-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150">
+                          <%= link_to 'Answer', board_card_path(board_id: card.board.id,id: card.id), class: "flex justify-center items-center mr-2 " %>
+>>>>>>> card index search button
                           <%= render_svg 'icons/edit' , styles: "fill-current w-3 h-3"%>
                         </span>
 >>>>>>> cards index
@@ -149,7 +158,7 @@
             </div>
           </div>
         </div>
-        <nav class="bg-white px-4 py-3 flex items-center justify-between sm:px-6 sm:justify-end">
+        <nav class="bg-gray-100 px-4 py-3 flex items-center justify-between sm:px-6 sm:justify-end">
           <div class="flex-1 flex justify-between sm:justify-end">
             <%= link_to_prev_page @cards, 'Prev', class: 'relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-purple focus:border-purple-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150' %>
             <%= link_to_next_page @cards, 'Next', class: 'relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-purple focus:border-purple-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150' %>

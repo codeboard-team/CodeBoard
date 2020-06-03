@@ -14,7 +14,8 @@ class BoardsController < ApplicationController
     end
   end
 
-  def new; end
+  def new
+  end
 
   def create
     @board.assign_attributes(board_params)
