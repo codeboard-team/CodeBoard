@@ -1,21 +1,21 @@
-<div class="w-full max-w-md mx-auto my-8">
+<div class="w-full max-w-md mx-auto my-8 shadow">
   <div id="tab-sign-in-up">
-    <ul class="flex border-b w-full">
+    <ul class="flex w-full">
       <li class="w-1/2 text-center block">
         <%= link_to(new_user_session_path, 
-                    :class => "#{'bg-gray-800 text-white' if current_path_last_string=="sign_in"} rounded-tl block borde-l borde-r borde-t py-2 text-l bg-gray-200") do %>
+                    :class => "#{'active' if current_path_last_string=="sign_in"} rounded-tl block border-l border-r border-t py-2 text-l bg-gray-200") do %>
                     登入
         <% end %>
       </li>
       <li class="w-1/2 text-center block">
         <%= link_to( new_user_registration_path, 
-                    :class => "#{'bg-gray-800 text-white' if current_path_last_string=="sign_up"} rounded-tr block borde-l borde-r borde-t py-2 text-l bg-gray-200") do %>
+                    :class => "#{'active' if current_path_last_string=="sign_up"} rounded-tr block border-l border-r border-t py-2 text-l bg-gray-200") do %>
                     註冊
         <% end %>
       </li>
     </ul>
   </div>
-  <div class="bg-white border borde-b borde-l borde-r borde-t-3 rounded-b-lg px-8 pt-6 pb-8">
+  <div class="bg-white borde-b border-l border-r border-b rounded-b-lg px-8 pt-6 pb-8">
     <%= yield :devise_form %>
   </div>
 </div>
