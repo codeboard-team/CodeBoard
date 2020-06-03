@@ -119,8 +119,6 @@
 
               </div>
             </div>
-
-
         </div>
 
         <div id="content-otheranswer" class="shadow border rounded mb-8">
@@ -132,23 +130,20 @@
 
             <div class="w-full m-0 flex flex-wrap">
             
-                  <% @card.records.each do |record| %>
-                      <div class="border w-1/2 p-4 box-border">
-                        <% unless record.user == current_user %>
-                          <p class="border-b py-2">by <%= record.user.email.split("@")[0] %>
-                          <div class="editor-readonly whitespace-pre-line"><%= record.code %></div>
-                        <% end %>
-                      </div>
-                  <% end %>
-                
-                
-                </div>
-              </div>
+              <% @solved_card.records.each do |record| %>
+                <% unless record.user == current_user %>
+                  <div class="border w-1/2 p-4 box-border">
+                    <p class="border-b py-2">by <%= record.user.email.split("@")[0] %>
+                    <div class="editor-readonly whitespace-pre-line"><%= record.code %></div>
+                  </div>
+                <% end %>
+              <% end %>
 
             </div>
-          </div>
-        </div>
 
+          </div>
+
+        </div>
       </div> 
     </div>
   </div>
