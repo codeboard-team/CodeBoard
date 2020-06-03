@@ -8,10 +8,6 @@ input[name^="card[test_code]"] {
     display: block;
 }
 
-input[name^="card[test_code]"] {
-    border: 1px solid #ddd;
-}
-
 input[name^="card[hints]"] {
     border: 1px solid #ddd;
     line-height: 1rem;
@@ -40,7 +36,7 @@ input[type="submit"] {
     cursor: auto;
 }
 
-#card-description {
+b #card-description {
     white-space: pre-line;
 }
 
@@ -92,6 +88,13 @@ section.one-card:hover .part-btns.hover,
             display: none;
         }
     }
+    #btn-del-test-code {
+        position: absolute;
+        right: 0;
+    }
+    .test-code-cover {
+        position: relative;
+    }
 }
 
 // select2 (tags) placeholder
@@ -118,4 +121,24 @@ section.one-card:hover .part-btns.hover,
 
 .select2-selection__rendered li {
     position: relative;
+}
+
+#run-result div[id^="result"],
+p.test-item {
+    margin: 1rem 0;
+    padding: .5rem 1rem;
+    border-bottom: 1px solid #ddd;
+    .numTestCode {
+        width: 2rem;
+        padding-right: .3rem;
+        margin-right: .3rem;
+        border-right: 1px solid #ddd;
+    }
+}
+
+#run-result div[id^="result"] {
+    &::before {
+        content: "→ ";
+        color: #e53e3e;
+    }
 }

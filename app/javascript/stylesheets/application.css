@@ -1,0 +1,192 @@
+@charset "UTF-8";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* Buttons */
+.btn {
+  @apply font-semibold text-sm py-2 px-4 rounded cursor-pointer no-underline;
+}
+
+.btn-default {
+  @apply bg-white border border-gray-400 text-gray-700;
+}
+
+.btn-default:hover, .btn-default:focus {
+  @apply border-gray-500;
+}
+
+.link {
+  @apply no-underline text-gray-700;
+}
+
+.link:hover, .link:focus {
+  @apply text-gray-700;
+}
+
+/* Forms */
+.input {
+  @apply appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-300 rounded py-3 px-4 leading-tight;
+}
+
+.input:focus {
+  @apply outline-none bg-white border-gray-400;
+}
+
+.label {
+  @apply block text-gray-700 text-sm font-bold mb-2;
+}
+
+.select {
+  @apply appearance-none py-3 px-4 pr-8 block w-full bg-gray-100 border border-gray-300 text-gray-700
+   rounded leading-tight;
+  -webkit-appearance: none;
+}
+
+.select:focus {
+  @apply outline-none bg-white border-gray-400;
+}
+
+p.hint-item {
+  line-height: 2rem;
+  margin-bottom: 1rem;
+}
+
+input[name^="card[hints]"],
+input[name^="card[test_code]"] {
+  display: block;
+}
+
+input[name^="card[hints]"] {
+  border: 1px solid #ddd;
+  line-height: 1rem;
+  padding: .4rem .6rem;
+}
+
+button,
+input[type="button"],
+input[type="submit"] {
+  cursor: pointer;
+}
+
+.one-card a.active {
+  background-color: #EDF2F7;
+}
+
+.one-card a span.arrow {
+  visibility: hidden;
+}
+
+.one-card a.active span.arrow {
+  visibility: inherit;
+}
+
+.editor.readonly * {
+  cursor: auto;
+}
+
+b #card-description {
+  white-space: pre-line;
+}
+
+.part-btns.hover {
+  visibility: hidden;
+}
+
+section.one-card:hover .part-btns.hover,
+.one-board:hover .part-btns.hover {
+  visibility: inherit;
+}
+
+#part-card-content {
+  padding: .5rem 4rem 2rem 4rem;
+}
+
+#section-hints p {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+#section-hints p span {
+  width: 2rem;
+  display: inline-block;
+  text-align: center;
+}
+
+#section-hints input {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+}
+
+*[id^="btn-"],
+*[class^="btn-"] {
+  cursor: pointer;
+}
+
+.editor.ace_editor {
+  border: 1px solid #ddd;
+}
+
+#card_level option:first-child {
+  display: none;
+}
+
+#part-test-run #section-test-code .test-item:first-child:last-child #btn-del-test-code {
+  display: none;
+}
+
+#part-test-run #btn-del-test-code {
+  position: absolute;
+  right: 0;
+}
+
+#part-test-run .test-code-cover {
+  position: relative;
+}
+
+#select-tags + span.select2::before {
+  content: "Tags";
+  padding-left: 1rem;
+  position: absolute;
+  color: #777;
+  width: 0;
+  height: 0;
+  text-align: center;
+  line-height: 2rem;
+}
+
+#select-tags + span.select2-container--open::before, #select-tags + span.select2-container--focus::before {
+  z-index: -1;
+  color: #fff;
+  display: none;
+}
+
+.select2-selection__rendered li {
+  position: relative;
+}
+
+#run-result div[id^="result"],
+p.test-item {
+  margin: 1rem 0;
+  padding: .5rem 1rem;
+  border-bottom: 1px solid #ddd;
+}
+
+#run-result div[id^="result"] .numTestCode,
+p.test-item .numTestCode {
+  width: 2rem;
+  padding-right: .3rem;
+  margin-right: .3rem;
+  border-right: 1px solid #ddd;
+}
+
+#run-result div[id^="result"]::before {
+  content: "→ ";
+  color: #e53e3e;
+}
+
+input:checked + svg {
+  display: block;
+}
+/*# sourceMappingURL=application.css.map */
