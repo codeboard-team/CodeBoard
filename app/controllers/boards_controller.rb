@@ -31,7 +31,7 @@ class BoardsController < ApplicationController
   def edit; end
 
   def my
-    @board = Board.where(user: current_user)
+    @board = current_user.boards
     redirect_to new_board_path if @board.count == 0
   end
 

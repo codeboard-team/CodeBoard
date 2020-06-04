@@ -1,4 +1,5 @@
 class Card < ApplicationRecord
+  acts_as_paranoid
 
   belongs_to :board
   has_many :records
@@ -7,11 +8,5 @@ class Card < ApplicationRecord
   validates :title, presence: true
   validates :level, presence: true
   validates :result, presence: true
-    
-  default_scope -> { where(deleted_at: nil)}
-
-  def destroy
-    update(deleted_at: Time.now)
-  end
 
 end
