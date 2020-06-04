@@ -10,12 +10,11 @@
         padding-left: 2.4rem;
     }
     input[type="submit"] {
-        background-color: $color-main;
-        fheight: 3rem;
-        font-size: 1.2rem;
+        background-color: $color-btn-main;
+        font-size: 1rem;
         color: #fff;
         &:hover {
-            background-color: $color-main-sub;
+            background-color: $color-btn-main-100;
         }
     }
     span.item-icon {

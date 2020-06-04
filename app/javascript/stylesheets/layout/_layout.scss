@@ -1,14 +1,37 @@
-$color-main:#5967D8;
+// 主色
+$color-main:#6C3483;
 $color-main-sub:#8893E3;
-$color-layout-bg:#F3F3F7;
-$color-nav-bg:#222;
+// 輔色
+$color-contrast:#FF5733;
+$color-layout-bg:#eee;
+$color-nav-bg:#4A235A;
+// 基礎色
 $color-nav-text:white;
 $color-nav-text-hover:white;
+// 按鈕色
+$color-btn-main:#805ad5;
+$color-btn-main-100:#9f7aea;
+$color-btn-sub:white;
 body {
-    background-color: $color-layout-bg;
+    overflow: hidden;
+    background: $color-layout-bg;
+    padding-top: 3rem;
+}
+
+main {
+    overflow: auto;
+    height: calc(100vh - 3rem);
+    .container {}
 }
 
 #nav {
+    background: $color-nav-bg;
+    overflow: hidden;
+    height: 3rem;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 999;
     a {
         color: $color-nav-text;
     }
@@ -21,4 +44,13 @@ body {
             color: $color-nav-text-hover
         }
     }
+}
+
+.container {
+    padding-right: 1rem;
+    padding-left: 1rem;
+}
+
+div[id^="page"] {
+    background: white;
 }
