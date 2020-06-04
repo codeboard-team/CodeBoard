@@ -8,7 +8,7 @@ class User < ApplicationRecord
   after_commit :add_default_avatar, on: %i[create update]
   def avatar_thumbnail
     if avatar.attached?
-      avatar.variant(resize: "100x100!").processed 
+      avatar.variant(resize: "40x40!").processed 
     else
       "/default_profile.jpg"
     end

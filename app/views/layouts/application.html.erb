@@ -53,34 +53,18 @@
         <div class="w-full block lg:flex lg:flex-row lg:flex-1 mt-2 lg:mt-0 text-center lg:text-left lg:justify-end items-center">
           <% if user_signed_in? %>
             <span class="text-white">
-              <%=  email_account(current_user) %>
+              <%= email_account(current_user) %>
             </span>
+              <%= image_tag(current_user.avatar_thumbnail) if current_user.avatar.attached? %>
             <p class="mr-4"><%= current_user.name %></p>
             <%= link_to "登出", destroy_user_session_path, method: :delete, class:"btn mb-2 lg:mr-2 lg:mb-0 block rounded text-white border-white-600" %>
-            
           <% else %>
             <%= link_to "登入", new_user_session_path, class:"btn mb-2 lg:mr-2 lg:mb-0 block rounded text-text border-text hover:text-white hover:border-white" %>
             <%= link_to "註冊", new_user_registration_path, class:" btn mb-2 lg:mr-2 lg:mb-0 block rounded text-text border-text hover:text-white hover:border-white" %>
           <% end %>
-        </div>  
-      
-      <div class="w-full block lg:flex lg:flex-row lg:flex-1 mt-2 lg:mt-0 text-center lg:text-left lg:justify-end items-center">
-        <% if user_signed_in? %>
-          <span class="">
-          <%= link_to current_user.email.split("@")[0],profile_path(id: current_user.id), class: "mr-4"%>
-          </span>
-          <%= link_to "Log out", destroy_user_session_path, method: :delete, class:"btn btn-default mb-2 lg:mr-2 lg:mb-0 block border rounded text-gray-500 border-gray-600 hover:text-black hover:border-gray-800" %>
-          <p>
-            <%= link_to "Edit Account", edit_user_registration_path %>
-          </p>
-          <br>
-          <%= image_tag(current_user.avatar_thumbnail) if current_user.avatar.attached? %>
-        <% else %>
-          <%= link_to "Login", new_user_session_path, class:"btn btn-default mb-2 lg:mr-2 lg:mb-0 block border rounded text-gray-500 border-gray-600 hover:text-black hover:border-gray-800" %>
-          <%= link_to "Sign Up", new_user_registration_path, class:" btn btn-default mb-2 lg:mr-2 lg:mb-0 block border rounded text-gray-500 border-gray-600 hover:text-black hover:border-gray-800" %>
-        <% end %>
-      </div>    
-      
+        </div>
+           <%#= link_to "Edit Account", edit_user_registration_path %>
+           <%#= image_tag(current_user.avatar_thumbnail) if current_user.avatar.attached? %>
     </div>    
   </nav>
 

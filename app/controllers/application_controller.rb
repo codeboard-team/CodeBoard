@@ -12,10 +12,11 @@ class ApplicationController < ActionController::Base
 
   def email_account(user)
     user.email.split("@")[0]
-  def configure_permitted_parameters
+  end
+    def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:username, :name, :avatar])
     devise_parameter_sanitizer.permit(:account_update, keys: [:username, :name, :avatar])
-  end
+    end
 
   def user_authority
     if current_user.nil?

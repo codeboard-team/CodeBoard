@@ -6,7 +6,7 @@ ruby '2.6.5'
 # gem 'gravatar_image_tag', github: 'mdeering/gravatar_image_tag'
 # gem 'carrierwave', '~> 0.11.2'
 # gem 'mini_magick', '~> 4.5', '>= 4.5.1'
-gem 'redis', '~> 3.3', '>= 3.3.1'
+gem 'redis', '~> 4.1', '>= 4.1.4'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.2', '>= 6.0.2.2'
 # Use sqlite3 as the database for Active Record
