@@ -1,11 +1,11 @@
 <div class="container max-w-full my-12 mx-auto px-4 md:px-12">
   <div class="flex flex-col">
-    <div class="my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-      <div class="align-middle block min-w-full shadow overflow-hidden sm:rounded-lg ">
+    <div class="">
+      <div class="bg-white align-middle block min-w-full shadow overflow-hidden sm:rounded-lg ">
         <div class="bg-white mb-4 border-b px-4 py-5 sm:px-6">
-          <h3 class="text-2xl leading-6 font-medium text-gray-900 ">
-            Cards
-          </h3>
+          <div class="w-full max-w-md mx-auto shadow">
+            <%= render "boards/index_tab" %>
+          </div>
         </div>
         <nav class="bg-white mb-4">
           <div class="max-w-7xl  px-2 sm:px-4 lg:px-8">
@@ -28,31 +28,31 @@
                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                       <%= render_svg 'icons/search' %>
                     </div>
-                    <%= text_field_tag :search, @search_term ,class: "block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:border-blue-300 focus:shadow-outline-blue sm:text-sm transition duration-150 ease-in-out" ,placeholder: "Search ..." %>
+                    <%= text_field_tag :search, @search_term ,class: "block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:border-purple-300 focus:shadow-outline-purple sm:text-sm transition duration-150 ease-in-out" ,placeholder: "Search ..." %>
                   </div>
                   <span class="inline-flex rounded-md shadow-sm">
-                    <%= submit_tag "Search", class: "inline-flex items-center px-3 py-2 border border-gray-300 text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150"%>
+                    <%= submit_tag "Search", class: "inline-flex items-center px-3 py-2 border border-gray-300 text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-purple-300 focus:shadow-outline-purple active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150"%>
                   </span>
                 </div>
                 <% end %>
               </div>             
               <div class="flex justify-end">
                 <label class="flex justify-start items-center">
-                  <div class="inline-flex items-center px-1 pt-1 bg-white border-2 rounded border-gray-400 w-6 h-6 flex flex-shrink-0 justify-center items-center mr-2 focus-within:border-blue-500">
+                  <div class="inline-flex items-center px-1 pt-1 bg-white border-2 rounded border-gray-400 w-6 h-6 flex flex-shrink-0 justify-center items-center mr-2 focus-within:border-purple-500">
                     <input type="checkbox" class="opacity-0 absolute">
                     <svg class="fill-current hidden w-4 h-4 text-green-500 pointer-events-none" viewBox="0 0 20 20"><path d="M0 11l2-2 5 5L18 3l2 2L7 18z"/></svg>
                   </div>
                   <div class="select-none">Beginner</div>
                 </label>
                 <label class="flex justify-start items-center">
-                  <div class="ml-8 inline-flex items-center px-1 pt-1 bg-white border-2 rounded border-gray-400 w-6 h-6 flex flex-shrink-0 justify-center items-center mr-2 focus-within:border-blue-500">
+                  <div class="ml-8 inline-flex items-center px-1 pt-1 bg-white border-2 rounded border-gray-400 w-6 h-6 flex flex-shrink-0 justify-center items-center mr-2 focus-within:border-purple-500">
                     <input type="checkbox" class="opacity-0 absolute">
                     <svg class="fill-current hidden w-4 h-4 text-green-500 pointer-events-none" viewBox="0 0 20 20"><path d="M0 11l2-2 5 5L18 3l2 2L7 18z"/></svg>
                   </div>
                   <div class="select-none">Meduim</div>
                 </label>
                 <label class="flex justify-start items-center">
-                  <div class="ml-8 inline-flex items-center px-1 pt-1 bg-white border-2 rounded border-gray-400 w-6 h-6 flex flex-shrink-0 justify-center items-center mr-2 focus-within:border-blue-500">
+                  <div class="ml-8 inline-flex items-center px-1 pt-1 bg-white border-2 rounded border-gray-400 w-6 h-6 flex flex-shrink-0 justify-center items-center mr-2 focus-within:border-purple-500">
                     <input type="checkbox" class="opacity-0 absolute">
                     <svg class="fill-current hidden w-4 h-4 text-green-500 pointer-events-none" viewBox="0 0 20 20"><path d="M0 11l2-2 5 5L18 3l2 2L7 18z"/></svg>
                   </div>
@@ -126,7 +126,7 @@
                     </td>
                     <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
                       <span class="w-full inline-flex rounded-md shadow-sm">
-                        <a class="inline-flex items-center px-3 py-2 border border-gray-300 text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150" href="#" >
+                        <a class="inline-flex items-center px-3 py-2 border border-gray-300 text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-purple-300 focus:shadow-outline-purple active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150" href="#" >
                         <%= render_svg 'icons/edit' , styles: "fill-current w-4 h-4 mr-2"%>
                           <p class="flex justify-center items-center">Answer</p> 
                         </a>
@@ -140,8 +140,8 @@
         </div>
         <nav class="bg-white px-4 py-3 flex items-center justify-between sm:px-6 sm:justify-end">
           <div class="flex-1 flex justify-between sm:justify-end">
-            <%= link_to_prev_page @cards, 'Prev', class: 'relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150' %>
-            <%= link_to_next_page @cards, 'Next', class: 'relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150' %>
+            <%= link_to_prev_page @cards, 'Prev', class: 'relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-purple focus:border-purple-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150' %>
+            <%= link_to_next_page @cards, 'Next', class: 'relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-purple focus:border-purple-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150' %>
           </div>
         </nav>
       </div>

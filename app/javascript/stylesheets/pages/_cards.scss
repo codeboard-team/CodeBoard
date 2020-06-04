@@ -40,8 +40,22 @@ b #card-description {
     white-space: pre-line;
 }
 
-.part-btns.hover {
-    visibility: hidden;
+.part-btns {
+    &.hover {
+        visibility: hidden;
+    }
+}
+
+#part-board .part-btns {
+    display: flex;
+    width: 100%;
+    a {
+        width: 50%;
+        text-align: center;
+        i {
+            width: 50%;
+        }
+    }
 }
 
 .one-board:hover {}

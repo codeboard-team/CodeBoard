@@ -1,17 +1,17 @@
  <div id="part-cards-list">
-  <div class="">
+  <div class="bg-white">
 
       <% @board.cards.order(:order).each do |card|%>
       
         <section class="one-card flex w-100 relative">
           <% if card.id %>
             <%= link_to(board_card_path(@board.id, card.id), 
-                    :class => "#{'active' if card.id == nowCard} flex border-b block w-full text-blue-700 hover:text-blue-500 hover:bg-gray-200 py-4 py-3") do %>
+                    :class => "#{'active' if card.id == nowCard} flex border-b block w-full text-purple-700 hover:text-purple-500 hover:bg-gray-200 py-4 py-3") do %>
               <span class="arrow inline-block w-4 px-1 mx-2 -ml-6">
-                <i class="fa fa fa-chevron-right text-blue-700 hover:text-blue-500 hover:bg-gray-200"></i>
+                <i class="fa fa fa-chevron-right text-purple-700 hover:text-purple-500 hover:bg-gray-200"></i>
               </span>
 
-              <span class="w-8 inline-block font-semibold border-r  mr-2 text-blue-500 text-center"><%= card.order %></span>
+              <span class="w-8 inline-block font-semibold border-r  mr-2 text-purple-500 text-center"><%= card.order %></span>
               <span class="inline-block flex-grow"><%= card.title %></span>
               
             <% end %>
@@ -21,13 +21,13 @@
               <div class="part-btns hover absolute my-4 pr-4 right-0">
               
                 <%= link_to(edit_board_card_path(@board.id, card.id), 
-                            :class => 'w-2 text-orange-500 hover:text-orange-700 text-white py-1 rounded mr-1') do %>
-                  <i class="btn-edit fa fa-pencil-square text-3xl"></i>
+                            :class => 'w-2 text-gray-500 hover:text-gray-700 text-white py-1 rounded mr-1') do %>
+                  <i class="btn-edit fa fa-pencil  text-2xl"></i>
                 <% end %>
 
                 <%= link_to(board_card_path(@board.id, card.id),method: 'delete',data: {confirm: 'Are you sure ?!'}, 
-                            :class => 'w-2 text-red-500 hover:text-red-700 text-white py-1 rounded mr-1') do %>
-                  <i class="btn-del fa fa-window-close text-3xl"></i>
+                            :class => 'w-2 text-gray-500 hover:text-gray-700 text-white py-1 rounded mr-1') do %>
+                  <i class="btn-del fa fa-times text-2xl"></i>
                 <% end %>
 
               </div>
@@ -36,7 +36,7 @@
 
               <div>
                 <div class="absolute my-4 pr-4 right-0">
-                    <i class="fa fa-file-o text-blue-700 hover:text-blue-500 hover:bg-gray-200"></i>
+                    <i class="fa fa-file-o text-purple-700 hover:text-purple-500 hover:bg-gray-200"></i>
                 </div>
               </div>
 

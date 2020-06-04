@@ -1,5 +1,3 @@
-<p class="absolute right-0 text-xs text-gray-600">//出題者-檢視頁//</p>
- 
 <span id="board-lang" class="hidden"><%= @board.editor_mode %></span>
 
 <style>
@@ -26,16 +24,6 @@
       </div>
 
       <div id="part-card-content" class="w-3/4 m-0 m-auto pb-12">
-        <div>
-          <% if user_authority ==  "author" %>
-            <div class="part-btns absolute mr-6 pr-4 right-0">
-              <%= link_to(edit_board_card_path(@board.id, @card.id), 
-                          :class => 'w-2 text-orange-500 hover:text-orange-700 text-white py-1 rounded mr-1') do %>
-                <i class="btn-edit fa fa-pencil-square text-3xl"></i>
-              <% end %>
-            </div>
-          <% end %>
-        </div>
 
         <div id="content-subject" class="shadow border rounded mb-8">
         
@@ -49,7 +37,7 @@
               <%= render "cards/content_subject" %>
               <div class="">
                 <section class="text-gray-700 text-m font-bold mt-5 mb-3">
-                  階段提示
+                  提示
                 </section>
                 <% if @card.hints %>
                   <% num = 1 %>
@@ -67,7 +55,7 @@
             </div>
                
             <div class="w-full mb-4 border-t">
-              <%= f.label :default_code, '預設程式碼', class: 'block uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
+              <%= f.label :default_code, '作答區預設程式碼', class: 'block uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
               <%= f.hidden_field :default_code, id: "default_code" %>
               <div class="editor readonly" data-target="default_code"></div>
             </div>
@@ -83,7 +71,7 @@
 
           <div class="content-body p-5">
             <div>
-              <%= f.label :answer, '定義解答', 
+              <%= f.label :answer, '解答', 
                           class: 'require　block uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
               <%= f.hidden_field :answer, id: "answer" %>
               <div class="editor readonly" data-target="answer"></div>

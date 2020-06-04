@@ -1,0 +1,17 @@
+<div id="tab-board-index" class=" w-full">
+  <ul class="flex w-full">
+    <li class="w-1/2 text-center block">
+
+      <%= link_to(boards_path, 
+                  :class => "#{'active' if current_path_last_string=="boards"} rounded-tl block border-l border-r border-t py-2 text-l bg-gray-200") do %>
+                  探索題組
+      <% end %>
+    </li>
+    <li class="w-1/2 text-center block">
+      <%= link_to( cards_path, 
+                  :class => "#{'active' if current_path_last_string=="cards"} rounded-tr block border-l border-r border-t py-2 text-l bg-gray-200") do %>
+                  總覽題目
+      <% end %>
+    </li>
+  </ul>
+</div>

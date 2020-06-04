@@ -1,5 +1,3 @@
-<p class="absolute right-0 text-xs text-gray-600">//解題者(已解題)-檢視頁面//</p>
-
 <span id="board-lang" class="hidden"><%= @board.editor_mode %></span>
 
 <style>
@@ -39,7 +37,7 @@
               <%= render "cards/content_subject" %>
               <div class="">
                 <section class="text-gray-700 text-m font-bold mt-5 mb-3">
-                  階段提示
+                  提示
                 </section>
                   <div id="section-hints" class="">
                     <% if @card.hints %>
@@ -133,7 +131,7 @@
               <% @solved_card.records.each do |record| %>
                 <% unless record.user == current_user %>
                   <div class="border w-1/2 p-4 box-border">
-                    <p class="border-b py-2">by <%= email_account(record.user) %>
+                    <p class="border-b py-2"><%= email_account(record.user) %>
                     <div class="editor-readonly whitespace-pre-line"><%= record.code %></div>
                   </div>
                 <% end %>

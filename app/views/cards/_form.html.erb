@@ -17,12 +17,12 @@
 <% end %>
 
 <div id="page" class="flex">
-  <h1 class="flex-grow text-blue-700 font-bold text-right mt-2 mb-3">
+  <h1 class="flex-grow text-purple-700 font-bold text-right mt-2 mb-3">
     <% case action_name %>
       <% when "new"%>
-        <%="新建題目 (Card)"%>
+        <%="新建題目"%>
       <% when "edit"%>
-        <%="修改題目 (Card)"%>
+        <%="修改題目"%>
     <% end %>
   </h1>
 </div>
@@ -52,7 +52,7 @@
     <div class="flex w-full mb-4">
     
       <%= f.select :level, [['簡單','簡單'],['中等','中等'],['困難','困難']], {
-                    include_blank: 'Level ▼'},{ 
+                    include_blank: '難度 ▼'},{ 
                     class:"require mr-6 shadow appearance-none border rounded w-auto py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline", style: 'text-align-last: center'} %>
 
       <select name="card[tags][]" multiple= 'multiple', 
@@ -66,7 +66,7 @@
           
     <div class="w-full mb-4">
       <div class="border-box pr-6">
-        <%= f.label :description, '題目敘述', class: 'block uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
+        <%= f.label :description, '敘述', class: 'block uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
         <%= f.text_area :description,class: 'h-32 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' %>
       </div>
     </div>
@@ -76,11 +76,11 @@
       <div class="flex w-full mb-4">
 
         <section class="w1/2">
-          <%= f.label :hints, '階段提示', class: 'uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
+          <%= f.label :hints, '提示', class: 'uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
         </section>
 
         <div class="flex-grow mb-4 text-right">
-          <span id="btn-add-hints" class=" bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded">
+          <span id="btn-add-hints" class=" bg-purple-500 hover:bg-purple-700 text-white py-2 px-4 rounded">
           <i class="fa fa-plus mr-2"></i>提示
           </span>
         </div>
@@ -108,7 +108,7 @@
     </div>
 
     <div class="w-full mb-4">
-      <%= f.label :default_code, '預設程式碼', class: 'block uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
+      <%= f.label :default_code, '作答區預設程式碼', class: 'block uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
       <%= f.hidden_field :default_code, id: "default_code" %>
       <div class="editor" data-target="default_code"></div>
     </div>
@@ -124,20 +124,20 @@
 
   <div class="content-body p-5">
     <div>
-      <%= f.label :answer, '定義解答', 
+      <%= f.label :answer, '解答', 
                   class: 'require　block uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
       <%= f.hidden_field :answer, id: "answer" %>
       <div class="editor" data-target="answer"></div>
       <div class="flex m-auto">
         <%= f.submit 'Run', id: 'btn-card-submit', 
-                            class: 'require z-10 m-auto mr-0 bg-blue-500 hover:bg-blue-700 text-white py-2 px-5 rounded my-5' %>
+                            class: 'require z-10 m-auto mr-0 bg-purple-500 hover:bg-purple-700 text-white py-2 px-5 rounded my-5' %>
       </div>
     </div>
 
     <div id="part-test-run">
 
       <div class="flex-grow mb-4 text-right">
-        <span id="btn-add-test-code" class=" bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded">
+        <span id="btn-add-test-code" class=" bg-purple-500 hover:bg-purple-700 text-white py-2 px-4 rounded">
           <i class="fa fa-plus mr-2"></i>測資
         </span>
       </div>
@@ -203,5 +203,5 @@
 
 <div id="part-contorl" class="flex pb-12">
   <%= f.submit '送出',id: 'btn-card-submit', 
-                      class: 'm-auto mr-0  bg-blue-500 hover:bg-blue-700 text-white py-2 px-5 rounded my-5' %>
+                      class: 'm-auto mr-0  bg-purple-500 hover:bg-purple-700 text-white py-2 px-5 rounded my-5' %>
 </div>
