@@ -1,13 +1,13 @@
-<div id="my-board" class="w-5/6 xl:w-3/5  m-auto rounded-lg mt-10">
+<div id="my-board" class="w-5/6 xl:w-3/5 m-auto rounded-lg mt-10">
 
   <div id="my-board-head" class="border-b">
-    <h1 class="mb-5 text-gray-900 font-bold inline-block">My Boards</h1>
+    <h1 class="mb-5 text-gray-900 font-bold inline-block">所有題組</h1>
 
     <p class="mb-6 inline-block float-right">
       <%= link_to(new_board_path, 
-                  :class => 'bg-blue-500 hover:bg-blue-700 text-white py-2 px-3 rounded') do %>
-        <span class="">
-          <i class="fa fa-plus mr-2"></i>Board
+                  :class => 'bg-purple-500 hover:bg-purple-700 text-white py-2 px-3 rounded') do %>
+        <span class="font-bold">
+          <i class="fa fa-plus mr-2"></i>題組
         </span>
       <% end %>
     </p>
@@ -17,57 +17,58 @@
    <div id="my-board-body" class="pl-4 py-6">
     <% order = 1 %>
     <% @board.each do |board| %>
-      <div class="one-board flex border shadow my-4 rounded">
+      <div class="my-4 rounded">
       
-        <div class="absolute -mt-2 -ml-2">
+        <div class="-mt-2 -ml-2 relative -mb-10">
           <span class="bg-gray-600 text-white py-1 px-2 text-xs text-right">
             <%= board.language%>
           </span>
         </div>
 
-        <div class="w-24 text-lg self-center">
-          <span class="w-full h-full text-center inline-block">
-            <%= order %>
-          </span>
-        </div>
-          
-        <div class="w-full ml-8 ">
+        <div class="one-board bg-white flex border shadow my-4 rounded">
+          <div class="w-24 text-lg self-center">
+            <span class="w-full h-full text-center inline-block">
+              <%= order %>
+            </span>
+          </div>
+            
+          <div class="w-full ml-8 ">
 
-          <div class="w-full flex">
-            <div class="w-full mt-1">
-                <%#單一boardlist= link_to(board_path(board.id),%>
-                <%= link_to(new_board_card_path(board.id), 
-                            :class => 'pt-5 pb-1 block w-full text-blue-700 hover:text-blue-600 font-bold text-xl') do %>
-                  <span class="-ml-8 mr-2">
-                    <i class="fa fa-files-o"></i>
-                  </span>
-                  <span><%= board.title %></span>
-                  <span class="text-xs text-gray-600"> - <%= board.cards.length %> 題</span>
-                <% end %>
+            <div class="w-full flex">
+              <div class="w-full mt-1">
+                  <%= link_to(new_board_card_path(board.id), 
+                              :class => 'pt-5 pb-1 block w-full text-purple-700 hover:text-purple-600 font-bold text-xl') do %>
+                    <span class="-ml-8 mr-2">
+                      <i class="fa fa-book"></i>
+                    </span>
+                    <span><%= board.title %></span>
+                    <span class="text-xs text-gray-600"> - <%= board.cards.length %> 題</span>
+                  <% end %>
+              </div>
             </div>
+                        
+            <div class="w-full mb-6">
+              <p class="text-gray-600 text-sm leading-relaxed">
+                <% if board.description %>
+                  <%= board.description%>
+                <% end %>
+              </p>
+            </div>
+            
           </div>
-                      
-          <div class="w-full mb-6">
-            <p class="text-gray-600 text-sm leading-relaxed">
-              <% if board.description %>
-                <%= board.description%>
-              <% end %>
-            </p>
+
+          <div class="part-btns hover w-1/6 text-right pr-5 mt-6">
+            <%= link_to(edit_board_path(board.id), 
+                        :class => 'w-2 text-gray-500 hover:text-gray-700 text-white py-1 mr-1') do %>
+              <i class="btn-edit fa fa-pencil  text-2xl"></i>
+            <% end %>
+            <%= link_to(board_path(board.id),method: 'delete',data: {confirm: 'Are you sure ?!'}, 
+                        :class => 'w-2 text-gray-500 hover:text-gray-700 text-white py-1 rounded mr-1') do %>
+              <i class="btn-del fa fa-times text-2xl"></i>
+            <% end %>
           </div>
-          
-        </div>
 
-        <div class="part-btns hover w-1/6 text-right pr-5 mt-6">
-          <%= link_to(edit_board_path(board.id), 
-                      :class => 'w-2 text-orange-500 hover:text-orange-700 text-white py-1 mr-1') do %>
-            <i class="btn-edit fa fa-pencil-square text-3xl"></i>
-          <% end %>
-          <%= link_to(board_path(board.id),method: 'delete',data: {confirm: 'Are you sure ?!'}, 
-                      :class => 'w-2 text-red-500 hover:text-red-700 text-white py-1 rounded mr-1') do %>
-            <i class="btn-del fa fa-window-close text-3xl"></i>
-          <% end %>
         </div>
-
       </div>
 
       <% order = order + 1 %>

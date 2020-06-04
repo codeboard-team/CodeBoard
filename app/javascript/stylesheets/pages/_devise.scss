@@ -1,0 +1,29 @@
+#tab-sign-in-up {
+    ul li a.active {
+        background-color: white;
+        border-bottom: 1px solid white;
+    }
+}
+
+.devise-form {
+    input[placeholder] {
+        padding-left: 2.4rem;
+    }
+    input[type="submit"] {
+        background-color: $color-btn-main;
+        font-size: 1rem;
+        color: #fff;
+        &:hover {
+            background-color: $color-btn-main-100;
+        }
+    }
+    span.item-icon {
+        position: absolute;
+        align-self: center;
+        font-size: 1.2rem;
+        padding-left: .5rem;
+        color: #888;
+        width: 2rem;
+        text-align: center;
+    }
+}

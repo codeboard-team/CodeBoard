@@ -1,3 +1,10 @@
-input:checked + svg {
-  display: block;
+input:checked+svg {
+    display: block;
+}
+
+#tab-board-index {
+    ul li a.active {
+        background-color: white;
+        border-bottom: 1px solid white;
+    }
 }

@@ -1,20 +1,18 @@
-<div id="part-board" class="border-b ">
+<div id="part-board" class="border-b">
 
-  <div class="one-board flex border-t border-b mt-12 rounded">
+  <div class="one-board relative flex border-t border-b mt-12 rounded">
 
-    <div class="absolute -mt-2 -ml-2">
-
+    <div class="-mt-2 -ml-2 absolute">
       <span class="bg-gray-600 text-white py-1 px-2 text-s text-right">
         <%= @board.language%>
       </span>
-
     </div>
 
     <div class="w-full ml-8 px-6">
 
       <div class="w-full flex">
         <div class="w-full mt-1">
-          <p class="pt-5 pb-1 block w-full text-blue-700 font-bold text-xl">
+          <p class="pt-5 pb-1 block w-full text-purple-700 font-bold text-xl">
             <span class="-ml-8 mr-2">
               <i class="fa fa-files-o"></i>
             </span>
@@ -46,8 +44,7 @@
             </span>
 
             <span class="">
-              <i class="fa fa-user"></i>
-              by <%=@board.user.email.split("@")[0]%>
+              <i class="fa fa-user"></i> <%= email_account(@board.user)%>
             </span>
 
           <% end %>
@@ -64,12 +61,12 @@
 
         <div class="part-btns hover text-right">
             <%= link_to(edit_board_path(@board.id), 
-                        :class => 'w-2 text-orange-500 hover:text-orange-700 text-white py-1 mr-1') do %>
-              <i class="btn-edit fa fa-pencil-square text-3xl"></i>
+                        :class => 'w-2 text-gray-500 hover:text-gray-700 text-white py-1 mr-1') do %>
+              <i class="btn-edit fa fa-pencil  text-2xl"></i>
             <% end %>
             <%= link_to(board_path(@board.id),method: 'delete',data: {confirm: 'Are you sure ?!'}, 
-                        :class => 'w-2 text-red-500 hover:text-red-700 text-white py-1 rounded mr-1') do %>
-              <i class="btn-del fa fa-window-close text-3xl"></i>
+                        :class => 'w-2 text-gray-500 hover:text-gray-700 text-white py-1 rounded mr-1') do %>
+              <i class="btn-del fa fa-times text-2xl"></i>
             <% end %>
 
         </div>
@@ -77,9 +74,9 @@
         <div>
           <p class="text-right my-4 block whitespace-no-wrap">
             <%= link_to(new_board_card_path(@board.id), 
-                        :class => 'bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded') do %>
-              <span class="">
-                <i class="fa fa-plus mr-2"></i>Card
+                        :class => 'bg-purple-500 hover:bg-purple-700 text-white py-2 px-4 rounded') do %>
+              <span class="font-bold">
+                <i class="fa fa-plus mr-2"></i>題目
               </span>
             <% end %>
           </p>

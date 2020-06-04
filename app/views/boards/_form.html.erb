@@ -10,15 +10,15 @@
     </ul>
   <% end %>
 
-  <div id="board" class="w-4/5 xl:w-1/3 m-auto shadow rounded-lg border mt-10">
+  <div id="board" class="bg-white w-4/5 xl:w-1/3 m-auto shadow rounded-lg border mt-10">
 
     <div id="board-head" class="border-b">
       <h1 class="border-gray-800 text-gray-700 font-bold text-xl text-center py-4">
         <% case action_name%>
           <% when "new"%>
-            <%="新建 Board"%>
+            <%="新建題組"%>
           <% when "edit"%>
-            <%="編輯 Board"%>
+            <%="編輯題組"%>
         <% end %>
       </h1>
     </div>
@@ -44,7 +44,7 @@
 
     <div id="board-foot">
       <div class="flex my-6 pt-5 border-t">
-        <%= f.submit '送出', class: 'w-1/3 m-auto bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'  %>
+        <%= f.submit '送出', class: 'w-1/3 m-auto bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded'  %>
       <div>
     </div>
 
