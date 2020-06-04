@@ -31,7 +31,37 @@
     </div>
 
     <div class="mb-6">
-      <%= f.submit "Sign up", class: "btn btn-default" %>
+      <%= f.submit "Sign up", class: "btn btn-default block w-full rounded-md shadow-sm" %>
+    </div>
+
+    <div class="mb-6">
+      <div class="relative">
+        <div class="absolute inset-0 flex items-center">
+          <div class="w-full border-t border-gray-300"></div>
+        </div>
+        <div class="relative flex justify-center text-sm leading-5">
+          <span class="px-2 bg-white text-gray-500">
+            Or continue with
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-6 grid grid-cols-2 gap-2">
+      <div>
+        <span class="w-full inline-flex rounded-md shadow-sm">
+          <a class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md rounded-lg  bg-white text-sm leading-5 font-medium focus:outline-none focus:border-blue-300 focus:shadow-outline-blue transition  duration-150 ease-in-out" href="/users/auth/github">
+            <%= render_svg 'icons/github' , styles: "fill-current w-6 h-6"%>
+          </a>
+        </span>
+      </div>
+      <div>
+        <span class="w-full inline-flex rounded-md shadow-sm">
+          <a class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-lg bg-white text-sm leading-5 font-medium text-gray-500 hover:text-gray-400 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue transition duration-150 ease-in-out" href="/users/auth/google_oauth2">
+            <%= render_svg 'icons/google' , styles: "fill-current w-6 h-6 mr-2"%>
+          </a>
+        </span>
+      </div>
     </div>
 
     <hr class="border mt-6" />
@@ -42,4 +72,4 @@
 
 <% end %>
 
-<%= render "devise/shared/form_wrap" %>
+  <%= render "devise/shared/form_wrap" %>

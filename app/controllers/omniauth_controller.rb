@@ -1,4 +1,5 @@
 class OmniauthController < ApplicationController
+
   def github 
     @user = User.create_from_provider_data(request.env['omniauth.auth'])  
     if @user.persisted?
@@ -25,6 +26,10 @@ class OmniauthController < ApplicationController
     flash[:error] = 'There was a problem signing you in . Please register or try signing in later.'
     redirect_to new_user_registration_url
   end
+
+  # def after_sign_in_path_for(resource_or_scope)
+  #   request.env['omniauth.auth'] || stored_location_for(resource_or_scope) || root_path
+  # end
 
 end
 
