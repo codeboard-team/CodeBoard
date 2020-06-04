@@ -21,6 +21,7 @@ Rails.application.routes.draw do
     end 
   end
 
-  resources :cards, only: [:index] ,to: 'cards#list'
+  resources :cards, only: [:index], to: 'cards#list'
+  resources :records, only: [:show]
   
 end
