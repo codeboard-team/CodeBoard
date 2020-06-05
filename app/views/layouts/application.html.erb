@@ -11,7 +11,7 @@
     <%= javascript_pack_tag  'application', 'data-turbolinks-track': 'reload' %>
   </head>
   
-  <body class="" font-sans leading-normal tracking-normal">
+  <body class= "font-sans leading-normal tracking-normal">
 
   <% flash.each do |type, message| %>
     <% if type == "alert" %>
@@ -55,6 +55,7 @@
             <span class="text-white">
               <%=  email_account(current_user) %>
             </span>
+            <%= image_tag(current_user.avatar_thumbnail) if current_user.avatar.attached? %>
             <p class="mr-4"><%= current_user.name %></p>
             <%= link_to "登出", destroy_user_session_path, method: :delete, class:"btn mb-2 lg:mr-2 lg:mb-0 block rounded text-white border-white-600" %>
             
@@ -62,6 +63,9 @@
             <%= link_to "登入", new_user_session_path, class:"btn mb-2 lg:mr-2 lg:mb-0 block rounded text-text border-text hover:text-white hover:border-white" %>
             <%= link_to "註冊", new_user_registration_path, class:" btn mb-2 lg:mr-2 lg:mb-0 block rounded text-text border-text hover:text-white hover:border-white" %>
           <% end %>
+
+          <%= link_to "Edit Account", edit_user_registration_path %>
+          <%= image_tag(current_user.avatar_thumbnail) if current_user.avatar.attached? %>
         </div>  
       
       </div>  

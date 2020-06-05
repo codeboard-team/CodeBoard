@@ -1,0 +1,15 @@
+<%= "Personal profiles"%>
+<%= link_to "boards", boards_path(@boards) , class: 'block text-blue-700 hover:text-blue-600 font-bold text-xl'%>
+<div class="text-blue-700 hover:text-blue-600 font-bold text-xl">
+  <%#= current_user.records.where(solved: true).try(:each) do |record|%>
+  <%# <p class="ml-5"><%= record.card.title %></p> 
+  <p class="ml-5"><%#= record.card.tags %></p>
+  <p class="ml-5"><%#= record.card.order %></p>
+  <%# end %>
+</div>
+
+
+<%# 要有board_id，card_id，records_solved %>
+
+<%# boards的title&link
+card的title&link %>
