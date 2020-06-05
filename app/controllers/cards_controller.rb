@@ -72,7 +72,7 @@ class CardsController < ApplicationController
   end
 
   def show
-    @solved_card = @card.records.with_solved
+    @solved_records = @card.records.with_solved
     if @board.user == current_user
       render 'card_questioner'      
     else
@@ -113,7 +113,7 @@ class CardsController < ApplicationController
       
       if @record.solved
         flash[:notice] = "You Did it!"
-        render 'card_solved'
+        redirect_to board_card_path
       else
         print_true
         flash[:alert] = "wrong!"
@@ -164,12 +164,17 @@ class CardsController < ApplicationController
   end
 
   def print_true
-    @result = [*0..@comparer_service.index].map{ |e|
-      @result[e]
-    }
-    @test_code = [*0..@comparer_service.index].map{ |e|
-      @card.test_code[e]
-    }
+    if @comparer_service.index <= 0
+      @test_code = [@card.test_code[0]]
+      @result = [@result.first]
+    else
+      @result = [*0..@comparer_service.index].map{ |e|
+        @result[e]
+      }
+      @test_code = [*0..@comparer_service.index].map{ |e|
+        @card.test_code[e]
+      }
+    end
   end
 
   def check_authority

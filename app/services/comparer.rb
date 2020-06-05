@@ -18,9 +18,9 @@ class Comparer
   private
   def print_amount
     counter = 0
-      while @result[counter]
-        counter += 1
-      end
+    while @result[counter]
+      counter += 1
+    end
     @index = counter - 1
   end
 

@@ -8,18 +8,16 @@
   }
 </style>
 
-<%= form_with model: @record, url: solve_board_card_path, method: :patch, local: true do |f| %>
-
   <div id="page-show-solved" class="container-full">  
 
     <div id="part-borard-info" class="w-full">
-        <%= render "cards/banner_board_info" %>
+      <%= render "cards/banner_board_info" %>
     </div>
 
     <div class="flex w-full">
 
       <div id="part-cards-list" class="w-1/4  m-0 pb-12 border-r">
-        <%= render "cards/nav_cards_list",  nowCard: @card.id  %>
+        <%= render "cards/nav_cards_list", nowCard: @card.id  %>
       </div>
 
       <div id="part-card-content" class="w-3/4 m-0 m-auto pb-12">
@@ -67,10 +65,12 @@
             <div class="w-full mb-4">
 
               <div class="mg-0 leading-loose">
-                <%= f.label :code, 'Your answer', class: 'block w-100 px-5 text-gray-600'%>
+                <label for="record_code" class="block w-100 px-5 text-gray-600">Your answer</label>
+                <% label :code, 'Your answer', class: 'block w-100 px-5 text-gray-600'%>
               </div>
               <div class="px-4 py-1 my-4">
-                <%= f.hidden_field :code, id: "code" %>
+                <% hidden_field :code, id: "code" %>
+                <input type="hidden" id="code" name="record[code]" value="<%= @record.code %>">
                 <div solving class="editor readonly" data-target="code"></div>
                 </div>
               </div>
@@ -81,7 +81,9 @@
 
               <div class="flex w-full px-4 py-1 my-2 -mt-1">
                 <section class="w1/2 m-auto mt-6">
-                  <%= f.label :test_code, '測試方法 → 執行結果 ', class: 'uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
+                  <label for="test_code" class="uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3">
+                    測試方法 → 執行結果
+                  </label>
                 </section>
               </div>
 
@@ -91,13 +93,13 @@
 
                 <div class="w-1/2">
                   <div id="section-test-code">
-                    <% if @card.test_code %>
+                    
                       <% num = 0 %>
                       <% @card.test_code.each do |test_code| %>
                         <% num = num + 1 %>
                         <%= render "cards/data_test_item", num: num ,test_code: test_code %>
                       <% end %>
-                    <% end %>
+                 
                   </div>
                 </div>
 
@@ -127,7 +129,7 @@
 
             <div class="w-full m-0 flex flex-wrap">
             
-              <% @solved_card&.records&.each do |record| %>
+              <% @solved_records&.each do |record| %>
                 <% unless record.user == current_user %>
                   <div class="border w-1/2 p-4 box-border">
                     <%= link_to email_account(record.user), record_path(id: record.id), class: 'border-b py-2' %>
@@ -144,4 +146,3 @@
       </div> 
     </div>
   </div>
-<% end %>

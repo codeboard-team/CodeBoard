@@ -116,7 +116,7 @@
 
             <div class="w-full m-0 flex flex-wrap">
             
-              <% @solved_cards&.records&.each do |record| %>
+              <% @solved_records&.each do |record| %>
                 <% if record != @record %>
                   <div class="border w-1/2 p-4 box-border">
                     <%= link_to email_account(record.user), record_path(id: record.id), class: 'border-b py-2' %>

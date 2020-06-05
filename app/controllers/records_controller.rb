@@ -2,6 +2,7 @@ class RecordsController < ApplicationController
   before_action :find_record, :find_board, :find_card
 
   def show
+    @solved_records = @card.records.with_solved
   end
 
   private
@@ -15,7 +16,6 @@ class RecordsController < ApplicationController
 
   def find_card
     @card = @record.card
-    @solved_cards = @card.records.with_solved
   end
 
 end
