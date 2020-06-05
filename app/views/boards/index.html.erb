@@ -2,7 +2,7 @@
   <div class="flex flex-col">
     <div class="bg-white align-middle block min-w-full shadow overflow-hidden sm:rounded-lg ">
       <%= render "boards/index_tab" %>
-      <nav class="bg-white mb-3">
+      <nav class="mb-3">
         <%= search_form_for @q do |f| %>
         <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
           <div class="flex justify-between items-center h-16 ">
@@ -33,10 +33,10 @@
         </div>
         <% end %>
       </nav>
-      <hr>      
+      <hr>
       <div class="my-5 mx-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
         <% @boards.each do |board| %>
-          <div class="bg-white overflow-hidden shadow rounded-lg">
+          <%= link_to board_path(board.id), class: 'bg-white overflow-hidden shadow rounded-lg' do %>
             <div class="bg-white px-4 py-5 sm:p-6">
               <dl>
                 <span class="flex justify-start px-2.5 py-0.5 rounded-full text-sm font-medium text-indigo-300 md:mt-2 lg:mt-0">
@@ -69,21 +69,14 @@
                 </dd>
               </dl>
             </div>
-            <div class="bg-gray-50 px-4 py-4 sm:px-6">    
-              <div class="flex justify-end items-center text-sm leading-5">
-                <span class="inline-flex rounded-md shadow-sm">
-                  <%= link_to '挑戰', board_path(board.id), class: "inline-flex items-center mx-1 my-1 px-5 py-2 border border-transparent text-xs leading-4 font-medium rounded text-white bg-purple-600 hover:bg-purple-500 focus:outline-none focus:border-purple-700 focus:shadow-outline-purple active:bg-purple-700 transition ease-in-out duration-150" %>
-                </span>
-              </div>
-            </div>
-          </div>
+          <% end %>
         <% end %>
-      </div>     
+      </div>
       <hr>
       <nav class="bg-white px-4 py-3 flex items-center justify-between sm:px-6 sm:justify-end">
         <div class="flex-1 flex justify-between sm:justify-end">
-          <%= link_to_prev_page @boards, '上一頁', class: 'relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-purple focus:border-purple-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150' %>
-          <%= link_to_next_page @boards, '下一頁', class: 'relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-purple focus:border-purple-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150' %>
+          <%= link_to_prev_page @boards, '上一頁', class: 'relative inline-flex items-center px-4 py-2 border border-indigo-300 text-sm leading-5 font-medium rounded-lg text-indigo-700 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline-indigo focus:border-indigo-300 active:bg-indigo-100 active:text-indigo-700 transition ease-in-out duration-150' %>
+          <%= link_to_next_page @boards, '下一頁', class: 'relative inline-flex items-center px-4 py-2 border border-indigo-300 text-sm leading-5 font-medium rounded-lg text-indigo-700 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline-indigo focus:border-indigo-300 active:bg-indigo-100 active:text-indigo-700 transition ease-in-out duration-150' %>
         </div>
       </nav>
     </div>

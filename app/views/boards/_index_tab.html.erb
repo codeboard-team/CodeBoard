@@ -1,15 +1,14 @@
 <div id="tab-board-index" class=" w-full">
   <ul class="flex w-full mb-6">
     <li class="w-1/2 text-center block text-xl text-indigo-600 bg-gray-100">
-
       <%= link_to(boards_path, 
-                  :class => "#{'active' if current_path_last_string=="boards"} rounded-tl block py-5 text-l bg-indigo-100") do %>
+                  :class => "#{'active' if current_path_last_string=="boards"} rounded-tl block py-5 text-l bg-gray-200 text-indigo-600") do %>
                   探索題組
       <% end %>
     </li>
     <li class="w-1/2  text-center block text-xl text-indigo-600 bg-gray-100">
       <%= link_to( cards_path, 
-                  :class => "#{'active' if current_path_last_string=="cards"} rounded-tr block py-5 text-l bg-indigo-100") do %>
+                  :class => "#{'active' if current_path_last_string=="cards"} rounded-tr block py-5 text-l bg-gray-200 text-indigo-600") do %>
                   總覽題目
       <% end %>
     </li>
