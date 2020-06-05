@@ -86,9 +86,5 @@ gem 'ed25519', '~> 1.2', '>= 1.2.4'
 # set ENV variables
 gem 'figaro', '~> 1.0'
 
-<<<<<<< HEAD
 # soft delete
 gem 'paranoia', '~> 2.1', '>= 2.1.5'
-=======
-
->>>>>>> install searching gem
