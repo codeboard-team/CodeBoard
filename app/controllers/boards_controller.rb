@@ -6,10 +6,11 @@ class BoardsController < ApplicationController
   before_action :check_authority, only: [:edit, :update, :destroy]
 
   def index
-    @q = Board.ransack(params[:q])
-    @boards = Board.joins(:cards).distinct('boards.id').page(params[:page]).per(6)
+    @q = Board.joins(:cards).distinct('boards.id').ransack(params[:q])
+    @boards = @q.result
+                .page(params[:page]).per(6)
   end
-
+  
   def new
   end
 

@@ -15,12 +15,9 @@ class CardsController < ApplicationController
   end
 
   def list
-    @cards = Card.page(params[:page]).per(6)
-    if params[:search]
-      @search_term = params[:search]
-      @cards = @cards.search_by(@search_term)
-    end
-    render :index
+    @q = Card.ransack(params[:q])
+    @cards = @q.result.page(params[:page]).per(6)
+    # render :index
   end
   
   def new
