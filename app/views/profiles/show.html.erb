@@ -1,15 +1,21 @@
 <%= "Personal profiles"%>
-<%= link_to "boards", boards_path(@boards) , class: 'block text-blue-700 hover:text-blue-600 font-bold text-xl'%>
 <div class="text-blue-700 hover:text-blue-600 font-bold text-xl">
-  <%#= current_user.records.where(solved: true).try(:each) do |record|%>
-  <%# <p class="ml-5"><%= record.card.title %></p> 
-  <p class="ml-5"><%#= record.card.tags %></p>
-  <p class="ml-5"><%#= record.card.order %></p>
-  <%# end %>
+  <% @solved_card.try(:each) do |record|%>
+    <p><%= record.card.board.id %></p>
+    <p><%= record.card.id %></p>
+    <p><%= record.card.title %><p>
+    <p><%= record.card.level %></p>
+    <p><%= record.card.tags %></p>
+  <% end %>
+</div>
+<br>
+<div class="text-blue-700 hover:text-blue-600 font-bold text-xl">
+  <%= link_to "所有的board", boards_path %>
+  <% @user.boards.try(:each) do |board|%>
+    <p><%= board.id %></p>
+    <p><%= board.language %></p>
+    <p><%= board.description %></p>
+    <p><%= board.title %></p>
+  <% end %>
 </div>
 
-
-<%# 要有board_id，card_id，records_solved %>
-
-<%# boards的title&link
-card的title&link %>
