@@ -1,110 +1,99 @@
 <div class="container max-w-full my-12 mx-auto px-4 md:px-12">
   <div class="flex flex-col">
-    <div class="my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-      <div class="bg-white align-middle block min-w-full shadow overflow-hidden sm:rounded-lg ">
-        <div class="bg-white mb-4 border-b px-4 py-5 sm:px-6">
-          <div class="w-full max-w-md mx-auto shadow">
-            <%= render "boards/index_tab" %>
+    <div class="bg-white align-middle block min-w-full shadow overflow-hidden sm:rounded-lg ">
+      <%= render "boards/index_tab" %>
+      <nav class="bg-white mb-3">
+        <%= search_form_for @q do |f| %>
+        <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
+          <div class="flex justify-between items-center h-16 ">
+            <div class="flex-shrink-0 flex items-center">
+              <div class="relative  border-none">
+                <%= f.select :language_cont,
+                  [["請選擇語言", ""], ["Ruby", "ruby"], ["Javascript", "javascript"], ["Python", "python"]], 
+                  {}, 
+                  {
+                    class: 'bg-white text-indigo-500 appearance-none border inline-block py-3 pl-3 pr-8 rounded leading-tight w-full text-sm',
+                    id: "language"
+                  }
+                %>
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2">
+                  <%= render_svg 'icons/chevron-down' %>
+                </div>      
+              </div>
+            </div>
+            <div class="sm:block  lg:flex-shrink-0 flex justify-end rounded-lg">         
+              <div class="pt-2 relative mx-auto text-gray-600">
+                <%= f.search_field :title_cont, class: "border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none" ,placeholder: "搜尋 ..."%>
+                <button type="submit" class="absolute right-0 top-0 mt-5 mr-4">
+                  <%= render_svg 'icons/search'%>
+                </button>
+              </div> 
+            </div>
           </div>
         </div>
-        <nav class="bg-white mb-3">
-          <%= search_form_for @q do |f| %>
-          <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
-            <div class="flex justify-between items-center h-16 ">
-              <div class="flex-shrink-0 flex items-center">
-                <div class="relative  border-none">
-                  <select class="bg-gray-100 text-gray-600 appearance-none border inline-block py-3 pl-3 pr-8 rounded leading-tight w-full" id="language">
-                    <option value="" disabled selected>請選擇語言</option>
-                    <option <%= "selected" if params["q"].try(:[],:language_cont) == "ruby" %> data-url="<%= boards_path(q: {language_cont: 'ruby'})%>">Ruby</option>
-                    <option <%= "selected" if params["q"].try(:[],:language_cont) == "javascript"%> data-url="<%= boards_path(q: {language_cont: 'javascript'})%>">Javascript</option>
-                    <option <%= "selected" if params["q"].try(:[],:language_cont) == "python"%> data-url="<%= boards_path(q: {language_cont: 'python'})%>">Python</option>
-                  </select>
-                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2">
-                    <%= render_svg 'icons/chevron-down' %>
-                  </div>      
-                </div>
-              </div>
-              <div class="sm:block  lg:flex-shrink-0 flex justify-end rounded-lg">         
-                <div class="pt-2 relative mx-auto text-gray-600">
-                  <%= f.search_field :title_cont, class: "border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none" ,placeholder: "搜尋 ...", f: f%>
-                  <button type="submit" class="absolute right-0 top-0 mt-5 mr-4">
-                    <%= render_svg 'icons/search'%>
-                  </button>
-                </div> 
+        <% end %>
+      </nav>
+      <hr>      
+      <div class="my-5 mx-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <% @boards.each do |board| %>
+          <div class="bg-white overflow-hidden shadow rounded-lg">
+            <div class="bg-white px-4 py-5 sm:p-6">
+              <dl>
+                <span class="flex justify-start px-2.5 py-0.5 rounded-full text-sm font-medium text-indigo-300 md:mt-2 lg:mt-0">
+                  <%= board.language %>
+                </span>
+                <dt class="flex justify-start my-4 text-xl leading-5 font-medium text-indigo-800 font-bold truncate">
+                  <%= board.title %>
+                </dt>
+                <hr>
+                <p class="my-4 text-gray-500"><%= board.description %></p>
+                <hr>
+                <dd class="flex justify-between items-center mt-5">
+                  <div class="flex">
+                    <span class="inline-block h-6 w-6 rounded-full overflow-hidden bg-gray-100">
+                      <svg class="h-full w-full text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                      </svg>
+                    </span>
+                    <div class="text-xl leading-8 font-semibold text-gray-900">
+                      <p class="flex items-baseline text-sm">
+                        <%= email_account(board.user) %>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="flex items-baseline">
+                    <div class="text-sm leading-5 font-semibold text-indigo-600">
+                      <%= board.cards.count%>題
+                    </div>
+                  </div>
+                </dd>
+              </dl>
+            </div>
+            <div class="bg-gray-50 px-4 py-4 sm:px-6">    
+              <div class="flex justify-end items-center text-sm leading-5">
+                <span class="inline-flex rounded-md shadow-sm">
+                  <%= link_to '挑戰', board_path(board.id), class: "inline-flex items-center mx-1 my-1 px-5 py-2 border border-transparent text-xs leading-4 font-medium rounded text-white bg-purple-600 hover:bg-purple-500 focus:outline-none focus:border-purple-700 focus:shadow-outline-purple active:bg-purple-700 transition ease-in-out duration-150" %>
+                </span>
               </div>
             </div>
           </div>
-          <% end %>
-        </nav>
-        <hr>
-        <div>
-          <div class="my-5 mx-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            <% @boards.each do |board| %>
-              <div class="bg-white overflow-hidden shadow rounded-lg">
-                <div class="bg-gray-100 px-4 py-5 sm:p-6">
-                  <dl>
-                    <span class="max-w-md flex justify-center  px-2.5 py-0.5 rounded-full text-sm font-medium leading-5 bg-red-100 text-red-800 md:mt-2 lg:mt-0">
-                      <%= board.language %>
-                    </span>
-                    <div class="inline-flex items-center px-2.5 py-0.5 rounded-full text-sm font-medium leading-5 bg-green-100 text-green-800 md:mt-2 lg:mt-0">
-                    </div>
-                    <div class="inline-flex items-center px-2.5 py-0.5 rounded-full text-sm font-medium leading-5 bg-green-100 text-green-800 md:mt-2 lg:mt-0">
-                    </div>
-                    <dt class="flex justify-start my-4 text-xl leading-5 font-medium text-black font-bold truncate">
-                      <%= board.title %>
-                    </dt>
-                    <hr>
-                    <p class="my-4 text-gray-500"><%= board.description %></p>
-                    <hr>
-                    <dd class="flex justify-between items-center mt-5">
-                      <div class="flex">
-                        <span class="inline-block h-6 w-6 rounded-full overflow-hidden bg-gray-100">
-                          <svg class="h-full w-full text-gray-500" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
-                          </svg>
-                        </span>
-                        <div class="text-xl leading-8 font-semibold text-gray-900">
-                          <p class="flex items-baseline text-sm">
-                            <%= email_account(board.user) %>
-                          </p>
-                        </div>
-                      </div>
-                      <div class="flex items-baseline">
-                        <div class="text-sm leading-5 font-semibold text-green-600">
-                          <%= board.cards.count %>
-                          <svg class="inline-flex mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M3 5a2 2 0 012-2h6a2 2 0 012 2H5v8a2 2 0 01-2-2V5zm6 2a2 2 0 00-2 2v6a2 2 0 002 2h6a2 2 0 002-2V9a2 2 0 00-2-2H9z" clip-rule="evenodd"/>
-                          </svg>
-                        </div>
-                      </div>
-                    </dd>
-                  </dl>
-                </div>
-                <div class="bg-gray-50 px-4 py-4 sm:px-6">    
-                  <div class="flex justify-end items-center text-sm leading-5">
-                    <span class="inline-flex rounded-md shadow-sm">
-                      <%= link_to '挑戰', board_path(board.id), class: "inline-flex items-center mx-1 my-1 px-5 py-2 border border-transparent text-xs leading-4 font-medium rounded text-white bg-purple-600 hover:bg-purple-500 focus:outline-none focus:border-purple-700 focus:shadow-outline-purple active:bg-purple-700 transition ease-in-out duration-150" %>
-                    </span>
-                  </div>
-                </div>
-              </div>
-            <% end %>
-          </div>
+        <% end %>
+      </div>     
+      <hr>
+      <nav class="bg-white px-4 py-3 flex items-center justify-between sm:px-6 sm:justify-end">
+        <div class="flex-1 flex justify-between sm:justify-end">
+          <%= link_to_prev_page @boards, '上一頁', class: 'relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-purple focus:border-purple-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150' %>
+          <%= link_to_next_page @boards, '下一頁', class: 'relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-purple focus:border-purple-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150' %>
         </div>
-        <hr>
-        <nav class="bg-white px-4 py-3 flex items-center justify-between sm:px-6 sm:justify-end">
-          <div class="flex-1 flex justify-between sm:justify-end">
-            <%= link_to_prev_page @boards, '上一頁', class: 'relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-purple focus:border-purple-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150' %>
-            <%= link_to_next_page @boards, '下一頁', class: 'relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-purple focus:border-purple-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150' %>
-          </div>
-        </nav>
-      </div>
+      </nav>
     </div>
   </div>
 </div>
 
 <script>
-  $('#language').on('change', function(){ location.href = $('option:checked', this).data('url') })
+  $('#language').on('change', function(){
+    $('#board_search').submit()
+  })
 </script>
 
 
