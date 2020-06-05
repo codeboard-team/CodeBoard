@@ -5,6 +5,7 @@ class Board < ApplicationRecord
   belongs_to :user
 
   validates :title, presence: true
+  validates :description, presence: true
   validates :language, presence: true
 
   def self.search_by_title(search_term)
