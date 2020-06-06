@@ -1,7 +1,7 @@
 class Board < ApplicationRecord
   acts_as_paranoid
 
-  has_many :cards
+  has_many :cards, dependent: :destroy
   belongs_to :user
 
   validates :title, presence: true
