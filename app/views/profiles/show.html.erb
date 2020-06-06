@@ -1,12 +1,10 @@
-<%= "Personal profiles"%>
+<span class="text-white">
+<%= link_to(profile_path(current_user.id), 
+          :class => 'w-10 text-gray-500 hover:text-gray-700 font-bold text-xl text-blue py-1 mr-1') do %>
+<%= email_account(current_user) %>             
+<% end %>
+</span>
 <div class="text-blue-700 hover:text-blue-600 font-bold text-xl">
-  <% @solved_card.try(:each) do |record|%>
-    <p><%#= record.card.board.id %></p>
-    <p><%#= record.card.id %></p>
-    <p><%#= record.card.title %><p>
-    <p><%#= record.card.level %></p>
-    <p><%#= record.card.tags %></p>
-  <% end %>
 </div>
 
 <div class="container max-w-full my-12 mx-auto px-4 md:px-12">
@@ -90,13 +88,6 @@
     $('#card_search').submit()
   })
 </script>
-
-  <%# @user.boards.try(:each) do |board|%>
-    <%# <p><%= board.id %></p>
-    <p><%#= board.language %></p>
-    <p><%#= board.description %></p>
-    <p><%#= board.title %></p> 
-  <%# end %>
 
 <div class="container max-w-full my-12 mx-auto px-4 md:px-12">
   <div class="flex flex-col">
