@@ -1,10 +1,11 @@
 class Board < ApplicationRecord
   acts_as_paranoid
 
-  has_many :cards
+  has_many :cards, dependent: :destroy
   belongs_to :user
 
   validates :title, presence: true
+  validates :description, presence: true
   validates :language, presence: true
 
   def self.search_by_title(search_term)

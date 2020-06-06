@@ -9,4 +9,13 @@ class Card < ApplicationRecord
   validates :level, presence: true
   validates :result, presence: true
 
+  def self.search_by(search_term)
+    if search_term
+      where("LOWER(title) LIKE :search_term",
+      search_term: "%#{search_term.downcase}%")
+    else
+      all
+    end
+  end
+
 end

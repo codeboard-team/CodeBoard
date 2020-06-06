@@ -6,15 +6,13 @@ class BoardsController < ApplicationController
   before_action :check_authority, only: [:edit, :update, :destroy]
 
   def index
-    @boards = Board.joins(:cards).distinct('boards.id').page(params[:page]).per(6)
-
-    if params[:search]
-      @search_term = params[:search]
-      @boards = @boards.search_by_title(@search_term)
-    end
+    @q = Board.joins(:cards).distinct('boards.id').ransack(params[:q])
+    @boards = @q.result
+                .page(params[:page]).per(6)
   end
-
-  def new; end
+  
+  def new
+  end
 
   def create
     @board.assign_attributes(board_params)

@@ -66,6 +66,9 @@ gem 'activerecord-session_store', '~> 1.1', '>= 1.1.3'
 # foreman
 gem 'foreman', '~> 0.87.1'
 
+# MetaSearch gem
+gem 'ransack'
+
 # Kaminari is a Scope & Engine based, clean, powerful, agnostic, customizable and sophisticated paginator for Rails 4+
 gem 'kaminari', '~> 1.2.1'
 
