@@ -26,7 +26,6 @@ class User < ApplicationRecord
       filename: 'default_avatar.jpg',
       content_type: 'image/jpg'
     )
-    # avatar.attach(io: File.open( Rails.root.join( 'app', 'assets', 'images', 'default_avatar.jpg' )), filename: 'default_profile.jpg')
   end
     end
   # Include default devise modules. Others available are:
