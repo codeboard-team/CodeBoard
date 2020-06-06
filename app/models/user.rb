@@ -5,12 +5,12 @@ class User < ApplicationRecord
   has_many :cards, through: :records
 
   has_one_attached :avatar
-  # after_commit :add_default_avatar, on: %i[create update]
+  after_commit :add_default_avatar, on: %i[update]
   def avatar_thumbnail
     if avatar.attached?
       avatar.variant(resize: "40x40!").processed 
     else
-      "/default_profile.jpg"
+      "/default_avatar.jpg"
     end
   end
 
@@ -23,7 +23,7 @@ class User < ApplicationRecord
           'app', 'assets', 'images', 'default_avatar.jpg'
         )
       ), 
-      filename: 'default_profile.jpg',
+      filename: 'default_avatar.jpg',
       content_type: 'image/jpg'
     )
     # avatar.attach(io: File.open( Rails.root.join( 'app', 'assets', 'images', 'default_avatar.jpg' )), filename: 'default_profile.jpg')
