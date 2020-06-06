@@ -1,12 +1,21 @@
-<span class="text-white">
-<%= link_to(profile_path(current_user.id), 
-          :class => 'w-10 text-gray-500 hover:text-gray-700 font-bold text-xl text-blue py-1 mr-1') do %>
-<%= email_account(current_user) %>             
-<% end %>
-</span>
-<div class="text-blue-700 hover:text-blue-600 font-bold text-xl">
+<div class="mb-6">
+  <%= image_tag(@user.avatar_thumbnail, size: "150x150") %>
+</div>
+<div class="mb-6 ">
+  <% if @user.username == nil? %>
+    <%= email_account(@user) %>
+    <% else %>
+    <%= @user.username %>
+    <% end %>
+  <br>
+  <%= @user.email %>
 </div>
 
+<div class="w-40 bg-purple-300 hover:bg-purple-300 py-1 px-6 font-bold text-black text-center rounded-full ">
+<% if current_user == @user %>
+  <%= link_to "Edit profile", edit_user_registration_path %>
+ <% end %>
+</div>
 <div class="container max-w-full my-12 mx-auto px-4 md:px-12">
   <div class="flex flex-col">
     <div class="bg-white align-middle block min-w-full shadow overflow-hidden sm:rounded-lg ">
