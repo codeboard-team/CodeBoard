@@ -15,8 +15,8 @@ class CardsController < ApplicationController
   end
 
   def list
-    @cards = Card.page(params[:page]).per(5)
-    render :index
+    @q = Card.ransack(params[:q])
+    @cards = @q.result.page(params[:page]).per(6)
   end
   
   def new
