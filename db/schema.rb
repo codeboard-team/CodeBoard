@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_05_044400) do
+ActiveRecord::Schema.define(version: 2020_06_07_081635) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,6 +71,14 @@ ActiveRecord::Schema.define(version: 2020_06_05_044400) do
     t.index ["test_code"], name: "index_cards_on_test_code"
   end
 
+  create_table "comments", force: :cascade do |t|
+    t.text "content"
+    t.integer "card_id"
+    t.integer "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string "slug", null: false
     t.integer "sluggable_id", null: false
@@ -113,6 +121,7 @@ ActiveRecord::Schema.define(version: 2020_06_05_044400) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "provider", limit: 50, default: "", null: false
     t.string "uid", limit: 50, default: "", null: false
+    t.string "avatar"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
