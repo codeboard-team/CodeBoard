@@ -51,9 +51,9 @@
             <% @cards.each do |card|%>
               <%= link_to board_card_path(board_id: card.board.id,id: card.id), class: 'bg-white overflow-hidden shadow rounded-lg' do %>
                   <table class="min-w-full>
-                    <tbody class="bg-white">                      
+                    <tbody class="bg-white">
                       <tr>
-                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                        <td class="px-6 py-4 whitespace-no-wrap border-b w-full border-gray-200">
                           <div class="flex items-center">
                             <div class="flex items-center justify-between h-10 w-10 ">
                               <p class="text-3xl text-center align-center text-gray-500">
@@ -110,4 +110,3 @@
     $('#card_search').submit()
   })
 </script>
-
