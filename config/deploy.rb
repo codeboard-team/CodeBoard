@@ -14,7 +14,7 @@ set :keep_releases, 5
 
 # Optionally, you can symlink your database.yml and/or secrets.yml file from the shared directory during deploy
 # This is useful if you don't want to use ENV variables
-# append :linked_files, 'config/database.yml', 'config/secrets.yml'
+append :linked_files, 'config/application.yml'
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp

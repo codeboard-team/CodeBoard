@@ -13,18 +13,17 @@
   
   <body class= "font-sans leading-normal tracking-normal">
 
-  <% flash.each do |type, message| %>
-    <% if type == "alert" %>
-      <div class="bg-red-500">
-        <div class="container px-2 mx-auto py-4 text-white text-center font-medium font-sans"><%= message %></div>
-      </div>
-    <% end %>
-    <% if type == "notice" %>
-      <div class="bg-green-500">
-        <div class="container px-2 mx-auto py-4 text-white text-center font-medium font-sans"><%= message %></div>
-      </div>
-    <% end %>
+  <% if flash[:alert] %>
+    <div class="bg-red-500">
+      <div class="container px-2 mx-auto py-4 text-white text-center font-medium font-sans"><%= flash[:alert] %></div>
+    </div>
   <% end %>
+  <% if flash[:notice] %>
+    <div class="bg-green-500">
+      <div class="container px-2 mx-auto py-4 text-white text-center font-medium font-sans"><%= flash[:notice] %></div>
+    </div>
+  <% end %>
+  <% flash.clear %>
   
   <nav id="nav" class="text-white flex items-center justify-between flex-wrap border-b border-gray-400 bg-purple-800">
     <div class="container sm m-auto flex">

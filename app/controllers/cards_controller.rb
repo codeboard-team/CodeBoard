@@ -72,7 +72,7 @@ class CardsController < ApplicationController
   end
 
   def show
-    @solved_card = @card.records.with_solved
+    @solved_records = @card.records.with_solved
     if @board.user == current_user
       render 'card_questioner'      
     else
@@ -90,7 +90,8 @@ class CardsController < ApplicationController
   end
 
   def solve
-    @solved_card = @card.records.with_solved
+    @solved_cards = @card.records.with_solved
+    @test_code = [@card.test_code[0]]
     @docker_exec_service.code = params[:record][:code]
     @docker_exec_service.test_code = @card.test_code
     exec_and_get_result
@@ -103,17 +104,23 @@ class CardsController < ApplicationController
     @record.assign_attributes(record_params)
 
     if params[:commit] == "送出"
-      @record.solved = @result == compare_type(@card.result)
+      comparer_service
+      @comparer_service.criteria = compare_type(@card.result)
+      @comparer_service.value = @result
+      
+      @record.solved = @comparer_service.run
       @record.save
-
+      
       if @record.solved
         flash[:notice] = "You Did it!"
-        render 'card_solved'
+        redirect_to board_card_path
       else
+        print_true
         flash[:alert] = "wrong!"
         render 'card_solving'
       end
     else
+      @result = [@result.first]
       render 'card_solving'
     end 
   end
@@ -121,7 +128,7 @@ class CardsController < ApplicationController
   private
   def error_message
     if @docker_exec_service.timeout?
-      flash[:alert] = "Runtimes Out!"
+      flash[:alert] = "Timeout!"
     elsif @docker_exec_service.result.nil?
       flash[:alert] = "Answer / Test_code can't be blank"
     else
@@ -152,12 +159,31 @@ class CardsController < ApplicationController
     @test_code = params[:card][:test_code]
   end
 
+  def comparer_service
+    @comparer_service ||= Comparer.new(@criteria, @value) 
+  end
+
+  def print_true
+    if @comparer_service.index <= 0
+      @test_code = [@card.test_code[0]]
+      @result = [@result.first]
+    else
+      @result = [*0..@comparer_service.index].map{ |e|
+        @result[e]
+      }
+      @test_code = [*0..@comparer_service.index].map{ |e|
+        @card.test_code[e]
+      }
+    end
+  end
+
   def check_authority
     redirect_to board_path(id: @board.id), alert: 'check authority error! not owner!' if @board.user_id != current_user.id
   end
 
   def render_new_solving
     @record = Record.new(card_id: @card.id, code: @card.default_code)
+    @test_code = [@card.test_code[0]]
     render 'card_solving'
   end
 

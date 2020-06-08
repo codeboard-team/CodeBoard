@@ -14,7 +14,7 @@
 
   </div>
   
-   <div id="my-board-body" class="pl-4 py-6">
+  <div id="my-board-body" class="pl-4 py-6">
     <% order = 1 %>
     <% @board.each do |board| %>
       <div class="my-4 rounded">
@@ -36,22 +36,20 @@
 
             <div class="w-full flex">
               <div class="w-full mt-1">
-                  <%= link_to(new_board_card_path(board.id), 
-                              :class => 'pt-5 pb-1 block w-full text-purple-700 hover:text-purple-600 font-bold text-xl') do %>
-                    <span class="-ml-8 mr-2">
-                      <i class="fa fa-book"></i>
-                    </span>
-                    <span><%= board.title %></span>
-                    <span class="text-xs text-gray-600"> - <%= board.cards.length %> 題</span>
-                  <% end %>
+                <%= link_to(new_board_card_path(board.id), 
+                            :class => 'pt-5 pb-1 block w-full text-purple-700 hover:text-purple-600 font-bold text-xl') do %>
+                  <span class="-ml-8 mr-2">
+                    <i class="fa fa-book"></i>
+                  </span>
+                  <span><%= board.title %></span>
+                  <span class="text-xs text-gray-600"> - <%= board.cards.length %> 題</span>
+                <% end %>
               </div>
             </div>
                         
             <div class="w-full mb-6">
               <p class="text-gray-600 text-sm leading-relaxed">
-                <% if board.description %>
-                  <%= board.description%>
-                <% end %>
+                <%= board.description%>
               </p>
             </div>
             
@@ -70,10 +68,7 @@
 
         </div>
       </div>
-
       <% order = order + 1 %>
-
     <% end %>
-
   </div>
 </div>
