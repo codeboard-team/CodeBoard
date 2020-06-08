@@ -17,7 +17,7 @@
 <% end %>
 
 <div id="page" class="flex">
-  <h1 class="flex-grow text-purple-700 font-bold text-right mt-2 mb-3">
+  <h1 class="flex-grow text-blue-700 font-bold text-right mt-2 mb-3">
     <% case action_name %>
       <% when "new"%>
         <%="新建題目"%>
@@ -80,7 +80,7 @@
         </section>
 
         <div class="flex-grow mb-4 text-right">
-          <span id="btn-add-hints" class=" bg-purple-500 hover:bg-purple-700 text-white py-2 px-4 rounded">
+          <span id="btn-add-hints" class=" bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded">
           <i class="fa fa-plus mr-2"></i>提示
           </span>
         </div>
@@ -130,14 +130,14 @@
       <div class="editor" data-target="answer"></div>
       <div class="flex m-auto">
         <%= f.submit 'Run', id: 'btn-card-submit', 
-                            class: 'require z-10 m-auto mr-0 bg-purple-500 hover:bg-purple-700 text-white py-2 px-5 rounded my-5' %>
+                            class: 'require z-10 m-auto mr-0 bg-blue-500 hover:bg-blue-700 text-white py-2 px-5 rounded my-5' %>
       </div>
     </div>
 
     <div id="part-test-run">
 
       <div class="flex-grow mb-4 text-right">
-        <span id="btn-add-test-code" class=" bg-purple-500 hover:bg-purple-700 text-white py-2 px-4 rounded">
+        <span id="btn-add-test-code" class=" bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded">
           <i class="fa fa-plus mr-2"></i>測資
         </span>
       </div>
@@ -203,5 +203,5 @@
 
 <div id="part-contorl" class="flex pb-12">
   <%= f.submit '送出',id: 'btn-card-submit', 
-                      class: 'm-auto mr-0  bg-purple-500 hover:bg-purple-700 text-white py-2 px-5 rounded my-5' %>
+                      class: 'm-auto mr-0  bg-blue-500 hover:bg-blue-700 text-white py-2 px-5 rounded my-5' %>
 </div>

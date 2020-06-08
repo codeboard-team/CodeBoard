@@ -8,7 +8,7 @@
           <div class="flex justify-between items-center h-16 ">
             <div class="flex-shrink-0 flex items-center">
               <div class="relative  border-none">
-                <select class="bg-white text-indigo-500 appearance-none border inline-block py-3 pl-3 pr-8 rounded leading-tight w-full">
+                <select class="bg-white text-blue-500 appearance-none border inline-block py-3 pl-3 pr-8 rounded leading-tight w-full">
                     <option>Tags</option>
                 </select>
                 <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2">
@@ -22,7 +22,7 @@
                   [["難度", ""], ["簡單", "簡單"], ["中等", "中等"], ["困難", "困難"]], 
                   {}, 
                   {
-                    class: 'bg-white text-indigo-500 appearance-none border inline-block py-3 pl-3 pr-8 rounded leading-tight w-full text-sm',
+                    class: 'bg-white text-blue-500 appearance-none border inline-block py-3 pl-3 pr-8 rounded leading-tight w-full text-sm',
                     id: "level"
                   }
                 %>
@@ -97,8 +97,8 @@
       </div>
       <nav class="bg-gray-100 px-4 py-3 flex items-center justify-between sm:px-6 sm:justify-end">
         <div class="flex-1 flex justify-between sm:justify-end">
-          <%= link_to_prev_page @cards, '上一頁', class: 'relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-purple focus:border-purple-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150' %>
-          <%= link_to_next_page @cards, '下一頁', class: 'relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-purple focus:border-purple-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150' %>
+          <%= link_to_prev_page @cards, '上一頁', class: 'relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150' %>
+          <%= link_to_next_page @cards, '下一頁', class: 'relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150' %>
         </div>
       </nav>
     </div>
