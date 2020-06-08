@@ -1,5 +1,5 @@
 class Board < ApplicationRecord
-  acts_as_paranoid
+  # acts_as_paranoid
 
   has_many :cards, dependent: :destroy
   belongs_to :user

@@ -33,6 +33,7 @@ import "stylesheets/application"
 
 // page style by HELB
 import "pages/cards"
+import "pages/profile"
 
 // select2
 

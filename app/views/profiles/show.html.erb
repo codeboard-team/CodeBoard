@@ -1,93 +1,138 @@
-<div class="mb-6">
-  <%= image_tag(@user.avatar_thumbnail, size: "150x150") %>
-</div>
-<div class="mb-6 ">
-  <% if @user.username == nil? %>
-    <%= email_account(@user) %>
-    <% else %>
-    <%= @user.username %>
-    <% end %>
-  <br>
-  <%= @user.email %>
-</div>
 
-<% if current_user == @user %>
-  <div class="w-40 bg-purple-300 py-1 px-6 font-bold text-black text-center rounded-full ">
-  <%= link_to "Edit profile", edit_user_registration_path %>
-  </div>
-<% end %>
+
 <div class="container max-w-full my-12 mx-auto px-4 md:px-12">
-  <div class="flex flex-col">
-    <div class="bg-white align-middle block min-w-full shadow overflow-hidden sm:rounded-lg ">
-      <%= render "boards/index_tab" %>
-      <nav class="bg-white mb-3">
-        <div class="max-w-7xl  px-2 sm:px-4 lg:px-8">
+
+
+
+
+  <div id="profile-info" class="relative flex w-full bg-white rounded py-4 my-4 mb-8 px-4 shadow">
+    <div class="profile-img-box mr-4">
+      <%#= image_tag(@user.avatar_thumbnail) %>
+    </div>
+    <div class="">
+      <% if @user.username == nil? %>
+        <%= email_account(@user) %>
+      <% else %>
+        <%= @user.username %>
+      <% end %>
+      <div>
+      <%= @user.email %>
+      <% if current_user == @user %>
+        <div class=" right-0 top-0 absolute p-4">
+          <%= link_to(edit_user_registration_path, 
+                          :class => 'w-2 text-gray-500 hover:text-gray-700 text-white py-1 mr-1') do %>
+                <i class="btn-edit fa fa-pencil  text-2xl"></i>
+          <% end %>
         </div>
-      </nav>
-      <hr>
-      <div class="flex flex-col">
-        <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-          <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
-            <table class="min-w-full">
-              <tbody class="bg-white">
-                <% order = 1 %> 
-                <% @solved_card.try(:each) do |record| %>
-                <tr>
-                  <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                    <div class="flex items-center">
-                      <div class="flex items-center justify-between h-10 w-10 ">
-                        <p class="text-3xl text-center align-center text-gray-500">
-                          <% params[:page] = 1 if params[:page].nil? %>
-                          <%= order + ((params[:page].to_i - 1) * 6)%>
-                        </p>
+      <% end %>
+    </div>
+
+    </div>
+
+
+  </div>
+
+  <div class="flex flex-col">
+  
+    <div class="bg-white align-middle block min-w-full shadow overflow-hidden sm:rounded-lg ">
+      
+      <div id="tab-board-index" class=" w-full">
+        <ul class="flex w-full mb-6">
+          <li id="profile-tab-boards" class="active w-1/2 text-center block text-xl text-indigo-600 bg-gray-200 rounded-tl py-5">
+            出題紀錄
+          </li>
+          <li id="profile-tab-cards" class="w-1/2  text-center block text-xl text-indigo-600 bg-gray-200 rounded-tr py-5">
+            解題紀錄
+        </ul>
+      </div>
+      <div id="profile-boards" class="my-5 pt-4 pb-8 mx-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <% @user.boards.try(:each) do |board| %>
+          <%= link_to board_path(board.id), class: 'border bg-white overflow-hidden shadow rounded-lg' do %>
+            <div class="bg-white px-4 py-5 sm:p-6">
+              <dl>
+                <div class="flex">
+                  <span class="flex flex-grow justify-start px-2.5 py-0.5 rounded-full text-sm font-medium text-indigo-300 md:mt-2 lg:mt-0">
+                    <%= board.language %>
+                  </span>
+                  <span class="text-sm leading-5 font-semibold text-indigo-600">
+                    <%= board.cards.count%>題
+                  </span>
+                </div>
+                <dt class="flex justify-start my-4 text-xl leading-5 font-medium text-indigo-800 font-bold truncate">
+                  <%= board.title %>
+                </dt>
+                <hr>
+                <p class="my-4 text-gray-500 h-12 overflow-hidden"><%= board.description %></p>
+                <dd class="flex justify-between items-center mt-5">
+                </dd>
+              </dl>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+
+      <div id="profile-cards"  class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+        <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
+          <table class="min-w-full">
+            <tbody class="bg-white">
+              <% order = 1 %> 
+              <% @solved_card.try(:each) do |record| %>
+              <tr>
+                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                  <div class="flex items-center">
+                    <div class="flex items-center justify-between h-10 w-10 ">
+                      <p class="text-3xl text-center align-center text-gray-500">
+                        <% params[:page] = 1 if params[:page].nil? %>
+                        <%= order + ((params[:page].to_i - 1) * 6)%>
+                      </p>
+                    </div>
+                    <div class="ml-4 flex-wrap justify-center">
+                      <div class="flex justify-between items-center">
+                        <div class="text-sm leading-5 font-medium text-gray-900">
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium leading-4 bg-orange-100 text-orange-800">
+                              <%= record.card.level %>
+                            </span>
+                        </div>
                       </div>
-                      <div class="ml-4 flex-wrap justify-center">
-                        <div class="flex justify-between items-center">
-                          <div class="text-sm leading-5 font-medium text-gray-900">
-                              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium leading-4 bg-orange-100 text-orange-800">
-                                <%= record.card.level %>
-                              </span>
-                          </div>
-                        </div>
-                        <div class="text-2xl w-full leading-5 text-black">
-                          <%= record.card.title %>
-                        </div>
+                      <div class="text-2xl w-full leading-5 text-black">
+                        <%= record.card.title %>
                       </div>
                     </div>
-                  </td>
-                  <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                    <div class="text-sm leading-5 text-gray-900">
-                      <% if record.card.tags %>
-                        <%  record.card.tags.each do |tag| %>
-                          <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium leading-5 bg-blue-100 text-blue-800">
-                            <%= tag %>
-                          </span>    
-                        <% end %>
+                  </div>
+                </td>
+                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                  <div class="text-sm leading-5 text-gray-900">
+                    <% if record.card.tags %>
+                      <%  record.card.tags.each do |tag| %>
+                        <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium leading-5 bg-blue-100 text-blue-800">
+                          <%= tag %>
+                        </span>    
                       <% end %>
-                    </div>
-                  </td>
-                  <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                  <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                    <% end %>
+                  </div>
+                </td>
+                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                  </span>
+                </td>
+                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">    
+                </td>
+                <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
+                  <span class="w-full inline-flex">
+                    <span class="inline-flex items-center px-3 py-2 border border-gray-300 text-sm leading-4 font-medium rounded bg-indigo-600 text-white hover:bg-indigi-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150">
+                      <%= link_to 'Answer', board_card_path(board_id: record.card.board.id,id: record.card.id), class: "flex justify-center items-center mr-2 " %>
+                      <%= render_svg 'icons/edit' , styles: "fill-current w-3 h-3"%>
                     </span>
-                  </td>
-                  <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">    
-                  </td>
-                  <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
-                    <span class="w-full inline-flex">
-                      <span class="inline-flex items-center px-3 py-2 border border-gray-300 text-sm leading-4 font-medium rounded bg-indigo-600 text-white hover:bg-indigi-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150">
-                        <%= link_to 'Answer', board_card_path(board_id: record.card.board.id,id: record.card.id), class: "flex justify-center items-center mr-2 " %>
-                        <%= render_svg 'icons/edit' , styles: "fill-current w-3 h-3"%>
-                      </span>
-                    </span>
-                  </td>
-                </tr>
-                <% order = order + 1 %>
-                <% end %>
-              </tbody>
-            </table>
-          </div>
+                  </span>
+                </td>
+              </tr>
+              <% order = order + 1 %>
+              <% end %>
+            </tbody>
+          </table>
         </div>
       </div>
+
     </div>
   </div>
 </div>
@@ -98,53 +143,6 @@
   })
 </script>
 
-<div class="container max-w-full my-12 mx-auto px-4 md:px-12">
-  <div class="flex flex-col">
-    <div class="bg-white align-middle block min-w-full shadow overflow-hidden sm:rounded-lg ">
-      <%= render "boards/index_tab" %>
-      <hr>
-      <div class="my-5 mx-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        <% @user.boards.try(:each) do |board| %>
-          <%= link_to board_path(board.id), class: 'bg-white overflow-hidden shadow rounded-lg' do %>
-            <div class="bg-white px-4 py-5 sm:p-6">
-              <dl>
-                <span class="flex justify-start px-2.5 py-0.5 rounded-full text-sm font-medium text-indigo-300 md:mt-2 lg:mt-0">
-                  <%= board.language %>
-                </span>
-                <dt class="flex justify-start my-4 text-xl leading-5 font-medium text-indigo-800 font-bold truncate">
-                  <%= board.title %>
-                </dt>
-                <hr>
-                <p class="my-4 text-gray-500"><%= board.description %></p>
-                <hr>
-                <dd class="flex justify-between items-center mt-5">
-                  <div class="flex">
-                    <span class="inline-block h-6 w-6 rounded-full overflow-hidden bg-gray-100">
-                      <svg class="h-full w-full text-gray-500" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
-                      </svg>
-                    </span>
-                    <div class="text-xl leading-8 font-semibold text-gray-900">
-                      <p class="flex items-baseline text-sm">
-                        <%= email_account(board.user) %>
-                      </p>
-                    </div>
-                  </div>
-                  <div class="flex items-baseline">
-                    <div class="text-sm leading-5 font-semibold text-indigo-600">
-                      <%= board.cards.count%>題
-                    </div>
-                  </div>
-                </dd>
-              </dl>
-            </div>
-          <% end %>
-        <% end %>
-      </div>
-      <hr>
-    </div>
-  </div>
-</div>
 
 <script>
   $('#language').on('change', function(){

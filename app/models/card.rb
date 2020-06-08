@@ -1,5 +1,5 @@
 class Card < ApplicationRecord
-  acts_as_paranoid
+  # acts_as_paranoid
 
   belongs_to :board
   has_many :records
