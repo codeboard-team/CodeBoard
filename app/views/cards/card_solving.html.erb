@@ -78,7 +78,7 @@
 
               <% if user_authority != "guest" %>
                 <div class="flex w-full">
-                    <%= f.submit 'Run',id: 'btn-card-submit', class: 'm-auto bg-purple-500 hover:bg-purple-700 text-white py-2 px-3 rounded my-5' %>
+                    <%= f.submit 'Run',id: 'btn-card-submit', class: 'm-auto bg-blue-500 hover:bg-blue-700 text-white py-2 px-3 rounded my-5' %>
                 </div>
               <% end %>
 
@@ -126,9 +126,9 @@
 
         <div class="flex my-6 pt-5 ">
           <% if user_authority == "guest" %>
-            <%= link_to "作答", new_user_registration_path, class:"m-auto bg-purple-500 hover:bg-purple-700 text-white py-2 px-3 rounded my-5" %>
+            <%= link_to "作答", new_user_registration_path, class:"m-auto bg-blue-500 hover:bg-blue-700 text-white py-2 px-3 rounded my-5" %>
           <% else %>
-            <%= f.submit '送出', class: 'm-auto mr-0 bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded'  %>
+            <%= f.submit '送出', class: 'm-auto mr-0 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'  %>
           <% end %>
         <div>
 

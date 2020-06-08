@@ -12,7 +12,7 @@
                   [["請選擇語言", ""], ["Ruby", "ruby"], ["Javascript", "javascript"], ["Python", "python"]], 
                   {}, 
                   {
-                    class: 'bg-white text-indigo-500 appearance-none border inline-block py-3 pl-3 pr-8 rounded leading-tight w-full text-sm',
+                    class: 'bg-white text-blue-500 appearance-none border inline-block py-3 pl-3 pr-8 rounded leading-tight w-full text-sm',
                     id: "language"
                   }
                 %>
@@ -39,10 +39,10 @@
           <%= link_to board_path(board.id), class: 'bg-white overflow-hidden shadow rounded-lg' do %>
             <div class="bg-white px-4 py-5 sm:p-6">
               <dl>
-                <span class="flex justify-start px-2.5 py-0.5 rounded-full text-sm font-medium text-indigo-300 md:mt-2 lg:mt-0">
+                <span class="flex justify-start px-2.5 py-0.5 rounded-full text-sm font-medium text-blue-300 md:mt-2 lg:mt-0">
                   <%= board.language %>
                 </span>
-                <dt class="flex justify-start my-4 text-xl leading-5 font-medium text-indigo-800 font-bold truncate">
+                <dt class="flex justify-start my-4 text-xl leading-5 font-medium text-blue-800 font-bold truncate">
                   <%= board.title %>
                 </dt>
                 <hr>
@@ -62,7 +62,7 @@
                     </div>
                   </div>
                   <div class="flex items-baseline">
-                    <div class="text-sm leading-5 font-semibold text-indigo-600">
+                    <div class="text-sm leading-5 font-semibold text-blue-600">
                       <%= board.cards.count%>題
                     </div>
                   </div>
@@ -75,8 +75,8 @@
       <hr>
       <nav class="bg-white px-4 py-3 flex items-center justify-between sm:px-6 sm:justify-end">
         <div class="flex-1 flex justify-between sm:justify-end">
-          <%= link_to_prev_page @boards, '上一頁', class: 'relative inline-flex items-center px-4 py-2 border border-indigo-300 text-sm leading-5 font-medium rounded-lg text-indigo-700 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline-indigo focus:border-indigo-300 active:bg-indigo-100 active:text-indigo-700 transition ease-in-out duration-150' %>
-          <%= link_to_next_page @boards, '下一頁', class: 'relative inline-flex items-center px-4 py-2 border border-indigo-300 text-sm leading-5 font-medium rounded-lg text-indigo-700 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline-indigo focus:border-indigo-300 active:bg-indigo-100 active:text-indigo-700 transition ease-in-out duration-150' %>
+          <%= link_to_prev_page @boards, '上一頁', class: 'relative inline-flex items-center px-4 py-2 border border-blue-300 text-sm leading-5 font-medium rounded-lg text-blue-700 bg-white hover:text-blue-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-blue-100 active:text-blue-700 transition ease-in-out duration-150' %>
+          <%= link_to_next_page @boards, '下一頁', class: 'relative inline-flex items-center px-4 py-2 border border-blue-300 text-sm leading-5 font-medium rounded-lg text-blue-700 bg-white hover:text-blue-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-blue-100 active:text-blue-700 transition ease-in-out duration-150' %>
         </div>
       </nav>
     </div>

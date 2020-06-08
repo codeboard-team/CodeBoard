@@ -6,12 +6,12 @@
         <section class="one-card flex w-100 relative">
           <% if card.id %>
             <%= link_to(board_card_path(@board.id, card.id), 
-                    :class => "#{'active' if card.id == nowCard} flex border-b block w-full text-purple-700 hover:text-purple-500 hover:bg-gray-200 py-4 py-3") do %>
+                    :class => "#{'active' if card.id == nowCard} flex border-b block w-full text-blue-700 hover:text-blue-500 hover:bg-gray-200 py-4 py-3") do %>
               <span class="arrow inline-block w-4 px-1 mx-2 -ml-6">
-                <i class="fa fa fa-chevron-right text-purple-700 hover:text-purple-500 hover:bg-gray-200"></i>
+                <i class="fa fa fa-chevron-right text-blue-700 hover:text-blue-500 hover:bg-gray-200"></i>
               </span>
 
-              <span class="w-8 inline-block font-semibold border-r  mr-2 text-purple-500 text-center"><%= card.order %></span>
+              <span class="w-8 inline-block font-semibold border-r  mr-2 text-blue-500 text-center"><%= card.order %></span>
               <span class="inline-block flex-grow"><%= card.title %></span>
               
             <% end %>
@@ -36,7 +36,7 @@
 
               <div>
                 <div class="absolute my-4 pr-4 right-0">
-                    <i class="fa fa-file-o text-purple-700 hover:text-purple-500 hover:bg-gray-200"></i>
+                    <i class="fa fa-file-o text-blue-700 hover:text-blue-500 hover:bg-gray-200"></i>
                 </div>
               </div>
 
