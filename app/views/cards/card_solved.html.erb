@@ -135,12 +135,15 @@
 
                   
                     <%# <p class="border-b py-2">= email_account(record.user) %>
-                    <%= link_to profile_path(record.user), :title => current_user.email do %>
+                    <%= link_to profile_path(record.user) do %>
                     <%= email_account(record.user) %>
                     <% end %>
 
-                    <%= link_to email_account(record.user), record_path(id: record.id), class: 'border-b py-2' %>
-
+                    <%#= link_to email_account(record.user),record_path(id: record.id), class: 'border-b py-2'%>
+                    <%= link_to record_path(id: record.id), :class=> 'border-b py-2' do %>
+                    <%#= email_account(record.user) %>
+                      <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                    <% end %>
                     <div class="editor-readonly whitespace-pre-line"><%= record.code %></div>
                   </div>
                 <% end %>
