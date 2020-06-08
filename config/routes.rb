@@ -12,6 +12,7 @@ Rails.application.routes.draw do
         patch :solve 
         get :solve, to: 'cards#show'
       end
+      resources :comments, only: [:create]
     end 
   end
 
