@@ -20,7 +20,9 @@ Rails.application.routes.draw do
       end
     end 
   end
+
   resources :profiles, only: [:show]
   resources :cards, only: [:index] ,to: 'cards#list'
+  resources :records, only: [:show]
   
 end

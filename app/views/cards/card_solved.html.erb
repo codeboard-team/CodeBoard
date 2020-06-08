@@ -131,6 +131,7 @@
               <% @solved_card.records.each do |record| %>
                 <% unless record.user == current_user %>
                   <div class="border w-1/2 p-4 box-border">
+                  
                     <%# <p class="border-b py-2">= email_account(record.user) %>
                     <%= link_to profile_path(record.user), :title => current_user.email do %>
                     <%= email_account(record.user) %>
