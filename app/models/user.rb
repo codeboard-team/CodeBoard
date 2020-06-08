@@ -5,29 +5,28 @@ class User < ApplicationRecord
   has_many :cards, through: :records
 
   has_one_attached :avatar
-  # after_commit :add_default_avatar, on: %i[update]
+  after_commit :add_default_avatar, on: %i[update]
   def avatar_thumbnail
     if avatar.attached?
-      # byebug
-      avatar.variant(resize: "40x40!").processed 
+      avatar.variant(resize: "250x250!").processed 
     else
-      "/default_avatar.jpg"
+      "/default_avatar.png"
     end
   end
 
   private
   def add_default_avatar
     unless avatar.attached?
-      avatar.attach(
-        io: File.open(
-          Rails.root.join(
-            'app', 'assets', 'images', 'default_avatar.jpg'
-          )
-        ), 
-        filename: 'default_avatar.jpg',
-        content_type: 'image/jpg'
-      )
-      self.save
+    avatar.attach(
+      io: File.open(
+        Rails.root.join(
+          'app', 'assets', 'images', 'default_avatar.png'
+        )
+      ), 
+      filename: 'default_avatar.png',
+      content_type: 'image/png'
+    )
+  end
     end
   end
   # Include default devise modules. Others available are:

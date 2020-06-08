@@ -188,7 +188,7 @@
               <% if @card.result %>
                 <% @card.result.each do |result| %>
                   <div id="result<%= num %>" class=""><%= result %></div>
-                  <div class="" data-target="result<%= num %>"></div>
+                  <div class="data-target="result<%= num %>"></div>
                   <% num = num + 1 %>
                 <% end %>
               <% end %>
