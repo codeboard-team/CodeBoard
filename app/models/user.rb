@@ -5,7 +5,7 @@ class User < ApplicationRecord
   has_many :cards, through: :records
 
   has_one_attached :avatar
-  after_commit :add_default_avatar, on: %i[update]
+  # after_commit :add_default_avatar, on: %i[update]
   def avatar_thumbnail
     if avatar.attached?
       avatar.variant(resize: "250x250!").processed 
