@@ -8,6 +8,7 @@
   }
 </style>
 
+
   <div id="page-show-solved" class="container-full">  
 
     <div id="part-borard-info" class="w-full">
@@ -17,7 +18,7 @@
     <div class="flex w-full">
 
       <div id="part-cards-list" class="w-1/4  m-0 pb-12 border-r">
-        <%= render "cards/nav_cards_list", nowCard: @card.id  %>
+        <%= render "cards/nav_cards_list",  nowCard: @card.id  %>
       </div>
 
       <div id="part-card-content" class="w-3/4 m-0 m-auto pb-12">
@@ -36,18 +37,18 @@
                 <section class="text-gray-700 text-m font-bold mt-5 mb-3">
                   提示
                 </section>
-                  <div id="section-hints" class="">
-                    <% if @card.hints %>
-                      <input id="btn-show-hints" type="button" value="求提示(<%= @card.hints.length %>)" class="bg-orange-500 hover:bg-orange-700 text-white py-2 px-3 rounded my-5">
-                      <ul>
-                        <% @card.hints.each do |hints| %>
-                          <li class="hint hidden"><%= hints %></li>
-                        <% end %>
-                      </ul>
-                    <% else %>
-                      <span class="cursor-not-allowed bg-gray-500 text-white py-2 px-3 rounded my-5">(無提示)</span> 
-                    <% end %>
-                  </div>
+                <div id="section-hints" class="">
+                  <% if @card.hints %>
+                    <input id="btn-show-hints" type="button" value="求提示(<%= @card.hints.length %>)" class="bg-orange-500 hover:bg-orange-700 text-white py-2 px-3 rounded my-5">
+                    <ul>
+                      <% @card.hints.each do |hints| %>
+                        <li class="hint hidden"><%= hints %></li>
+                      <% end %>
+                    </ul>
+                  <% else %>
+                    <span class="cursor-not-allowed bg-gray-500 text-white py-2 px-3 rounded my-5">(無提示)</span> 
+                  <% end %>
+                </div>
               </div>
             </div>
 
@@ -56,7 +57,7 @@
         </div>
 
         <div id="content-answer" class="shadow border rounded mb-8">
-          <div class="content-head border-b bg-gray-500 text-white py-2 font-bold rounded-t ">
+          <div class="content-head border-b bg-gray-500 text-white py-2 font-bold rounded-t">
             <p class="text-center">作答</p>
           </div>
 
@@ -66,19 +67,16 @@
 
               <div class="mg-0 leading-loose">
                 <label for="record_code" class="block w-100 px-5 text-gray-600">Your answer</label>
-                <% label :code, 'Your answer', class: 'block w-100 px-5 text-gray-600'%>
               </div>
               <div class="px-4 py-1 my-4">
-                <% hidden_field :code, id: "code" %>
                 <input type="hidden" id="code" name="record[code]" value="<%= @record.code %>">
                 <div solving class="editor readonly" data-target="code"></div>
-                </div>
+                <!-- </div> -->
               </div>
 
             </div>
 
             <div id="part-test-run">   
-
               <div class="flex w-full px-4 py-1 my-2 -mt-1">
                 <section class="w1/2 m-auto mt-6">
                   <label for="test_code" class="uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3">
@@ -88,36 +86,25 @@
               </div>
 
               <div class="flex w-full mb-4 px-6 test-code-cover">
-
-               
-
                 <div class="w-1/2">
                   <div id="section-test-code">
-                    
-                      <% num = 0 %>
-                      <% @card.test_code.each do |test_code| %>
-                        <% num = num + 1 %>
-                        <%= render "cards/data_test_item", num: num ,test_code: test_code %>
-                      <% end %>
-                 
+                    <%= render "cards/data_test_item",num: 1 ,test_code: @card.test_code[0] %>
                   </div>
                 </div>
 
-                 <div class="w-1/2">
+                <div class="w-1/2">
                   <div id="run-result" class="">
-                    <% num = 1 %>
-                    <% if @card.result %>
-                      <% @card.result.try(:each) do |result| %>
-                        <div id="result<%= num %>" class=""><%= result %></div>
-                        <div class="editor-" data-target="result<%= num %>"></div>
-                        <% num = num + 1 %>
-                      <% end %>
-                    <% end %>
+
+            
+                        <div id="result1" class=""><%= @card.result[0] %></div>
+                        <div class="editor-" data-target="result1"></div>
+
                   </div>
                 </div>
 
               </div>
             </div>
+          </div>
         </div>
 
         <div id="content-otheranswer" class="shadow border rounded mb-8">
@@ -130,17 +117,9 @@
             <div class="w-full m-0 flex flex-wrap">
             
               <% @solved_records&.each do |record| %>
-                <% unless record.user == current_user %>
+                <% if record != @record %>
                   <div class="border w-1/2 p-4 box-border">
-
-                  
-                    <%# <p class="border-b py-2">= email_account(record.user) %>
-                    <%= link_to profile_path(record.user), :title => current_user.email do %>
-                    <%= email_account(record.user) %>
-                    <% end %>
-
                     <%= link_to email_account(record.user), record_path(id: record.id), class: 'border-b py-2' %>
-
                     <div class="editor-readonly whitespace-pre-line"><%= record.code %></div>
                   </div>
                 <% end %>
