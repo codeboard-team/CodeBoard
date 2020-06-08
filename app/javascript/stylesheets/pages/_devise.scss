@@ -27,3 +27,19 @@
         text-align: center;
     }
 }
+
+// edit profile
+.edit-profile-img-box {
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    position: relative;
+    margin: auto;
+    img {
+        width: 100%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
