@@ -52,20 +52,12 @@
         
         <div class="w-full block sm:flex sm:flex-row sm:flex-1 mt-2 sm:mt-0 text-center sm:text-left sm:justify-end items-center">
           <% if user_signed_in? %>
-<<<<<<< HEAD
             <%= link_to profile_path(current_user.id), :title => current_user.email do %>
               <%= email_account(current_user) %>
               <!-- <div id="nav-user-img"> -->
               <%#= image_tag(current_user.avatar_thumbnail) %>	                
               <!-- </div> -->
             <% end %>
-=======
-              <%= link_to profile_path(current_user.id), :title => current_user.email do %>
-                <div id="nav-user-img">
-                  <%= image_tag(current_user.avatar_thumbnail) %>
-                </div>
-              <% end %>
->>>>>>> 136cd9d87aafa2f37ffe6b67ba877debef117485
 
             <%= link_to "登出", destroy_user_session_path, method: :delete, class:"btn mb-2 lg:mr-2 lg:mb-0 block rounded text-white border-white-600" %>
             
