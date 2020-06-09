@@ -6,9 +6,10 @@
 
 
   <div id="profile-info" class="relative flex w-full bg-white rounded py-4 my-4 mb-8 px-4 shadow">
-    <div class="profile-img-box mr-4">
+    <!--<div class="profile-img-box mr-4">
       <%= image_tag(@user.avatar_thumbnail) %>
     </div>
+    -->
     <div class="">
       <% if @user.username == nil? %>
         <%= email_account(@user) %>
@@ -88,6 +89,11 @@
                     </div>
                     <div class="ml-4 flex-wrap justify-center">
                       <div class="flex justify-between items-center">
+                        <div class="text-sm leading-5 font-medium text-gray-900">
+                          <span class="inline-flex items-center mr-4 px-2.5 py-0.5 rounded-full text-xs font-medium leading-4 bg-red-100 text-red-800">
+                            <%= record.card.board.language %>
+                          </span>
+                        </div>
                         <div class="text-sm leading-5 font-medium text-gray-900">
                             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium leading-4 bg-orange-100 text-orange-800">
                               <%= record.card.level %>
