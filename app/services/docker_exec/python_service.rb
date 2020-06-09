@@ -55,7 +55,7 @@ module DockerExec
     end
   
     def get_id
-      @container_id = `docker run -d -m 128M -c 512 -v #{path}:/main.py python:#{ENV["python_version"]} python /main.py`
+      @container_id = `docker run -d --network none -m 128M -c 512 -v #{path}:/main.py python:#{ENV["python_version"]} python /main.py`
     end
   
     def done?
