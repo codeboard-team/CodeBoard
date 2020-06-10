@@ -111,29 +111,6 @@ section.one-card:hover .part-btns.hover,
     }
 }
 
-// select2 (tags) placeholder
-#select-tags {
-    &+span {
-        &.select2::before {
-            content: "Tags";
-            padding-left: 1rem;
-            position: absolute;
-            color: #777;
-            width: 0;
-            height: 0;
-            text-align: center;
-            line-height: 2rem;
-            box-sizing: content-box;
-        }
-        &.select2-container--open::before,
-        &.select2-container--focus::before {
-            z-index: -1;
-            color: #fff;
-            display: none;
-        }
-    }
-}
-
 .select2-selection__rendered li {
     position: relative;
 }
