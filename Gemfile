@@ -88,3 +88,6 @@ gem 'figaro', '~> 1.0'
 
 # soft delete
 gem 'paranoia', '~> 2.1', '>= 2.1.5'
+
+# i18n
+gem 'rails-i18n', '~> 6.0'
