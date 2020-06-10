@@ -17,7 +17,7 @@ CodeBoard - Waiting for your code !
 ## 技術 Develop
 - 前端： HTML5 / CSS ( Tailwindcss / SCSS )  /  JavaScript ( jQuery ) / Ace Editor
 - 後端： Ruby on Rails
-- Docker 虛擬化技術
+- Docker 容器化技術
 - API 串接：Google / GitHub 第三方登入
 - 部署： Passenger / Nginx / certbot
 - 版控： Git / GitHub
@@ -31,6 +31,8 @@ CodeBoard - Waiting for your code !
 
 - Luke Tai
 - Boyu Chen
+    - rider945@outlook.com
+    - [GitHub](https://github.com/ItsBoyu)
 
 ---
 
