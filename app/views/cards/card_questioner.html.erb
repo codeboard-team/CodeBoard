@@ -13,123 +13,122 @@
 
   <div id="page-show-questioner" class="container-full">  
 
-    <div id="part-borard-info" class="w-full">
-        <%= render "cards/banner_board_info" %>
-    </div>
-
     <div class="flex w-full">
-
-      <div id="part-cards-list" class="w-1/4  m-0 border-r">
-        <%= render "cards/nav_cards_list",  nowCard: @card.id  %>
-      </div>
-
-      <div id="part-card-content" class="w-3/4 m-0">
-
-        <div id="content-subject" class="shadow border rounded mb-8">
-        
-          <div class="content-head border-b bg-gray-500 text-white py-2 font-bold rounded-t ">
-            <p class="text-center">題目</p>
-          </div>
-
-          <div class="content-body p-5">
-          
-            <div class="w-full mb-4">
-              <%= render "cards/content_subject" %>
-              <div class="">
-                <section class="text-gray-700 text-m font-bold mt-5 mb-3">
-                  提示
-                </section>
-                <% if @card.hints %>
-                  <% num = 1 %>
-                    <% @card.hints.each do |hint| %>
-                      <p>
-                        <span class="mr-4"><%= num %></span>
-                        <span><%= hint %></span>
-                      </p>
-                      <% num = num + 1 %>
-                    <% end %>
-                <% else %>
-                  <span>(暫無提示)</span>
-                <% end %>
-              </div>
-            </div>
-               
-            <div class="w-full mb-4 border-t">
-              <%= f.label :default_code, '作答區預設程式碼', class: 'block uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
-              <%= f.hidden_field :default_code, id: "default_code" %>
-              <div class="editor readonly" data-target="default_code"></div>
-            </div>
-
-          </div>
-
+      <div id="cards-nav" class="w-1/3 m-0 border-r">
+        <div id="part-borard-info" class="">
+            <%= render "cards/banner_board_info" %>
         </div>
-      
-        <div id="content-answer" class="shadow border rounded mb-8">
-          <div class="content-head border-b bg-gray-500 text-white py-2 font-bold rounded-t ">
-            <p class="text-center">正解</p>
-          </div>
+        <div id="part-cards-list" class="m-0 ">
+          <%= render "cards/nav_cards_list",  nowCard: @card.id  %>
+        </div>
+      </div>
+      <div id="part-card-content" class="w-3/4">
+        <div class="flex-grow"">
 
-          <div class="content-body p-5">
-            <div>
-              <%= f.label :answer, '解答', 
-                          class: 'require　block uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
-              <%= f.hidden_field :answer, id: "answer" %>
-              <div class="editor readonly" data-target="answer"></div>
-             
+          <div id="content-subject" class="shadow border rounded mb-8">
+          
+
+            <div class="content-body p-5">
+            
+              <div class="w-full mb-4">
+                <%= render "cards/content_subject" %>
+                <div class="">
+                  <section class="text-gray-700 text-m font-bold mt-5 mb-3">
+                    提示
+                  </section>   
+                  
+                  <% if @card.hints %>
+                    <ol class="list-decimal ml-4">
+                      <% @card.hints.each do |hint| %>
+                        <li><%= hint %></li>
+                      <% end %>
+                    </ol>
+                  <% else %>
+                    <span>(暫無提示)</span>
+                  <% end %>
+                </div>
+              </div>
+                
+              <div class="w-full mb-4 border-t">
+                <%= f.label :default_code, '作答區預設程式碼', class: 'block uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
+                <%= f.hidden_field :default_code, id: "default_code" %>
+                <div class="editor readonly" data-target="default_code"></div>
+              </div>
+
             </div>
 
-            <div id="part-test-run">
+          </div>
+        
+          <div id="content-answer" class="shadow border rounded mb-8">
+            <div class="content-head border-b bg-gray-500 text-white py-2 font-bold rounded-t ">
+              <p class="text-center">正解</p>
+            </div>
 
-              <div class="flex w-full mb-4 test-code-cover">
+            <div class="content-body p-5">
+              <div>
+                <%= f.label :answer, '解答', 
+                            class: 'require　block uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
+                <%= f.hidden_field :answer, id: "answer" %>
+                <div class="editor readonly" data-target="answer"></div>
+              
+              </div>
 
-                <div class="flex w-full px-4 py-1 my-2 -mt-1">
-                  <section class="w1/2 m-auto mt-6">
-                    <%= f.label :test_code, '測試方法 → 執行結果 ', class: 'uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
-                  </section>
+              <div id="part-test-run">
+
+                <div class="flex w-full mb-4 test-code-cover">
+
+                  <div class="flex w-full px-4 py-1 my-2 -mt-1">
+                    <section class="w1/2 m-auto mt-6">
+                      <%= f.label :test_code, '測試方法 → 執行結果 ', class: 'uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
+                    </section>
+                  </div>
+
                 </div>
 
-              </div>
+                <div class="flex w-full mb-4">
 
-              <div class="flex w-full mb-4">
-
-                <div class="w-1/2">
-                  <div id="section-test-code">
-                    
-                    <% if action_name=="new" %>
-                      <% params[:card].try(:[], :test_code).try(:each) do |test_code| %>
-                        <%= render "cards/data_test_item",num: 1 ,test_code: test_code %>
-                      <% end %>
-                    <% else %>
-                      <% if @card.test_code %>
-                        <% num = 0 %>
-                        <% @card.test_code.each do |test_code| %>
-                          <% num = num + 1 %>
-                            <%= render "cards/data_test_item",num: num ,test_code: test_code %>
+                  <div class="w-1/2">
+                    <div id="section-test-code">
+                      
+                      <% if action_name=="new" %>
+                        <% params[:card].try(:[], :test_code).try(:each) do |test_code| %>
+                          <%= render "cards/data_test_item",num: 1 ,test_code: test_code %>
+                        <% end %>
+                      <% else %>
+                        <% if @card.test_code %>
+                          <% num = 0 %>
+                          <% @card.test_code.each do |test_code| %>
+                            <% num = num + 1 %>
+                              <%= render "cards/data_test_item",num: num ,test_code: test_code %>
+                          <% end %>
                         <% end %>
                       <% end %>
-                    <% end %>
+                    </div>
                   </div>
-                </div>
 
-                <div class="w-1/2">
-                  <div id="run-result" class="">
-                    <% num = 1 %>
-                    <% if @card.result %>
-                      <% @card.result.try(:each) do |result| %>
-                        <div id="result<%= num %>" class=""><%= result %></div>
-                        <div class="editor-" data-target="result<%= num %>"></div>
-                        <% num = num + 1 %>
+                  <div class="w-1/2">
+                    <div id="run-result" class="">
+                      <% num = 1 %>
+                      <% if @card.result %>
+                        <% @card.result.try(:each) do |result| %>
+                          <div id="result<%= num %>" class=""><%= result %></div>
+                          <div class="editor-" data-target="result<%= num %>"></div>
+                          <% num = num + 1 %>
+                        <% end %>
                       <% end %>
-                    <% end %>
+                    </div>
                   </div>
-                </div>
 
+                </div>
               </div>
             </div>
-          </div>
-        </div> 
+          </div> 
 
+        </div>
       </div>
+    </div>
+
+
 
     </div>
 
