@@ -32,7 +32,6 @@
               <div class="w-full mb-4">
                 <%= render "cards/content_subject" %>
 
-
                 <div class="border-t border-b py-4">
                   <% if @card.hints %>
                     <p class="text-gray-600 text-m -ml-4 mb-3">
@@ -47,9 +46,7 @@
                     <span class="text-gray-400 text-s">(暫無提示)</span>
                   <% end %>
                 </div>
-
               </div>
-                
               <div class="w-full mb-4">
                 <%#= f.label :default_code, '作答區預設程式碼', class: 'block uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
                 <%= f.hidden_field :default_code, id: "default_code" %>

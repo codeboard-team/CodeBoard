@@ -41,8 +41,8 @@
                   <% if @card.hints %>
                     <input id="btn-show-hints" type="button" value="求提示(<%= @card.hints.length %>)" class="bg-orange-500 hover:bg-orange-700 text-white py-1 px-2 rounded my-5">
                     <ul>
-                      <% @card.hints.each do |hints| %>
-                        <li class="hint hidden"><%= hints %></li>
+                      <% @card.hints.each do |hint| %>
+                        <li class="hint hidden"><%= hint %></li>
                       <% end %>
                     </ul>
                   <% else %>
