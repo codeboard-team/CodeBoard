@@ -39,9 +39,19 @@
           <%= link_to board_path(board.id), class: 'bg-white overflow-hidden shadow rounded-lg' do %>
             <div class="bg-white px-4 py-5 sm:p-6">
               <dl>
-                <span class="flex justify-start px-2.5 py-0.5 rounded-full text-sm font-medium text-blue-300 md:mt-2 lg:mt-0">
+                <% case board.language.downcase %>
+                <% when "ruby" %>
+                  <% language_color = 'pink' %>
+                <% when "javascript" %>     
+                  <% language_color = 'yellow' %>
+                <% when "python" %>
+                  <% language_color = 'blue' %>
+                <% end %>
+
+                <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium leading-5 bg-<%= language_color %>-100 text-<%= language_color %>-800">
                   <%= board.language %>
                 </span>
+                
                 <dt class="flex justify-start my-4 text-xl leading-5 font-medium text-blue-800 font-bold truncate">
                   <%= board.title %>
                 </dt>
