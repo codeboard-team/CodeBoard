@@ -21,9 +21,13 @@ class Card < ApplicationRecord
     end
   end
 
+  def has_records?
+    self.records.exists?
+  end
+
   private
   def check_before_modify!
-    if self.records.exists?
+    if has_records?
       errors.add :base, "很抱歉！已有答題紀錄，您無法進行題目修改"
       throw(:abort)
     end

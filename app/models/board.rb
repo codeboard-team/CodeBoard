@@ -31,11 +31,13 @@ class Board < ApplicationRecord
     end
   end
 
+  def has_records?
+    self.cards.map { |card| card.records.exists? }.include?(true)
+  end
+
   private
   def check_before_modify!
-    if self.cards.map { |card|
-      card.records.exists?
-      }.include?(true)
+    if has_records?
       errors.add :base, "很抱歉！已有答題紀錄，無法進行題組修改"
       throw(:abort)
     else
@@ -46,12 +48,14 @@ class Board < ApplicationRecord
   end
 
   def prevent_language_changed!
-    if self.cards.map { |card|
-      card.records.exists?
-      }.include?(true) && self.changed_attributes.include?(:language)
+    if has_records? && change_language?
       errors.add :base, "很抱歉！已有答題紀錄，無法更改題組的程式語言"
       throw(:abort)
     end
+  end
+
+  def change_language?
+    self.changed_attributes.include?(:language)
   end
 
 end
