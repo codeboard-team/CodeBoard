@@ -33,7 +33,7 @@ class CardsController < ApplicationController
       attr_params = card_params.merge(result: save_type(@result))
       @card.assign_attributes(attr_params)
       if params[:commit] == "送出" && @card.save
-        redirect_to board_card_path(board_id: @board.id, id: @card.id), notice: 'create successfully!'
+        redirect_to board_card_path(board_id: @board.id, id: @card.id), notice: '成功建立題目！'
       else
         render :new
       end
@@ -52,7 +52,7 @@ class CardsController < ApplicationController
       attr_params = card_params.merge(result: save_type(@result))
       @card.assign_attributes(attr_params)
       if params[:commit] == "送出" && @card.update(attr_params)
-        redirect_to board_card_path(board_id: @board.id, id: @card.id), notice: 'update successfully!'
+        redirect_to board_card_path(board_id: @board.id, id: @card.id), notice: '成功修改題目！'
       else
         render :edit
       end
@@ -65,9 +65,9 @@ class CardsController < ApplicationController
         cur_order = idx + 1
         card.update(order: cur_order) if card.order != cur_order 
       end
-      redirect_to board_path(@board), notice: 'deleted!'
+      redirect_to board_path(@board), notice: '刪除成功！'
     else
-      redirect_to board_path(@board)
+      redirect_to board_path(@board), alert: '已有解題紀錄，刪除失敗！'
     end
   end
 
@@ -112,11 +112,11 @@ class CardsController < ApplicationController
       @record.save
       
       if @record.solved
-        flash[:notice] = "You Did it!"
+        flash[:notice] = "恭喜答對！"
         redirect_to board_card_path
       else
         print_true
-        flash[:alert] = "wrong!"
+        flash[:alert] = "錯誤！尚有 #{@comparer_service.result.count(false)} 筆測資未通過"
         render 'card_solving'
       end
     else
@@ -130,7 +130,7 @@ class CardsController < ApplicationController
     if @docker_exec_service.timeout?
       flash[:alert] = "Timeout!"
     elsif @docker_exec_service.result.nil?
-      flash[:alert] = "Answer / Test_code can't be blank"
+      flash[:alert] = "解答 / 測試資料 請勿空白"
     else
       @result = [@result]
     end

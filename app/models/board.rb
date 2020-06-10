@@ -1,12 +1,15 @@
 class Board < ApplicationRecord
-  # acts_as_paranoid
+  acts_as_paranoid
 
-  has_many :cards, dependent: :destroy
+  has_many :cards
   belongs_to :user
 
   validates :title, presence: true
   validates :description, presence: true
   validates :language, presence: true
+
+  before_update :prevent_language_changed!
+  before_destroy :check_before_modify!
 
   def self.search_by_title(search_term)
     if search_term
@@ -27,4 +30,28 @@ class Board < ApplicationRecord
         "ace/mode/javascript"
     end
   end
+
+  private
+  def check_before_modify!
+    if self.cards.map { |card|
+      card.records.exists?
+      }.include?(true)
+      errors.add :base, "很抱歉！已有答題紀錄，無法進行題組修改"
+      throw(:abort)
+    else
+      self.cards.each do |card|
+        card.destroy
+      end
+    end
+  end
+
+  def prevent_language_changed!
+    if self.cards.map { |card|
+      card.records.exists?
+      }.include?(true) && self.changed_attributes.include?(:language)
+      errors.add :base, "很抱歉！已有答題紀錄，無法更改題組的程式語言"
+      throw(:abort)
+    end
+  end
+
 end
