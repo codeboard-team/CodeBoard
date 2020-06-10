@@ -2,18 +2,21 @@
 
   <div id="page-edit" class="container-full">
 
-    <div id="part-borard-info" class="w-full">
-        <%= render "cards/banner_board_info" %>
-    </div>
-
     <div class="flex w-full">
-
-      <div id="part-cards-list" class="w-1/4 m-0 pb-12 border-r">
-        <%= render "cards/nav_cards_list", nowCard: @card.id %>
+    
+      <div id="cards-nav" class="w-1/3 m-0 border-r bg-white shadow">
+        <div id="part-borard-info" class="">
+            <%= render "cards/banner_board_info" %>
+        </div>
+        <div id="part-cards-list" class="m-0">
+          <%= render "cards/nav_cards_list", nowCard: @card.id %>
+        </div>
       </div>
 
-      <div id="part-card-content" class="w-3/4 m-0 pb-12">
-        <%= render 'form', model: @card, f: f %>
+      <div id="part-card-content" class="w-2/3 m-0">
+        <div class="flex-grow"">
+          <%= render 'form', model: @card, f: f  %>
+        </div>
       </div>
 
     </div>
