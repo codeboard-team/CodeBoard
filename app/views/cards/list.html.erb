@@ -4,42 +4,42 @@
       <%= render "boards/index_tab" %>
       <nav class="bg-white mb-3">
         <div class="max-w-7xl  px-2 sm:px-4 lg:px-8">
-        <%= search_form_for @q do |f| %>
-          <div class="flex justify-between items-center h-16 ">
-            <div class="flex-shrink-0 flex items-center">
-              <div class="relative  border-none">
-                <select class="bg-white text-blue-500 appearance-none border inline-block py-3 pl-3 pr-8 rounded leading-tight w-full">
-                    <option>Tags</option>
-                </select>
-                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2">
-                  <%= render_svg 'icons/chevron-down' %>
-                </div>      
+          <%= search_form_for @q do |f| %>
+            <div class="flex justify-between items-center h-16 ">
+              <div class="flex-shrink-0 flex items-center">
+                <div class="relative  border-none">
+                  <select class="bg-white text-blue-500 appearance-none border inline-block py-3 pl-3 pr-8 rounded leading-tight w-full">
+                      <option>Tags</option>
+                  </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2">
+                    <%= render_svg 'icons/chevron-down' %>
+                  </div>      
+                </div>
+              </div>           
+              <div class="flex-shrink-0 flex items-center">
+                <div class="relative  border-none">
+                  <%= f.select :level_cont,
+                    [["難度", ""], ["簡單", "簡單"], ["中等", "中等"], ["困難", "困難"]], 
+                    {}, 
+                    {
+                      class: 'bg-white text-blue-500 appearance-none border inline-block py-3 pl-3 pr-8 rounded leading-tight w-full text-sm',
+                      id: "level"
+                    }
+                  %>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2">
+                    <%= render_svg 'icons/chevron-down' %>
+                  </div>      
+                </div>
               </div>
-            </div>           
-            <div class="flex-shrink-0 flex items-center">
-              <div class="relative  border-none">
-                <%= f.select :level_cont,
-                  [["難度", ""], ["簡單", "簡單"], ["中等", "中等"], ["困難", "困難"]], 
-                  {}, 
-                  {
-                    class: 'bg-white text-blue-500 appearance-none border inline-block py-3 pl-3 pr-8 rounded leading-tight w-full text-sm',
-                    id: "level"
-                  }
-                %>
-                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2">
-                  <%= render_svg 'icons/chevron-down' %>
-                </div>      
+              <div class="text-sm sm:block  lg:flex-shrink-0 flex justify-end rounded-lg">         
+                <div class="pt-2 relative mx-auto text-gray-600">
+                  <%= f.search_field :title_cont, class: "border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none" ,placeholder: "搜尋 ..."%>
+                  <button type="submit" class="absolute right-0 top-0 mt-5 mr-4">
+                    <%= render_svg 'icons/search'%>
+                  </button>
+                </div> 
               </div>
             </div>
-            <div class="text-sm sm:block  lg:flex-shrink-0 flex justify-end rounded-lg">         
-              <div class="pt-2 relative mx-auto text-gray-600">
-                <%= f.search_field :title_cont, class: "border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none" ,placeholder: "搜尋 ..."%>
-                <button type="submit" class="absolute right-0 top-0 mt-5 mr-4">
-                  <%= render_svg 'icons/search'%>
-                </button>
-              </div> 
-            </div>
-          </div>
           <% end %>
         </div>
       </nav>
