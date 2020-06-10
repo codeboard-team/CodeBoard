@@ -1,5 +1,5 @@
 class Card < ApplicationRecord
-  # acts_as_paranoid
+  TAGS = %w[ALGORITHMS ARRAYS BIONARY STRINGS SYMBOL HASH OBJECT NUMBERS RULES LOOPS UTILITIES MATHEMATICS LISTS DATA_STRCTURES ...].freeze
 
   belongs_to :board
   has_many :records
