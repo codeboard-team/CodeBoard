@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
-
+  
   def github 
     @user = User.create_from_provider_data(request.env['omniauth.auth'])  
     if @user.persisted?
@@ -27,5 +27,4 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     flash[:error] = 'There was a problem signing you in . Please register or try signing in later.'
     redirect_to new_user_registration_url
   end
-
 end
