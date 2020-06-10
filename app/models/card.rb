@@ -1,10 +1,9 @@
 class Card < ApplicationRecord
-  acts_as_paranoid
+  TAGS = %w[Algorithms Arrays Bionary Data_Strctures Strings Symbol Hash Object Numbers Rules Loops Utilities Mathematics Methods While If...else Lists].freeze
 
   belongs_to :board
   has_many :records
   has_many :user, through: :records
-
   validates :title, presence: true
   validates :level, presence: true
   validates :result, presence: true

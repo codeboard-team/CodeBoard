@@ -20,10 +20,12 @@ class CardsController < ApplicationController
   end
   
   def new
+    @options = Card::TAGS
     @card.assign_attributes(test_code: [''], hints: [''])
   end
 
   def create
+    @options = Card::TAGS
     if @docker_exec_service.fail?
       error_message
       attr_params = card_params.merge(result: @result)
@@ -40,9 +42,12 @@ class CardsController < ApplicationController
     end
   end
 
-  def edit; end
+  def edit
+    @options = Card::TAGS
+  end
 
   def update
+    @options = Card::TAGS
     if @docker_exec_service.fail?
       error_message
       attr_params = card_params.merge(result: @result)
