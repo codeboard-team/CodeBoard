@@ -21,7 +21,7 @@ class User < ApplicationRecord
     users = where(provider: provider_data.provider, uid: provider_data.uid)
 
     if users.count == 0 && self.where(email: provider_data.info.email).count == 0
-      return User.create(email: provider_data.info.email, password: Devise.friendly_token[0, 20]
+      return User.create(email: provider_data.info.email, password: Devise.friendly_token[0, 20])
       
     end
 
