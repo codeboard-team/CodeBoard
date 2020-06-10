@@ -3,7 +3,6 @@
 
       <% @board.cards.order(:order).each do |card|%>
       
-                <%= card.has_records? %>
         <section class="one-card flex w-100 relative">
           <% if card.id %>
             <%= link_to(board_card_path(@board.id, card.id), 
@@ -13,13 +12,14 @@
               </span>
 
               <span class="w-8 inline-block font-semibold  mr-2 text-blue-500 text-center"><%= card.order %></span>
-              <span class="inline-block flex-grow"><%= card.title %></span>
+              <span class="inline-block flex-grow "><%= card.title %></span>
               
             <% end %>
 
             <% if user_authority ==  "author" %>
 
-              <div class="part-btns hover absolute my-4 pr-4 right-0 ">
+              <div class="part-btns hover absolute my-4 pr-4 right-0 <%="not-allowed" if card.has_records? %>">
+                
                 <%= link_to(edit_board_card_path(@board.id, card.id), 
                             :class => 'w-2 text-gray-500 hover:text-gray-700 text-white py-1 rounded mr-1') do %>
                   <i class="btn-edit fa fa-pencil  text-2xl"></i>
