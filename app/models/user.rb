@@ -27,8 +27,8 @@ class User < ApplicationRecord
       content_type: 'image/png'
     )
       self.save
-  end
     end
+  end
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,

@@ -18,7 +18,7 @@ class BoardsController < ApplicationController
     @board.assign_attributes(board_params)
 
     if @board.save
-      redirect_to board_path(@board.id), notice: 'create successfully!'
+      redirect_to board_path(@board.id), notice: '新增成功！'
     else
       render :new
     end
@@ -35,7 +35,7 @@ class BoardsController < ApplicationController
 
   def update
     if @board.update(board_params)
-      redirect_to my_boards_path, notice: 'update successfully!'
+      redirect_to my_boards_path, notice: '更新成功！'
     else
       render :edit
     end
@@ -43,15 +43,15 @@ class BoardsController < ApplicationController
 
   def destroy
     if @board.destroy
-      redirect_to my_boards_path, notice: 'deleted!'
+      redirect_to my_boards_path, notice: '刪除成功！'
     else
-      redirect_to my_boards_path
+      redirect_to my_boards_path, alert: '已有解題紀錄，刪除失敗！'
     end
   end
 
   private
   def check_authority
-    redirect_to board_path(id: @board.id), notice: 'check authority error! not owner!' if @board.user_id != current_user.id
+    redirect_to board_path(id: @board.id), notice: '權限不足，您不是擁有者' if @board.user_id != current_user.id
   end
   
   def find_board
