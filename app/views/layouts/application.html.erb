@@ -51,9 +51,11 @@
         
         <div class="w-full block sm:flex sm:flex-row sm:flex-1 mt-2 sm:mt-0 text-center sm:text-left sm:justify-end items-center">
           <% if user_signed_in? %>
-            <%= link_to profile_path(current_user.id), :title => current_user.email do %>
-              <%= avatar_image_tag(current_user)  %>
-            <% end %>
+            <div id="nav-user-img">
+              <%= link_to profile_path(current_user.id), :title => current_user.email do %>
+                <%= avatar_image_tag(current_user)  %>
+              <% end %>
+            </div>
 
             <%= link_to "登出", destroy_user_session_path, method: :delete, class:"btn mb-2 lg:mr-2 lg:mb-0 block rounded text-white border-white-600" %>
             
