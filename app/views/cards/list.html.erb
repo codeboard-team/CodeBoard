@@ -66,7 +66,7 @@
                       <tr>
                         <td class="px-6 py-4 whitespace-no-wrap border-b w-full border-gray-200">
                           <div class="flex items-center">
-                            <div class="flex items-center justify-between h-10 w-10 ">
+                            <div class="flex items-center justify-center h-10 w-10 ">
                               <p class="text-3xl text-center align-center text-gray-500">
                                 <% params[:page] = 1 if params[:page].nil? %>
                                 <%= order + ((params[:page].to_i - 1) * 6)%>
@@ -75,17 +75,20 @@
                             <div class="ml-4 flex-wrap justify-center">
                               <div class="flex justify-between items-center">
                                 <div class="text-sm leading-5 font-medium text-gray-900">
-                                    <span class="inline-flex mr-4 items-center px-2.5 py-0.5 rounded-full text-xs font-medium leading-4 bg-red-100 text-red-800">
-                                      <%=  card.board.language %>
-                                    </span>
-                                </div>
-                                <div class="text-sm leading-5 font-medium text-gray-900">
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium leading-4 bg-orange-100 text-orange-800">
-                                      <%= card.level %>
-                                    </span>
+                                  <% case card.board.language.downcase %>
+                                  <% when "ruby"%>
+                                    <% language_color = 'pink' %>
+                                  <% when "javascript"%>
+                                    <% language_color = 'yellow' %>
+                                  <% when "python"%>
+                                    <% language_color = 'blue' %>
+                                  <% end %>
+                                  <span class="inline-flex mr-4 items-center px-3 py-0.5 rounded-full text-sm font-medium leading-5 bg-<%= language_color %>-100 text-<%= language_color %>-800">
+                                    <%=  card.board.language %>
+                                  </span>
                                 </div>
                               </div>
-                              <div class="text-2xl w-full leading-5 text-blue-900 hover:text-blue-600">
+                              <div class="text-2xl w-full leading-5 text-blue-900">
                                 <%= card.title %>
                               </div>
                             </div>
