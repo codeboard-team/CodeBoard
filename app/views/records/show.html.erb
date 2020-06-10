@@ -39,14 +39,14 @@
                 </section>
                 <div id="section-hints" class="">
                   <% if @card.hints %>
-                    <input id="btn-show-hints" type="button" value="求提示(<%= @card.hints.length %>)" class="bg-orange-500 hover:bg-orange-700 text-white py-2 px-3 rounded my-5">
+                    <input id="btn-show-hints" type="button" value="求提示(<%= @card.hints.length %>)" class="bg-orange-500 hover:bg-orange-700 text-white py-1 px-2 rounded my-5">
                     <ul>
                       <% @card.hints.each do |hints| %>
                         <li class="hint hidden"><%= hints %></li>
                       <% end %>
                     </ul>
                   <% else %>
-                    <span class="cursor-not-allowed bg-gray-500 text-white py-2 px-3 rounded my-5">(無提示)</span> 
+                    <span class="cursor-not-allowed bg-gray-500 text-white py-1 px-2 rounded my-5">(無提示)</span> 
                   <% end %>
                 </div>
               </div>

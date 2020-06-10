@@ -42,14 +42,14 @@
                 </section>
                   <div id="section-hints" class="">
                     <% if @card.hints %>
-                      <input id="btn-show-hints" type="button" value="求提示(<%= @card.hints.length %>)" class="bg-orange-500 hover:bg-orange-700 text-white py-2 px-3 rounded my-5">
+                      <input id="btn-show-hints" type="button" value="求提示(<%= @card.hints.length %>)" class="bg-orange-500 hover:bg-orange-700 text-white py-1 px-2 rounded my-5">
                       <ul>
                         <% @card.hints.each do |hints| %>
                           <li class="hint hidden"><%= hints %></li>
                         <% end %>
                       </ul>
                     <% else %>
-                      <span class="cursor-not-allowed bg-gray-500 text-white py-2 px-3 rounded my-5">(無提示)</span> 
+                      <span class="cursor-not-allowed bg-gray-500 text-white py-1 px-2 rounded my-5">(無提示)</span> 
                     <% end %>
                   </div>
               </div>
@@ -78,7 +78,7 @@
 
               <% if user_authority != "guest" %>
                 <div class="flex w-full">
-                    <%= f.submit 'Run',id: 'btn-card-submit', class: 'm-auto bg-blue-500 hover:bg-blue-700 text-white py-2 px-3 rounded my-5' %>
+                    <%= f.submit 'Run',id: 'btn-card-submit', class: 'm-auto bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded my-5' %>
                 </div>
               <% end %>
 
@@ -126,7 +126,7 @@
 
         <div class="flex my-6 pt-5 ">
           <% if user_authority == "guest" %>
-            <%= link_to "作答", new_user_registration_path, class:"m-auto bg-blue-500 hover:bg-blue-700 text-white py-2 px-3 rounded my-5" %>
+            <%= link_to "作答", new_user_registration_path, class:"m-auto bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded my-5" %>
           <% else %>
             <%= f.submit '送出', class: 'm-auto mr-0 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'  %>
           <% end %>

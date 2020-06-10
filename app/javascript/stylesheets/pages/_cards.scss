@@ -1,3 +1,20 @@
+// cards layout template
+// #cards-nav,
+// #part-card-content {
+//     height: calc(100vh - 3rem); // nav = 3rem;
+//     overflow-y: auto;
+// }
+// #part-card-content {
+//     margin-left: auto;
+// }
+// #part-borard-info {}
+// 
+#part-card-content {
+    .content-body {
+        background: white;
+    }
+}
+
 p.hint-item {
     line-height: 2rem;
     margin-bottom: 1rem;
@@ -46,18 +63,17 @@ input[type="submit"] {
     }
 }
 
-#part-board .part-btns {
-    display: flex;
-    width: 100%;
-    a {
-        width: 50%;
-        text-align: center;
-        i {
-            width: 50%;
-        }
-    }
-}
-
+// #part-board .part-btns {
+//     display: flex;
+//     width: 100%;
+//     a {
+//         width: 50%;
+//         text-align: center;
+//         i {
+//             width: 50%;
+//         }
+//     }
+// }
 .one-board:hover {}
 
 section.one-card:hover .part-btns.hover,
