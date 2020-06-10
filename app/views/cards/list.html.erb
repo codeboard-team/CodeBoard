@@ -68,34 +68,31 @@
                     <div class="flex-shrink-0">
                       <p class="text-3xl text-center align-center text-gray-500 h-12 w-12 ">
                         <% params[:page] = 1 if params[:page].nil? %>
-                        <%= order + ((params[:page].to_i - 1) * 6)%>
+                        <%= order + ((params[:page].to_i - 1) * 10)%>
                       </p>
                     </div>
-                    <div class="ml-4 flex-wrap justify-center">
-                      <div class="flex justify-between items-center">
-                        <div class="text-sm leading-5 font-medium text-gray-900">
-                          <span class="inline-flex mr-4 items-center px-3 py-0.5 rounded-full text-sm font-medium leading-5 bg-<%= language_color(card.board.language) %>-100 text-<%= language_color(card.board.language) %>-800">
-                            <%=  card.board.language %>
-                          </span>
+                    <div class="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
+                      <div>
+                        <span class="inline-flex items-center py-0.5 rounded-full text-sm font-medium leading-5 bg-<%= language_color(card.board.language) %>-100 text-<%= language_color(card.board.language) %>-800">
+                          <%=  card.board.language %>
+                        </span>
+                        <div class="text-2xl w-full leading-5 text-blue-900">
+                          <%= card.title %>
                         </div>
                       </div>
-                      <div class="text-2xl w-full leading-5 text-blue-900">
-                        <%= card.title %>
+                      <div class="flex justify-start items-center">
+                        <% if card.tags %>
+                          <%  card.tags.each do |tag| %>
+                            <span class="px-3 py-0.5 rounded-full text-sm font-medium leading-5 bg-blue-100 text-blue-800">
+                              <%= tag %>
+                            </span>    
+                          <% end %>
+                        <% end %>
                       </div>
                     </div>
-                    
-                    
-                    
-                    <div class="text-sm leading-5 text-gray-900">
-                      <% if card.tags %>
-                        <%  card.tags.each do |tag| %>
-                          <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium leading-5 bg-blue-100 text-blue-800">
-                            <%= tag %>
-                          </span>    
-                        <% end %>
-                      <% end %>
+                    <div>
+                      <%= render_svg 'icons/greater-than' %>
                     </div>
-
                   </div>
                 </div>
                 <% order = order + 1 %>  
