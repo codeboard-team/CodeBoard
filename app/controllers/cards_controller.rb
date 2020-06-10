@@ -42,9 +42,12 @@ class CardsController < ApplicationController
     end
   end
 
-  def edit; end
+  def edit
+    @options = Card::TAGS
+  end
 
   def update
+    @options = Card::TAGS
     if @docker_exec_service.fail?
       error_message
       attr_params = card_params.merge(result: @result)
