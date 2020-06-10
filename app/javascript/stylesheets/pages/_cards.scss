@@ -9,6 +9,21 @@
 // }
 // #part-borard-info {}
 // 
+//cards/boards part-btns
+.not-allowed {
+    color: #bbb;
+    cursor: not-allowed;
+    opacity: 0.8;
+     :hover,
+    a,
+    a i {
+        opacity: 0.8;
+        color: #bbb;
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+}
+
 #part-card-content {
     .content-body {
         background: white;
@@ -83,48 +98,6 @@ section.one-card:hover .part-btns.hover,
 
 #part-card-content {
     padding: 1.5rem 2rem 1rem 2rem;
-}
-
-#section-hints {
-    p {
-        display: flex;
-    }
-    p span {
-        width: 2rem;
-        display: inline-block;
-        text-align: center;
-    }
-    input {
-        flex-grow: 1;
-    }
-}
-
-*[id^="btn-"],
-*[class^="btn-"] {
-    cursor: pointer;
-}
-
-.editor.ace_editor {
-    border: 1px solid #ddd;
-}
-
-#card_level option:first-child {
-    display: none;
-}
-
-#part-test-run {
-    #section-test-code {
-        .test-item:first-child:last-child #btn-del-test-code {
-            display: none;
-        }
-    }
-    #btn-del-test-code {
-        position: absolute;
-        right: 0;
-    }
-    .test-code-cover {
-        position: relative;
-    }
 }
 
 .select2-selection__rendered li {
