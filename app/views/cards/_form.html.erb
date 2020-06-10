@@ -16,37 +16,25 @@
   </ul>
 <% end %>
 
-<div id="page" class="flex">
-  <h1 class="flex-grow text-blue-700 font-bold text-right mt-2 mb-3">
-    <% case action_name %>
-      <% when "new"%>
-        <%="新建題目"%>
-      <% when "edit"%>
-        <%="修改題目"%>
-    <% end %>
-  </h1>
-</div>
 
 <div id="content-subject" class="shadow border rounded mb-8">
-  
-  <div class="content-head border-b bg-gray-500 text-white py-2 font-bold rounded-t ">
-    <p class="text-center">題目</p>
-  </div>
-
-  <div class="content-body p-5">
+      
+  <div class="content-body pr-10 pl-16 pb-8 pt-4 bg-white rounded border-t-4 border-blue-500 shadow-md">
     <div class="flex w-full mb-4">
-
-      <div>
-        <% if action_name=="new"%>
-          <%= f.text_field :order, readonly:'', required: true, value: @board.cards.length, 
-                            class: 'require  mr-6 w-16 shadow appearance-none border rounded text-center py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-200' %>
-        <% elsif %>
-          <%= f.text_field :order, readonly:'', required: true, value: @card.order, 
-                            class: 'require  mr-6 w-16 shadow appearance-none border rounded text-center py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-200' %>
-        <% end %>
-      </div>
+      <h1 class="font-semibold text-4xl text-gray-700">
+        <span class="-m-16">
+          <% if action_name=="new"%>
+            <%= f.text_field :order, readonly:'', required: true, value: @board.cards.length, 
+                              class: 'require  mr-6 w-16 rounded text-center py-2 px-3 leading-tight' %>
+          <% elsif %>
+            <%= f.text_field :order, readonly:'', required: true, value: @card.order, 
+                              class: 'require  mr-6 w-16 rounded text-center py-2 px-3 leading-tight' %>
+          <% end %>
+        </span>
+      </h1>
+        
         <%= f.text_field :title, placeholder: '題目名稱',
-                          class: 'flex-grow shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' %>
+                          class: 'flex-grow text-xl shadow appearance-none border rounded w-full py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' %>
     </div>
 
     <div class="flex w-full mb-4">
@@ -64,9 +52,9 @@
     </div>
           
     <div class="w-full mb-4">
-      <div class="border-box pr-6">
-        <%= f.label :description, '敘述', class: 'block uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
-        <%= f.text_area :description,class: 'h-32 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' %>
+      <div class="border-box">
+        <%#= f.label :description, '敘述', class: 'block uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
+        <%= f.text_area :description,placeholder: '題目敘述', class: 'h-32 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' %>
       </div>
     </div>
 
@@ -79,7 +67,7 @@
         </section>
 
         <div class="flex-grow mb-4 text-right">
-          <span id="btn-add-hints" class=" bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded">
+          <span id="btn-add-hints" class=" bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded">
           <i class="fa fa-plus mr-2"></i>提示
           </span>
         </div>
@@ -117,11 +105,9 @@
 </div>
 
 <div id="content-answer" class="shadow border rounded mb-8">
-  <div class="content-head border-b bg-gray-500 text-white py-2 font-bold rounded-t ">
-    <p class="text-center">正解</p>
-  </div>
 
-  <div class="content-body p-5">
+  <div class="content-body px-10 pb-8 pt-4 bg-white rounded border-t-4 border-green-500 shadow-md">
+
     <div>
       <%= f.label :answer, '解答', 
                   class: 'require　block uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
@@ -135,26 +121,11 @@
 
     <div id="part-test-run">
 
-      <div class="flex-grow mb-4 text-right">
-        <span id="btn-add-test-code" class=" bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded">
-          <i class="fa fa-plus mr-2"></i>測資
-        </span>
-      </div>
-
-      <div class="flex w-full mb-4">
-
-        <div class="flex w-full px-4 py-1 my-2 -mt-1">
-          <section class="w1/2 m-auto mt-6">
-            <%= f.label :test_code, '測試方法 → 執行結果 ', class: 'uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3'%>
-          </section>
-        </div>
-
-
-      </div>
-
       <div class="flex w-full mb-4 test-code-cover">
 
         <div class="w-1/2">
+          <p class="text-right uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3">測試方法→</p>
+          
           <div id="section-test-code">
             
             <% if action_name=="new" %>
@@ -174,6 +145,12 @@
         </div>
 
         <div class="w-1/2">
+          <p class="uppercase tracking-wide text-gray-700 text-m font-bold mt-5 mb-3 flex">
+            <span class="flex-grow">執行結果</span>
+            <span id="btn-add-test-code" class=" bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded">
+              <i class="fa fa-plus mr-2"></i>測資
+            </span>
+          </p>
           <div id="run-result" class="">
             <% num = 1 %>
           
