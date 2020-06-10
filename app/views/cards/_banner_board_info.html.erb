@@ -1,4 +1,4 @@
-<div id="part-board" class="border-b pt-4">
+<div id="part-board" class="border-b py-4">
 
   <div class="one-board relative rounded px-4">
 
@@ -69,7 +69,9 @@
               共 <%= cards_length %> 題
             </span>
             <span class="">
-              <i class="fa fa-user"></i> <%= email_account(@board.user)%>
+              <%= link_to profile_path(@board.user) do %>
+                  <%= email_account(@board.user)%>
+              <% end %>
             </span>
           <% end %>
         </p>
