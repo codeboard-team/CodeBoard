@@ -137,7 +137,7 @@ class CardsController < ApplicationController
     elsif @docker_exec_service.result.nil?
       flash[:alert] = "解答 / 測試資料 請勿空白"
     else
-      @result = [@result]
+      @result # = [@result]
     end
   end
 
