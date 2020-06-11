@@ -134,3 +134,27 @@ p.test-item {
         color: #e53e3e;
     }
 }
+
+#new_comment {
+    #comment {
+        white-space: pre-line;
+    }
+    .form-group {
+        width: 100%;
+        display: flex;
+        textarea {
+            border: 1px solid #ddd;
+            flex-grow: 1;
+        }
+        input[type='submit'] {
+            width: 2rem;
+            border: 1px solid #ddd;
+            padding: .25rem .5rem;
+            box-sizing: content-box;
+        }
+    }
+}
+
+.msg {
+    width: 100%;
+}
