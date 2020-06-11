@@ -9,14 +9,16 @@
         </span>
       </div>
       <% if user_authority ==  "author" %>
-        <div class="w-auto part-btns hover text-right w-auto <%="not-allowed" if @board.has_records? %>">
+        <div class="w-auto part-btns hover text-right w-auto">
             <%= link_to(edit_board_path(@board.id), 
                         :class => 'w-2 text-gray-500 hover:text-gray-700 text-white py-1 mr-1') do %>
               <i class="btn-edit fa fa-pencil  text-2xl"></i>
             <% end %>
-            <%= link_to(board_path(@board.id),method: 'delete',data: {confirm: 'Are you sure ?!'}, 
-                        :class => 'w-2 text-gray-500 hover:text-gray-700 text-white py-1 rounded mr-1') do %>
-              <i class="btn-del fa fa-times text-2xl"></i>
+            <span class=" <%="not-allowed" if @board.has_records? %>">
+              <%= link_to(board_path(@board.id),method: 'delete',data: {confirm: 'Are you sure ?!'}, 
+                          :class => 'w-2 text-gray-500 hover:text-gray-700 text-white py-1 rounded mr-1') do %>
+                <i class="btn-del fa fa-times text-2xl"></i>
+            <span>
             <% end %>
         </div>
       <% end %>
