@@ -1,8 +1,8 @@
 class Record < ApplicationRecord
   belongs_to :card
   belongs_to :user
-  belongs_to :commentable, :polymorphic => true
-  # validates :code, presence: true
+  has_many :comments, :as => :commentable
+
   
   scope :with_solved, -> { where(solved: true) }
 end
