@@ -36,12 +36,13 @@
       <hr>
       <div class="my-5 mx-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
         <% @boards.each do |board| %>
-          <%= link_to board_path(board.id), class: 'bg-white overflow-hidden shadow rounded-lg' do %>
-            <div class="bg-white px-4 py-5 sm:p-6">
+          <%= link_to board_path(board.id), class: 'bg-white overflow-hidden shadow rounded-lg hover:shadow-lg hover:bg-gray-400' do %>
+            <div class="bg-white border border-gray-200 px-4 py-5 sm:p-6">
               <dl>
-                <span class="flex justify-start px-2.5 py-0.5 rounded-full text-sm font-medium text-blue-300 md:mt-2 lg:mt-0">
+                <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium leading-5 bg-<%= language_color(board.language) %>-100 text-<%= language_color(board.language) %>-800">
                   <%= board.language %>
                 </span>
+                
                 <dt class="flex justify-start my-4 text-xl leading-5 font-medium text-blue-800 font-bold truncate">
                   <%= board.title %>
                 </dt>

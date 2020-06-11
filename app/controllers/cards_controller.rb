@@ -16,7 +16,9 @@ class CardsController < ApplicationController
 
   def list
     @q = Card.ransack(params[:q])
-    @cards = @q.result.page(params[:page]).per(6)
+    @cards = @q.result
+               .includes(:board)
+               .page(params[:page]).per(10)
   end
   
   def new
