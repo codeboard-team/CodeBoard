@@ -79,6 +79,8 @@ class CardsController < ApplicationController
   end
 
   def show
+    @comment = @card.comments.build
+    @comments = @card.comments.includes(:user)
     @solved_records = @card.records.with_solved
     if @board.user == current_user
       render 'card_questioner'      
