@@ -89,8 +89,6 @@
 
               <div class="flex w-full mb-4 px-6 test-code-cover">
 
-               
-
                 <div class="w-1/2">
                   <div id="section-test-code">
                     
@@ -118,18 +116,25 @@
 
               </div>
             </div>
-        </div>
-        
+          </div>
+
           <div data-controller="comment">
             <%= form_for(@comment, url: board_card_comments_path(card_id: @card.id), remote: true) do |form| %>
               <div class="form-group">
                 <%= form.text_area :content, 
                                     class: 'form-control', 
                                     data: {target: 'comment.content', 
-                                           action: 'keyup->comment#check' } %>
-                <%= form.submit "留言"%>
+                                            action: 'keyup->comment#check' } %>
+                <%= form.submit "留言", id: 'submit-msg-card'%>
+              </div>
+              <div id='comment'>
+                <% @comments.each do |comment|%>
+                  <%= comment.content%>
+                <% end%>
               </div>
             <% end %>
+          </div>
+        
         <div id="content-otheranswer" class="shadow border rounded mb-8">
           <div class="content-head border-b bg-gray-500 text-white py-2 font-bold rounded-t ">
             <p class="text-center">其他人的解</p>
@@ -142,8 +147,7 @@
               <% @solved_records&.each do |record| %>
                 <% unless record.user == current_user %>
                   <div class="border w-1/2 p-4 box-border">
-
-                  
+                
                     <%= link_to profile_path(record.user) do %>
                       <%= email_account(record.user) %>
                     <% end %>
@@ -154,30 +158,29 @@
                     
                     <div class="editor-readonly whitespace-pre-line"><%= record.code %>
                     </div>
-                        <div data-controller="comment">
-                          <%= form_for(@comment, url: board_card_comments_path(card_id: @card.id), remote: true) do |form| %>
-                            <div class="form-group">
-                              <%= form.text_area :content, 
-                                                  class: 'form-control', 
-                                                  data: {target: 'comment.content', 
-                                                         action: 'keyup->comment#check' } %>
+                    <!--
+                    <div data-controller="comment">
+                      <%= form_for(@comment, url: board_card_comments_path(card_id: @card.id), remote: true) do |form| %>
+                        <div class="form-group">
+                          <%= form.text_area :content, 
+                                              class: 'form-control', 
+                                              data: {target: 'comment.content', 
+                                                      action: 'keyup->comment#check' } %>
+                          <%= form.submit "留言", class: 'submit-msg-record'%>
                         </div>
-                              <%= form.submit "留言", id: 'submit'%>
-                          <% end %> 
-
-                  <div>
+                      <% end %> 
+                    <div>
                       <div id='comment'>
                         <% @comments.each do |comment|%>
-                        <div>
-                        <%= comment.content%>
-                        </div>
+                          <%= comment.content%>
                         <% end%>
-                      </div>              
+                    </div>              
+                    -->
                   </div>
                 <% end %>
               <% end %>
 
-                        </div>
+            </div>
 
           </div>
 

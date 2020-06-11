@@ -4,7 +4,7 @@ $(document).on("turbolinks:load", function() {
     var comments = $('#comment').val()
     $('#comment').prepend(`<div>${comments}</div>`)
 
-    $('#submit').click(function(){
+    $('#submit-msg-card').click(function() {
         // $( "#submit" ).click(`<div>${comments}</div>`)
 
         var data = $('#comment_content').val()
