@@ -14,31 +14,26 @@
 
     <div id="board-head" class="border-b">
       <h1 class="border-gray-800 text-gray-700 font-bold text-xl text-center py-4">
-        <% case action_name%>
-          <% when "new"%>
-            <%="新建題組"%>
-          <% when "edit"%>
-            <%="編輯題組"%>
-        <% end %>
+        <%="題組"%>
       </h1>
     </div>
 
     <div id="board-body" class="p-10">
       <div class="flex my-6">
-        <%= f.label :language, '語言',class: 'w-1/4 text-center self-center pr-6 text-m mb-2 text-gray-600' %>
+        <%= f.label :language, '語言',class: 'text-m text-gray-600' %>
         <%= f.select :language, [['Ruby','Ruby'],['JavaScript','JavaScript'],['Python','Python']],{}, 
                       class: 'w-3/5 shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline',
                       style: 'text-align-last: center; width: 100%'%>
       </div>
 
       <div class="flex my-6">
-        <%= f.label :title, '名稱', class: 'w-1/4 text-center self-center pr-6 text-m mb-2 text-gray-600'%>
+        <%= f.label :title, '名稱', class: 'text-m text-gray-600'%>
         <%= f.text_field :title, class: 'w-3/5 shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'%>
       </div>
 
       <div class="flex my-6">
-        <%= f.label :description, '簡介', class: 'w-1/4 text-center pr-6 text-m mb-2 text-gray-600' %>
-        <%= f.text_area :description, class: 'h-16 w-3/5 shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' %>
+        <%= f.label :description, '簡介', class: 'text-gray-600' %>
+        <%= f.text_area :description, class: ' shadow border rounded text-gray-700 leading-tight focus:outline-none focus:shadow-outline' %>
       </div>
     </div>
 

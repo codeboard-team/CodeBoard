@@ -1,40 +1,68 @@
-<div id="part-board" class="border-b">
+<div id="part-board" class="border-b py-4">
 
-  <div class="one-board relative flex border-t border-b mt-12 rounded">
+  <div class="one-board relative rounded px-4">
 
-    <div class="-mt-2 -ml-2 absolute">
-      <span class="bg-gray-600 text-white py-1 px-2 text-s text-right">
-        <%= @board.language%>
-      </span>
+    <div class="flex"">
+      <div class="flex-grow -ml-8 -mt-1">
+        <span class="bg-gray-600 text-white py-1 px-2 text-s text-right">
+          <%= @board.language%>
+        </span>
+      </div>
+      <% if user_authority ==  "author" %>
+        <div class="w-auto part-btns hover text-right w-auto">
+            <%= link_to(edit_board_path(@board.id), 
+                        :class => 'w-2 text-gray-500 hover:text-gray-700 text-white py-1 mr-1') do %>
+              <i class="btn-edit fa fa-pencil  text-2xl"></i>
+            <% end %>
+            <span class=" <%="not-allowed" if @board.has_records? %>">
+              <%= link_to(board_path(@board.id),method: 'delete',data: {confirm: 'Are you sure ?!'}, 
+                          :class => 'w-2 text-gray-500 hover:text-gray-700 text-white py-1 rounded mr-1') do %>
+                <i class="btn-del fa fa-times text-2xl"></i>
+            <span>
+            <% end %>
+        </div>
+      <% end %>
     </div>
 
-    <div class="w-full ml-8 px-6">
+
+
+      
+
+    <div class="w-full ml-4 px-4">
 
       <div class="w-full flex">
-        <div class="w-full mt-1">
-          <p class="pt-5 pb-1 block w-full text-blue-700 font-bold text-xl">
-            <span class="-ml-8 mr-2">
-              <i class="fa fa-book"></i>
-            </span>
-            <%= link_to(board_path(@board.id), :class => '') do %>
-              <span><%= @board.title %></span>
-            <% end %>
-          </p>
+
+        <div class="w-full mt-1 flex">
+          <div class="flex-grow">
+            <p class="block w-full text-blue-700 font-bold text-xl">
+              <span class="-ml-8 mr-2">
+                <i class="fa fa-book"></i>
+              </span>
+              <%= link_to(board_path(@board.id), :class => '') do %>
+                <span><%= @board.title %></span>
+              <% end %>
+            </p>
+          </div>
+          
         </div>
       </div>
 
-      <div class="w-full mb-6">
+      <div class="w-full mb-2">
 
-        <p class="text-gray-600 text-sm leading-relaxed">
+        <p class="text-gray-600 text-xs leading-relaxed">
           <% if @board.description %>
             <%= @board.description%>
           <% end %>
         </p>
 
+
+      </div>
+
+    </div>
+    <div class="flex">
+      <div class="flex-grow m-auto pl-8">
         <p class="text-xs text-gray-600 mt-2">
-
           <% if @board.cards.length %>
-
             <span class=" inline-block text-gray-600 mr-6">
               <%  cards_length = @board.cards.length %>
               <% if action_name=="new" %>
@@ -42,49 +70,29 @@
               <% end %>
               共 <%= cards_length %> 題
             </span>
-
             <span class="">
-              <i class="fa fa-user"></i> <%= email_account(@board.user)%>
+              <%= link_to profile_path(@board.user) do %>
+                  <%= email_account(@board.user)%>
+              <% end %>
             </span>
-
           <% end %>
-
         </p>
-
       </div>
+
+      <% if user_authority ==  "author" %>
+        <div class="w-auto">
+            <p class="inline-block text-right my-4 block whitespace-no-wrap">
+              <%= link_to(new_board_card_path(@board.id), 
+                          :class => 'bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded') do %>
+                <span class="font-bold">
+                  <i class="fa fa-plus mr-2"></i>題目
+                </span>
+              <% end %>
+            </p>
+        </div>
+      <% end %>
 
     </div>
-
-    <% if user_authority ==  "author" %>
-
-      <div class="w-auto pt-4 pr-4">
-
-        <div class="part-btns hover text-right">
-            <%= link_to(edit_board_path(@board.id), 
-                        :class => 'w-2 text-gray-500 hover:text-gray-700 text-white py-1 mr-1') do %>
-              <i class="btn-edit fa fa-pencil  text-2xl"></i>
-            <% end %>
-            <%= link_to(board_path(@board.id),method: 'delete',data: {confirm: 'Are you sure ?!'}, 
-                        :class => 'w-2 text-gray-500 hover:text-gray-700 text-white py-1 rounded mr-1') do %>
-              <i class="btn-del fa fa-times text-2xl"></i>
-            <% end %>
-
-        </div>
-
-        <div>
-          <p class="text-right my-4 block whitespace-no-wrap">
-            <%= link_to(new_board_card_path(@board.id), 
-                        :class => 'bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded') do %>
-              <span class="font-bold">
-                <i class="fa fa-plus mr-2"></i>題目
-              </span>
-            <% end %>
-          </p>
-        </div>
-
-      </div>
-
-    <% end %>
 
   </div>
 </div>
