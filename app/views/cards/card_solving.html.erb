@@ -25,7 +25,7 @@
     <div id="part-card-content" class="w-2/3 m-0">
       <div class="flex-grow"">
 
-        <div id="content-subject" class="shadow border rounded mb-8">
+        <div id="content-subject" class="rounded mb-8">
         
           <div class="content-body pr-10 pl-20 pb-8 pt-4 bg-white rounded-t border-t-4 border-blue-500 shadow-md">
           
@@ -35,14 +35,17 @@
 
               <div class="border-t border-b py-4">
                 <% if @card.hints %>
-                  <p class="text-gray-600 text-m -ml-4 mb-3">
-                    <span>提示</span>
-                  </p>   
-                  <ol class="list-decimal ml-4">
-                    <% @card.hints.each do |hint| %>
-                      <li class="hint hidden"><%= hint %></li>
-                    <% end %>
-                  </ol>
+                  <p  id="btn-show-hints" class="text-gray-600 text-m -ml-4 mb-3">
+                    <span>提示(<%=@card.hints.length%>)</span>
+                    <span>   
+                      <i class="fa fa-plus"></i>
+                    </span>   
+                    <ol class="list-decimal ml-4">
+                      <% @card.hints.each do |hint| %>
+                        <li class="hint hidden"><%= hint %></li>
+                      <% end %>
+                    </ol>
+                  </p>
                 <% else %>
                   <span class="text-gray-400 text-s">(暫無提示)</span>
                 <% end %>
@@ -51,19 +54,17 @@
         </div>
       
 
-        <div id="content-answer" class="shadow border rounded mb-8">
-          <div class="content-head border-b bg-gray-500 text-white py-2 font-bold rounded-t ">
-            <p class="text-center">作答</p>
-          </div>
+        
+        <div id="content-answer" class=" border rounded mb-8">
 
-          <div class="content-body p-5">
-
+          <div class="content-body px-10 pb-8 pt-4 bg-white border-t-4 border-green-500 shadow-md my-8">
+          
             <div class="w-full mb-4">
 
-              <div class="mg-0 leading-loose">
-                <%= f.label :code, 'Your answer', class: 'block w-100 px-5 text-gray-600'%>
+              <div class="text-gray-600 text-m -ml-4 mb-3">
+                <label for="record_code" class="block w-100 px-5 text-gray-600">作答</label>
+                <% label :code, '作答', class: 'block w-100 px-5 text-gray-600'%>
               </div>
-
               <div class="px-4 py-1 my-4">
                 <%= f.hidden_field :code, id: "code" %>
                 <div solving class="editor <%= "readonly" if user_authority == "guest" %>" data-target="code"></div>
