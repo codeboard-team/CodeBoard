@@ -55,7 +55,7 @@ module DockerExec
     end
   
     def get_id
-      @container_id = `docker run -d --network none -m 128M -c 512 -v #{path}:/main.js node:#{ENV["js_version"]} node /main.js`
+      @container_id = `docker run -d --network none -m 128M -c 512 -v #{path}:/main.js node:#{ENV["js_version"]} node --max-old-space-size=100 /main.js`
     end
   
     def done?
@@ -68,7 +68,11 @@ module DockerExec
         out, err = Open3.capture3("`docker logs #{container_id}`")
         err
       else
-        out = JSON.parse(raw_output.split("#{separator}").pop.strip)
+        if raw_output.include?("current mu")
+          raw_output
+        else
+          out = JSON.parse(raw_output.split("#{separator}").pop.strip)
+        end
       end
     end
   
