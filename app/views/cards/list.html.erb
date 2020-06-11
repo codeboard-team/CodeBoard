@@ -9,7 +9,11 @@
             <div class="flex-shrink-0 flex items-center">
               <div class="relative  border-none">
                 <%= f.select :tags_contains_array,
-                  [["標籤", ""], ["array", "array"], ["object", "object"], ["number", "number"], ["string", "string"], ["if else", "if else"],["method", "method"], ["while", "while"]], 
+                  [["標籤", ""], ["Algorithms", "Algorithms"], ["Arrays", "Arrays"],
+                  ["Bionary", "Bionary"], ["Data_Structures", "Data_Structures"],
+                  ["Strings", "Strings"],["Symbol", "Symbol"], ["Hash", "Hash"], ["Object","Object"],
+                  ["Numbers", "Numbers"], ["Rules", "Rules"], ["Loops", "Loops"], ["Methods", "Methods"],
+                  ["While", "While"], ["If...else", "If...else"], ["Lists", "Lists"]], 
                   {}, 
                   {
                     class: 'bg-white text-blue-500 appearance-none border inline-block py-3 pl-3 pr-8 rounded leading-tight w-full text-sm',
@@ -71,24 +75,31 @@
                         <%= order + ((params[:page].to_i - 1) * 10)%>
                       </p>
                     </div>
-                    <div class="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
-                      <div>
-                        <span class="inline-flex items-center py-0.5 rounded-full text-sm font-medium leading-5 bg-<%= language_color(card.board.language) %>-100 text-<%= language_color(card.board.language) %>-800">
-                          <%=  card.board.language %>
-                        </span>
-                        <div class="text-2xl w-full leading-5 text-blue-900">
-                          <%= card.title %>
+                    <div class="min-w-0 flex-1 px-4 md:grid md:grid-cols-1 md:gap-4">
+                      <div class="flex">
+                        <div class="w-3/4">
+                          <span class="mr-2 inline-flex items-center py-0.5 rounded-full text-sm font-medium leading-5 bg-<%= language_color(card.board.language) %>-100 text-<%= language_color(card.board.language) %>-800">
+                            <%=  card.board.language %>
+                          </span>
+                          <div class="inline-flex">
+                            <% if card.tags %>
+                              <%  card.tags.each do |tag| %>
+                                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium leading-4 bg-green-100 text-green-800">
+                                  <%= tag %>
+                                </span>    
+                              <% end %>
+                            <% end %>
+                          </div>
+                          <div class="text-2xl w-full leading-5 text-blue-900">
+                            <%= card.title %>
+                          </div>
                         </div>
-                      </div>
-                      <div class="flex justify-start items-center">
-                        <% if card.tags %>
-                          <%  card.tags.each do |tag| %>
-                            <span class="px-3 py-0.5 rounded-full text-sm font-medium leading-5 bg-blue-100 text-blue-800">
-                              <%= tag %>
-                            </span>    
-                          <% end %>
-                        <% end %>
-                      </div>
+                        <div class="w-1/4 flex items-center justify-end">
+                            <span class="text-sm leading-5 text-gray-500">
+                              <%= card.board.title %>
+                            </span>
+                        </div>
+                      </div>  
                     </div>
                     <div>
                       <%= render_svg 'icons/greater-than' %>

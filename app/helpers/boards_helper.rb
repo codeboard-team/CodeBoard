@@ -1,7 +1,2 @@
 module BoardsHelper
 end
-
-
-
-
-
