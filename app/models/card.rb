@@ -1,5 +1,5 @@
 class Card < ApplicationRecord
-  TAGS = %w[Algorithms Arrays Bionary Data_Structures Strings Symbol Hash Object Numbers Rules Loops Utilities Mathematics Methods While If...else Lists].freeze
+  TAGS = %w[Algorithms Arrays Bionary Data_Structures Strings Symbol Hash Object Numbers Rules Loops Utilities Mathematics Methods While If...else Lists Each].freeze
 
   belongs_to :board
   has_many :records
