@@ -84,6 +84,7 @@ section.one-card:hover .part-btns.hover,
 
 #run-result div[id^="result"],
 p.test-item {
+    word-break: break-all;
     margin: 1rem 0;
     padding: .5rem 1rem;
     border-bottom: 1px solid #ddd;
