@@ -1,7 +1,7 @@
 $(document).on("turbolinks:load", function() {
     // profile tab switch =======
-    $("#profile-tab-boards").addClass("active");
-    $("#profile-cards").hide();
+    $("#profile-tab-cards").addClass("active");
+    $("#profile-boards").hide();
 
     $("#profile-tab-boards").on("click", function() {
         $("li#profile-tab-cards").removeClass("active");
