@@ -55,7 +55,7 @@ module DockerExec
     end
   
     def get_id
-      @container_id = `docker run -d --network none -m 128M -c 512 -v #{path}:/main.rb ruby:#{ENV["ruby_version"]} ruby /main.rb`
+      @container_id = `docker run -d --network=none --memory=128M --cpus=0.25 -v #{path}:/main.rb ruby:#{ENV["ruby_version"]} ruby /main.rb`
     end
   
     def done?
