@@ -105,6 +105,30 @@
               </div>
             </div>
           </div>
+
+        <div class="content-body pr-10 pl-20 pb-8 pt-4 bg-white rounded-t border-t-4 border-blue-500 shadow-md">
+          
+          <div id="content-comment-card" class="bg-white shadow rounded mb-8">
+            <div data-controller="comment">
+              <%= form_for(@comment, url: board_card_comments_path(card_id: @card.id), remote: true) do |form| %>
+                <div class="form-group">
+                  <%= form.text_area :content, 
+                                      class: 'form-control', 
+                                      data: {target: 'comment.content', 
+                                              action: 'keyup->comment#check' } %>
+                  <%= form.submit "留言", id: 'submit-msg-card'%>
+                </div>
+                <div id='comment'>
+                  <% @comments.each do |comment|%>
+                    <%= comment.content%>
+                  <% end%>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      
+        <div id="content-otheranswer" class="shadow border rounded mb-8">
         </div>
         <div id="content-answer" class="shadow border rounded mb-8">
 
@@ -112,20 +136,13 @@
 
             <% if @solved_records.length > 1 %>
             
-              <div id="content-otheranswer" class="shadow rounded mb-8">
-                <p class="text-gray-600 text-m -ml-4 mb-3">
-                  <span>看其他人的解</span>
-                </p>   
-              <div class="content-body">
-                <div class="w-full m-0 flex flex-wrap">
+              <% @solved_records&.each do |record| %>
+                <% unless record.user == current_user %>
+                  <div class="border w-1/2 p-4 box-border">
                 
-                  <% @solved_records&.each do |record| %>
-                    <% unless record.user == current_user %>
-                      <div class="border w-1/2 p-4 box-border">
-
-                        <%= link_to profile_path(record.user) do %>
-                          <%= email_account(record.user) %>
-                        <% end %>
+                    <%= link_to profile_path(record.user) do %>
+                      <%= email_account(record.user) %>
+                    <% end %>
 
                         <%= link_to record_path(id: record.id), :class=> 'border-b py-2' do %>
                           <i class="fa fa-file-text-o" aria-hidden="true"></i>
@@ -133,13 +150,30 @@
                         <div class="editor-readonly whitespace-pre-line"><%= record.code %></div>
                       </div>
                     <% end %>
-                  <% end %>
-                </div>
-              </div>
-            <% end %>
+                    <div class="editor-readonly whitespace-pre-line"><%= record.code %>
+                    </div>
+                    <!--
+                    <div data-controller="comment">
+                      <%= form_for(@comment, url: board_card_comments_path(card_id: @card.id), remote: true) do |form| %>
+                        <div class="form-group">
+                          <%= form.text_area :content, 
+                                              class: 'form-control', 
+                                              data: {target: 'comment.content', 
+                                                      action: 'keyup->comment#check' } %>
+                          <%= form.submit "留言", class: 'submit-msg-record'%>
+                        </div>
+                      <% end %> 
+                    <div>
+                      <div id='comment'>
+                        <% @comments.each do |comment|%>
+                          <%= comment.content%>
+                        <% end%>
+                    </div>              
+                    -->
+                  </div>
+                <% end %>
+              <% end %>
+
+            </div>
+
           </div>
-        </div>
-      </div>
-    </div> 
-  </div>
-</div>

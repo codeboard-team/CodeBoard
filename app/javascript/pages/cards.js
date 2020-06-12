@@ -1,5 +1,15 @@
 $(document).on("turbolinks:load", function() {
+    // card:comment  =======
+    $('#comment').val()
+    var comments = $('#comment').val()
+    $('#comment').prepend(`<p>${comments}</p>`)
 
+    $('#submit-msg-card').click(function() {
+        // $( "#submit" ).click(`<div>${comments}</div>`)
+
+        var data = $('#comment_content').val()
+        $('#comment').prepend(`<p>${data}</p>`)
+    });
     // card:test-code =======
 
     $("#btn-add-test-code").click(function() {
