@@ -1,4 +1,7 @@
 class ApplicationController < ActionController::Base
+  rescue_from ActiveRecord::RecordNotFound, 
+  with: :record_not_found
+
   protect_from_forgery with: :exception
 
   before_action :store_user_location!, if: :storable_location?
@@ -22,6 +25,12 @@ class ApplicationController < ActionController::Base
     else
       return "user"
     end
+  end
+
+  def record_not_found
+    render file: 'public/404.html', 
+           status: 404, 
+           layout: false
   end
 
   def storable_location?
