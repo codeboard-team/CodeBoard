@@ -14,7 +14,7 @@
 
   <div id="page-show-solving" class="container-full">  
   <div class="flex w-full">
-    <div id="cards-nav" class="w-1/3 m-0 border-r bg-white shadow">
+    <div id="cards-nav" class="hidden md:block lg:block  w-1/3 m-0 border-r bg-white shadow">
       <div id="part-borard-info" class="">
           <%= render "cards/banner_board_info" %>
       </div>
@@ -22,7 +22,7 @@
         <%= render "cards/nav_cards_list",  nowCard: @card.id  %>
       </div>
     </div>
-    <div id="part-card-content" class="w-2/3 m-0">
+    <div id="part-card-content" class="w-full md:w-2/3 lg:w-2/3 m-0">
       <div class="flex-grow"">
 
         <div id="content-subject" class="rounded mb-8">
