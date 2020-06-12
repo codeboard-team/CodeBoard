@@ -1,3 +1,24 @@
+//cards/boards part-btns
+.not-allowed {
+    color: #bbb;
+    cursor: not-allowed;
+    opacity: 0.8;
+     :hover,
+    a,
+    a i {
+        opacity: 0.8;
+        color: #bbb;
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+}
+
+#part-card-content {
+    .content-body {
+        background: white;
+    }
+}
+
 p.hint-item {
     line-height: 2rem;
     margin-bottom: 1rem;
@@ -46,18 +67,6 @@ input[type="submit"] {
     }
 }
 
-#part-board .part-btns {
-    display: flex;
-    width: 100%;
-    a {
-        width: 50%;
-        text-align: center;
-        i {
-            width: 50%;
-        }
-    }
-}
-
 .one-board:hover {}
 
 section.one-card:hover .part-btns.hover,
@@ -67,6 +76,30 @@ section.one-card:hover .part-btns.hover,
 
 #part-card-content {
     padding: 1.5rem 2rem 1rem 2rem;
+}
+
+.select2-selection__rendered li {
+    position: relative;
+}
+
+#run-result div[id^="result"],
+p.test-item {
+    margin: 1rem 0;
+    padding: .5rem 1rem;
+    border-bottom: 1px solid #ddd;
+    .numTestCode {
+        width: 2rem;
+        padding-right: .3rem;
+        margin-right: .3rem;
+        border-right: 1px solid #ddd;
+    }
+}
+
+#run-result div[id^="result"] {
+    &::before {
+        content: "→ ";
+        color: #e53e3e;
+    }
 }
 
 #section-hints {
@@ -153,8 +186,4 @@ p.test-item {
             box-sizing: content-box;
         }
     }
-}
-
-.msg {
-    width: 100%;
 }

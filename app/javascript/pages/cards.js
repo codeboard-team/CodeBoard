@@ -60,7 +60,7 @@ $(document).on("turbolinks:load", function() {
     // card:show hints =======
 
     $("#btn-show-hints").click(function() {
-        $("#section-hints .hint.hidden").first().removeClass("hidden");
+        $("li.hint.hidden").first().removeClass("hidden");
     });
 
     // Ace Editor-readonly
