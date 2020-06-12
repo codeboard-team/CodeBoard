@@ -127,7 +127,7 @@ class CardsController < ApplicationController
         render 'card_solving'
       end
     else
-      @result = [@result.first]
+      @result = [@result&.first]
       render 'card_solving'
     end 
   end
@@ -173,7 +173,7 @@ class CardsController < ApplicationController
   def print_true
     if @comparer_service.index <= 0
       @test_code = [@card.test_code[0]]
-      @result = [@result.first]
+      @result = [@result&.first]
     else
       @result = [*0..@comparer_service.index].map{ |e|
         @result[e]
