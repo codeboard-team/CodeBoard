@@ -126,7 +126,7 @@
                 
                   <% @solved_records&.each do |record| %>
                     <% unless record.user == current_user %>
-                      <div class="border w-1/2 p-4 box-border">
+                      <div class="border w-full p-4 box-border">
 
                         <%= link_to profile_path(record.user) do %>
                           <%= email_account(record.user) %>

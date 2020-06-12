@@ -67,7 +67,7 @@
               </div>
               <div class="px-4 py-1 my-4">
                 <%= f.hidden_field :code, id: "code" %>
-                <div solving class="editor <%= "readonly" if user_authority == "guest" %>" data-target="code"></div>
+                <div solving class="editor <%= "readonly opacity-50" if user_authority == "guest" %>" data-target="code"></div>
 
               <% if user_authority != "guest" %>
                 <div class="flex w-full">
@@ -119,7 +119,7 @@
 
         <div class="flex my-6 pt-5 ">
           <% if user_authority == "guest" %>
-            <%= link_to "作答", new_user_registration_path, class:"m-auto bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded my-5" %>
+            <%= link_to "請登入後作答", new_user_registration_path, class:"m-auto bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded my-5" %>
           <% else %>
             <%= f.submit '送出', class: 'm-auto mr-0 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'  %>
           <% end %>
