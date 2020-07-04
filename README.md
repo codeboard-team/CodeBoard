@@ -20,6 +20,13 @@ CodeBoard is the best platform to help you enhance your skills, expand your know
 
 ---
 
+## 成果 Demo
+- Demo Link：https://code-board.com/  
+
+- 測試帳號：
+    - 帳號：codeboard@codeboard.com  
+    - 密碼：123456
+
 ## 技術 Develop & Tools
 - 前端： HTML5 / CSS ( Tailwindcss / SCSS )  /  JavaScript ( jQuery ) / Ace Editor
 - 後端： Ruby on Rails
