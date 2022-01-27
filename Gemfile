@@ -55,7 +55,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'devise', '~> 4.7', '>= 4.7.1'
 gem 'friendly_id', '~> 5.3'
-gem 'sidekiq', '~> 6.0', '>= 6.0.1'
+gem 'sidekiq', '~> 6.4'
 # 第三方登入 
 gem 'omniauth', '~> 1.9', '>= 1.9.1'
 gem 'omniauth-google-oauth2', '~> 0.8.0'
