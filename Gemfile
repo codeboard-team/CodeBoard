@@ -72,7 +72,7 @@ gem 'ransack'
 gem 'kaminari', '~> 1.2.1'
 
 # get an svg into my view and then style it with css 
-gem 'inline_svg', '~> 1.7', '>= 1.7.1'
+gem 'inline_svg', '~> 1.7'
 
 # Deploy
 gem 'bcrypt_pbkdf', '~> 1.0', '>= 1.0.1'
